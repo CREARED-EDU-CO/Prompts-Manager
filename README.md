@@ -87,6 +87,7 @@ Una aplicación web local, moderna y completa para gestionar, organizar y export
 2. **Añade prompts** seleccionando la carpeta creada
 3. **Organiza con etiquetas** para facilitar la búsqueda
 4. **Exporta regularmente** para mantener backups seguros
+5. **Borrar Carpetas** debe estar vacia por lo que primero tiene que borrar los prompts o pasarlos a otra carpeta
 
 ### Gestión de Archivos JSON
 - **Exportar para compartir**: Crea archivos JSON para compartir tus prompts con otros usuarios y usa los filtros para seleccionar prompts específicos para exportar
