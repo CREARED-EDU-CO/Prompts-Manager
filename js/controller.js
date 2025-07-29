@@ -58,7 +58,8 @@ window.Controller = {
       // Actualizar filtros de etiquetas y carpetas tras editar
       window.View.updateTagFilter(window.PromptsModel.prompts);
       window.View.updateFolderFilter(window.FoldersModel.folders);
-      // NO renderizar la lista de carpetas aquí
+      // Actualizar la vista de carpetas para reflejar los nuevos conteos
+      window.View.renderFolders(window.FoldersModel.folders, window.PromptsModel.prompts);
       return true;
     }
     return false;
