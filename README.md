@@ -99,7 +99,7 @@ Una aplicación web moderna y completa para gestionar, organizar y exportar tus 
 #### **Compartir con Otros Usuarios**
 1. **Exporta tu colección**: Usa los filtros para seleccionar prompts específicos y exporta
 2. **Comparte el archivo**: Envía el archivo JSON a otros usuarios por email, chat, etc.
-3. **Importa colecciones**: Recibe archivos JSON de otros y elige fusionar o reemplazar
+3. **Importa colecciones**: Recibe archivos JSON de otros y elige entre fusionar con tus prompts actuales o reemplazar todos tus prompts con los nuevos prompts
 
 #### **Flujo de Trabajo Recomendado**
 1. **Exporta regularmente** tus prompts a una carpeta privada
@@ -108,12 +108,6 @@ Una aplicación web moderna y completa para gestionar, organizar y exportar tus 
 4. **Importa y fusiona**: Combina prompts de otros usuarios con tu colección existente
 
 ## 💾 Capacidad de Almacenamiento
-
-### Límites por Navegador
-- **Chrome/Edge**: ~10 MB por dominio
-- **Firefox**: ~10 MB por dominio  
-- **Safari**: ~5-10 MB por dominio
-- **Navegadores móviles**: ~2-5 MB por dominio
 
 ### Estimaciones de Capacidad
 | Tamaño de Prompt | Capacidad Estimada | Uso Típico |
@@ -127,77 +121,7 @@ Una aplicación web moderna y completa para gestionar, organizar y exportar tus 
 - **Uso normal**: 10,000-15,000 prompts (límite seguro)
 - **Backup regular**: Exporta cada 2-5 días según actividad
 - **Monitoreo**: Observa los recordatorios de backup automáticos
-- **Limpieza**: Elimina prompts obsoletos periódicamente
-
-## 🛠️ Arquitectura Técnica
-
-### Tecnologías Utilizadas
-- **HTML5** semántico y accesible
-- **CSS3** con variables personalizadas y grid/flexbox
-- **JavaScript ES6+** modular y orientado a eventos
-- **LocalStorage** para persistencia de datos
-- **File System Access API** para exportación moderna
-
-### Estructura del Proyecto
-```
-├── index.html                 # Página principal
-├── css/
-│   ├── variables.css         # Variables CSS personalizadas
-│   ├── base.css             # Estilos base y reset
-│   ├── layout.css           # Layout y estructura
-│   ├── components.css       # Componentes reutilizables
-│   ├── forms.css            # Estilos de formularios
-│   ├── modals.css           # Ventanas modales
-│   ├── utilities.css        # Clases de utilidad
-│   ├── responsive.css       # Media queries
-│   └── dark-mode.css        # Tema oscuro
-├── js/
-│   ├── app.js              # Inicialización principal
-│   ├── constants.js        # Constantes globales
-│   ├── eventBus.js         # Sistema de eventos
-│   ├── performance.js      # Utilidades de rendimiento
-│   ├── i18n.js            # Internacionalización
-│   ├── storage.js         # Gestión de localStorage
-│   ├── domUtils.js        # Utilidades DOM
-│   ├── utils.js           # Utilidades generales
-│   ├── view.js            # Gestión de vistas
-│   ├── controller.js      # Controlador principal
-│   ├── promptsModel.js    # Modelo de prompts
-│   ├── foldersModel.js    # Modelo de carpetas
-│   └── controllers/
-│       ├── filtersController.js
-│       ├── foldersController.js
-│       ├── importExportController.js
-│       ├── paginationController.js
-│       ├── promptContainerController.js
-│       └── promptFormController.js
-```
-
-### Patrones de Diseño
-- **MVC (Model-View-Controller)**: Separación clara de responsabilidades
-- **Event Bus**: Comunicación desacoplada entre componentes
-- **Module Pattern**: Encapsulación de funcionalidades
-- **Observer Pattern**: Reactividad en cambios de datos
-
-## 🔧 Funcionalidades Avanzadas
-
-### Sistema de Eventos
-- **EventBus centralizado** para comunicación entre módulos
-- **Manejo de errores** robusto con fallbacks
-- **Optimización de rendimiento** con debounce y throttle
-- **Lazy loading** para elementos no críticos
-
-### Optimizaciones de Rendimiento
-- **Paginación** para manejar grandes volúmenes de datos
-- **Debounce** en búsquedas para evitar consultas excesivas
-- **Memoización** de operaciones costosas
-- **Batch DOM updates** para mejor rendimiento visual
-
-### Gestión de Estado
-- **Persistencia automática** en localStorage
-- **Validación de datos** en importación/exportación
-- **Manejo de errores** con mensajes contextuales
-- **Recuperación de estado** al recargar la página
+- **Limpieza**: Elimina prompts obsoletos periódicamente proque la IA cambia muy rápido
 
 ## 📄 Licencia
 
@@ -224,10 +148,10 @@ Este proyecto está bajo **GNU Affero General Public License v3.0 (AGPL-3.0)**.
 - Todas las mejoras deben beneficiar a la comunidad
 
 ### 💡 Casos de Uso Comerciales Permitidos
-- **SaaS/Cloud**: Ofrecer Prompt Manager como servicio online
-- **Consultoría**: Implementar y personalizar para clientes
-- **Soporte**: Brindar servicios de mantenimiento y soporte
-- **Hosting**: Proporcionar instalaciones gestionadas
+- **SaaS/Cloud**: Ofrecer Prompt Manager como servicio online siempre dandonos la atribucíon y el código fuente mejorado
+- **Consultoría**: Implementar y personalizar para clientes siempre dandonos la atribucíon y el código fuente mejorado
+- **Soporte**: Brindar servicios de mantenimiento y soporte siempre dandonos la atribucíon y el código fuente mejorado
+- **Hosting**: Proporcionar instalaciones gestionadas siempre dandonos la atribucíon y el código fuente mejorado
 
 Ver el archivo [LICENSE](LICENSE) para más detalles.
 
