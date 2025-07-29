@@ -124,23 +124,33 @@
     </section>
 
     <section id="configuration" class="configuration">
-      <div class="config-item dark-mode-switch">
-        <label for="dark-mode-toggle">
-          <span class="switch">
-            <input type="checkbox" id="dark-mode-toggle">
-            <span class="slider"></span>
-          </span>
-          <span data-i18n="ui.darkMode"></span>
-        </label>
+      <div class="config-left">
+        <div class="config-item dark-mode-switch">
+          <label for="dark-mode-toggle">
+            <span class="switch">
+              <input type="checkbox" id="dark-mode-toggle">
+              <span class="slider"></span>
+            </span>
+            <span data-i18n="ui.darkMode"></span>
+          </label>
+        </div>
+        <div class="config-item" id="language-switcher-container">
+          <label for="language-select" class="config-label" data-i18n="ui.language"></label>
+          <select id="language-select" class="config-select">
+            <option value="es">Español</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        <!-- Los selectores de configuración se insertarán aquí -->
       </div>
-      <div class="config-item" id="language-switcher-container">
-        <label for="language-select" class="config-label" data-i18n="ui.language"></label>
-        <select id="language-select" class="config-select">
-          <option value="es">Español</option>
-          <option value="en">English</option>
-        </select>
+      <div class="config-right">
+        <div class="copyright-info">
+          <p>© CREARED.EDU.CO</p>
+          <a href="https://github.com/CREARED-EDU-CO/Prompts-Manager/" target="_blank" rel="noopener noreferrer">
+            📥 Descargar desde GitHub
+          </a>
+        </div>
       </div>
-      <!-- Los selectores de configuración se insertarán aquí -->
     </section>
   </main>
 
