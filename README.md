@@ -91,13 +91,14 @@ Una aplicación web moderna y completa para gestionar, organizar y exportar tus 
 ## 🚀 Instalación y Uso
 
 ### Instalación
-1. Clona o descarga el repositorio
-2. Abre el archivo index.html en tu navegador web
-3. ¡Listo! No requiere servidor ni instalación adicional
-4. Puede crear un acceso directo a este archivo index.html haciendo click derecho en el archivo index.html y abrir el menú
-5. Puede abrir el archivo index.html como una app web haciendo click derecho al acceso directo creado y copiando en "Destino" la siguiente línea reemplazado la ruta de acceso a la de su archivo index.html en su PC. Solo debe cambiar la ultima parte con la nueva ruta a su archivo index.html y mantener la comillas dobles al inicio y al final. Ejemplo:
+1. Descarga en un archivo ZIP el administrador de prompts usando el botón verde "< > Code" que esta en la parte de arriba de esta página web de GitHub
+2. Descomprime el archivo ZIP en tu computador y abre la carpeta que contiene el archivo index.html 
+3. Dale click al archivo index.html y abre en tu navegador web el administrador de prompts
+4. ¡Listo! No requiere servidor ni instalación adicional
+5. Puede crear un acceso directo a este archivo index.html haciendo click derecho en el archivo index.html y abrir el menú contextual con esa funcíón
+6. Puede abrir el archivo index.html como una app web haciendo click derecho al acceso directo creado y copiando en "Destino" la siguiente línea reemplazado la ruta de acceso a la de su archivo index.html en su PC. Solo debe cambiar la ultima parte con la nueva ruta a su archivo index.html y mantener la comillas dobles al inicio y al final. Ejemplo:
    "C:\Program Files\Google\Chrome\Application\chrome.exe" --profile-directory="Default" --start-maximized --app="file:///C:/Users/USUARIO/CARPETA/CARPETA/CARPETA/index.html"
-6. Tambien puede cambir el icono al acceso directo creado para que sea más visible y copiarlo en el escritorio de su PC para que este disponible muy facíl y rápido
+7. Tambien puede cambiar el nombre y el icono al acceso directo creado para que sea más visible y copiarlo en el escritorio de su PC para que este disponible muy facíl y rápido
 
 ### Primer Uso
 1. **Crea tu primera carpeta** usando el formulario "Nueva carpeta"
