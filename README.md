@@ -121,7 +121,7 @@ Una aplicación web moderna y completa para gestionar, organizar y exportar tus 
 - **Uso normal**: 10,000-15,000 prompts (límite seguro)
 - **Backup regular**: Exporta cada 2-5 días según actividad
 - **Monitoreo**: Observa los recordatorios de backup automáticos
-- **Limpieza**: Elimina prompts obsoletos periódicamente proque la IA cambia muy rápido
+- **Limpieza**: Elimina prompts obsoletos periódicamente porque la IA cambia muy rápido
 
 ## 📄 Licencia
 
