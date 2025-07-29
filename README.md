@@ -62,7 +62,7 @@ Una aplicación web moderna y completa para gestionar, organizar y exportar tus 
 - **Mensajes contextuales** que incluyen número de prompts
 
 ### 🌐 **Internacionalización**
-- **Soporte completo** para español e inglés
+- **Soporte completo** para español e inglés y puede añadir en el archvo i18n.js otros idiomas pero debe enviarnos cambios por la Licencia AGPL v3.0
 - **Cambio dinámico** de idioma sin recargar
 - **Persistencia** de preferencia de idioma
 - **Traducción completa** de interfaz y mensajes
@@ -92,8 +92,12 @@ Una aplicación web moderna y completa para gestionar, organizar y exportar tus 
 
 ### Instalación
 1. Clona o descarga el repositorio
-2. Abre `index.html` en tu navegador web
+2. Abre el archivo index.html en tu navegador web
 3. ¡Listo! No requiere servidor ni instalación adicional
+4. Puede crear un acceso directo a este archivo index.html haciendo click derecho en el archivo index.html y abrir el menú
+5. Puede abrir el archivo index.html comRo una app web haciendo click derecho al acceso directo creado y copiando en "Destino" la siguiente línea reemplazado la ruta de acceso a la de su archivo index.html en su PC:
+   "C:\Program Files\Google\Chrome\Application\chrome.exe" --profile-directory="Default" --start-maximized --app="file:///C:/Users/USUARIO/CARPETA/CARPETA/CARPETA/index.html"
+6. Tambien puede cambir el icono al acceso directo creado para que sea más visible y copiarlo en el escritorio de su PC para que este disponible muy facíl y rápido
 
 ### Primer Uso
 1. **Crea tu primera carpeta** usando el formulario "Nueva carpeta"
