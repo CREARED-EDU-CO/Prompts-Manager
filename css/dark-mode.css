@@ -1,0 +1,169 @@
+/* Estilos específicos para el modo oscuro */
+
+/* Estilos para el switch de modo oscuro */
+.dark-mode-switch {
+    display: flex;
+    align-items: center;
+}
+
+.dark-mode-switch label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.dark-mode-switch .switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.dark-mode-switch .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.dark-mode-switch .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.dark-mode-switch .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.dark-mode-switch input:checked+.slider {
+    background-color: var(--primary-color);
+}
+
+.dark-mode-switch input:focus+.slider {
+    box-shadow: 0 0 1px var(--primary-color);
+}
+
+.dark-mode-switch input:checked+.slider:before {
+    transform: translateX(20px);
+}
+
+/* Ajustes específicos para elementos en modo oscuro */
+[data-theme="dark"] .prompt-item {
+    background-color: var(--background-card);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] hr.prompt-divider {
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+    background-color: var(--background-card-alt);
+    color: var(--text-color-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .btn {
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .btn-secondary {
+    background-color: var(--background-card-alt);
+    color: var(--text-color-primary);
+}
+
+[data-theme="dark"] .folder-item,
+[data-theme="dark"] .tag {
+    background-color: var(--background-card-alt);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] #confirm-modal .modal-box {
+    background-color: var(--background-card);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] #import-choice-panel {
+    background-color: var(--background-card);
+    border-color: var(--border-color);
+}
+
+/* Estilos adicionales para modo oscuro */
+[data-theme="dark"] .prompt-text {
+    color: var(--text-color-primary);
+}
+
+[data-theme="dark"] .prompt-meta {
+    color: var(--text-color-secondary);
+}
+
+[data-theme="dark"] .folder-label,
+[data-theme="dark"] .folder-label-secondary,
+[data-theme="dark"] .folder-label-warning {
+    color: var(--text-color-secondary);
+    background-color: var(--background-card-alt);
+}
+
+[data-theme="dark"] .folder-label-warning {
+    color: var(--warning-color, #fbbf24);
+    font-style: italic;
+}
+
+[data-theme="dark"] .date,
+[data-theme="dark"] .usage {
+    color: var(--text-color-secondary);
+}
+
+[data-theme="dark"] .config-item {
+    color: var(--text-color-primary);
+}
+
+[data-theme="dark"] .pagination .btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+[data-theme="dark"] .import-export-info {
+    background-color: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Transiciones suaves para cambios de modo */
+.prompt-item,
+input,
+select,
+textarea,
+.btn,
+.folder-item,
+.tag,
+.modal-box,
+.prompt-text,
+.prompt-meta,
+.folder-label,
+.date,
+.usage,
+.config-item,
+.pagination .btn,
+.import-export-info {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

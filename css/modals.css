@@ -1,0 +1,111 @@
+/* style/modals.css: Estilos para todos los modales y paneles de elección */
+
+/* Clase base para contenido de modales */
+.modal-content-base {
+    background: #fff;
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl) calc(var(--spacing-xl) + var(--spacing-md)) var(--spacing-lg) calc(var(--spacing-xl) + var(--spacing-md));
+    min-width: 320px;
+    max-width: 90vw;
+    position: relative;
+    text-align: center;
+}
+
+#confirm-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0s 0.2s;
+}
+
+#confirm-modal.active {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.2s;
+}
+
+#confirm-modal .modal-box {
+    /* Estilos específicos */
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+    margin: auto;
+    transform: scale(0.95);
+    transition: transform 0.2s;
+}
+
+#confirm-modal.active .modal-box {
+    transform: scale(1);
+}
+
+#confirm-modal .modal-msg {
+    font-size: 1.1em;
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-color-primary);
+}
+
+#confirm-modal .modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xl);
+}
+
+#edit-prompt-modal .modal-box,
+.import-choice-panel {
+    /* Estilos específicos */
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
+    border: 1.5px solid var(--primary-color);
+    margin: 0 0 var(--spacing-xl) 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    align-items: flex-start;
+    text-align: left;
+}
+
+.modal-title {
+    margin-bottom: var(--spacing-md);
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+#edit-prompt-modal form {
+    background: var(--background-card);
+    border-radius: var(--border-radius-md);
+    border: 1.5px solid var(--primary-color);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.07);
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    align-items: stretch;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.import-choice-panel .modal-actions {
+    background: none;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.import-choice-panel .modal-msg {
+    margin-bottom: var(--spacing-md);
+    font-size: 1em;
+    color: var(--text-color-primary);
+}
