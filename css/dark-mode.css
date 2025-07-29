@@ -109,10 +109,14 @@
     color: var(--text-color-primary);
 }
 
-[data-theme="dark"] .folder-item,
-[data-theme="dark"] .tag {
+[data-theme="dark"] .folder-item {
     background-color: var(--background-card-alt);
     border-color: var(--border-color);
+}
+
+[data-theme="dark"] .tag {
+    background: var(--primary-color);
+    color: white;
 }
 
 [data-theme="dark"] #confirm-modal .modal-box {
@@ -149,6 +153,7 @@
 [data-theme="dark"] .date,
 [data-theme="dark"] .usage {
     color: var(--text-color-secondary);
+    font-size: 0.9em;
 }
 
 [data-theme="dark"] .config-item {
