@@ -37,6 +37,7 @@ Una aplicación web local, moderna y completa para gestionar, organizar y export
 - **Limpieza de filtros** con un botón
 
 ### 📄 **Paginación Inteligente**
+- **Fragmento de prompt** se muestra los primeros 500 caracteres de cada prompt, si quiere leer todo el prompt haga clic sobre el texto del prompt
 - **Paginación automática** para mejor rendimiento
 - **Configuración de elementos** por página (5, 10, 20, 50)
 - **Navegación** con botones Anterior/Siguiente
