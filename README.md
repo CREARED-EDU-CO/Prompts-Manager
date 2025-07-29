@@ -1,6 +1,6 @@
 # 📝 Prompts Manager - Administrador de Prompts
 
-Una aplicación web moderna y completa para gestionar, organizar y exportar tus prompts de IA de manera eficiente.
+Una aplicación web local, moderna y completa para gestionar, organizar y exportar e importar prompts para usar de manera eficiente una Inteligencia Artificial Generativa (GenAI) como ChatGPT, Gemini, Claude, etc. En la carpeta PROMPTS hay un banco de archivos JSON para que importes muchos prompts para diferentes actividades escolares y tareas académicas.
 
 ## ✨ Características Principales
 
