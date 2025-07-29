@@ -78,7 +78,7 @@ Una aplicación web moderna y completa para gestionar, organizar y exportar tus 
 4. ¡Listo! No requiere servidor ni instalación adicional
 
 - Puede crear un acceso directo a este archivo index.html haciendo click derecho en el archivo index.html y abrir el menú contextual para llegar a esa funcíón
-- Puede abrir el archivo index.html como una app web haciendo click derecho al acceso directo creado y copiando en "Destino" la siguiente línea reemplazado la ruta de acceso a la de su archivo index.html en su computador. Solo debe cambiar la ultima parte con la nueva ruta a su archivo index.html y mantener la comillas dobles al inicio y al final. Ejemplo:
+- Puede abrir el archivo index.html como una app web haciendo click derecho al acceso directo creado y copiando en "Destino" la siguiente línea reemplazado la ruta de acceso a la de su archivo index.html en su computador. Solo debe cambiar la ultima parte con la nueva ruta a su archivo index.html y mantener igual las comillas dobles. Ejemplo:
    "C:\Program Files\Google\Chrome\Application\chrome.exe" --profile-directory="Default" --start-maximized --app="file:///C:/Users/USUARIO/CARPETA/CARPETA/CARPETA/index.html"
 - Puede cambiar el nombre y el icono al acceso directo creado para que sea más visible y copiarlo en el escritorio de su PC para que este disponible muy facíl y rápido
 
