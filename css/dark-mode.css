@@ -172,6 +172,18 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
+[data-theme="dark"] .copyright-info {
+    color: var(--text-color-secondary);
+}
+
+[data-theme="dark"] .copyright-info a {
+    color: var(--primary-color);
+}
+
+[data-theme="dark"] .copyright-info a:hover {
+    color: var(--primary-color-darker);
+}
+
 /* Transiciones suaves para cambios de modo */
 .prompt-item,
 input,
@@ -188,6 +200,8 @@ textarea,
 .usage,
 .config-item,
 .pagination .btn,
-.import-export-info {
+.import-export-info,
+.copyright-info,
+.copyright-info a {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
