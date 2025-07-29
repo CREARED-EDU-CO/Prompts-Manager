@@ -102,10 +102,10 @@ Una aplicación web moderna y completa para gestionar, organizar y exportar tus 
 4. **Exporta regularmente** para mantener backups seguros
 
 ### Gestión de Archivos JSON
-- **Exportar para compartir**: Crea archivos JSON para compartir tus prompts con otros usuarios
-- **Importar de otros**: Carga archivos JSON de otros usuarios para expandir tu colección
-- **Archivos privados**: Guarda archivos JSON en carpetas privadas de tu sistema para diferentes contextos
-- **Colecciones temáticas**: Mantén archivos JSON separados en carpetas diferentes por temas (trabajo, personal, proyectos específicos)
+- **Exportar para compartir**: Crea archivos JSON para compartir tus prompts con otros usuarios y usa los filtros para seleccionar prompts específicos para exportar
+- **Importar de otros**: Carga archivos JSON de otros usuarios para añadir a tu colección o reemplaza todos los prompts para un trabajo especifíco
+- **Archivos privados**: Guarda archivos JSON en carpetas privadas de tu sistema para cargar los prompts solo contextos muy personales. No olvides exportar antes de borrar todos los prompts personales.
+- **Colecciones temáticas**: Mantén archivos JSON separados en carpetas diferentes por temas (trabajo, tareas, proyectos específicos)
 
 ### **Casos de Uso para Importación/Exportación**
 
@@ -113,12 +113,6 @@ Una aplicación web moderna y completa para gestionar, organizar y exportar tus 
 1. **Exporta tu colección**: Usa los filtros para seleccionar prompts específicos y exporta
 2. **Comparte el archivo**: Envía el archivo JSON a otros usuarios por email, chat, etc.
 3. **Importa colecciones**: Recibe archivos JSON de otros y elige fusionar o reemplazar
-
-#### **Gestión de Archivos Privados**
-- **Carpetas temáticas**: Guarda archivos JSON en carpetas como `Prompts-Trabajo`, `Prompts-Personal`
-- **Proyectos específicos**: Mantén archivos separados para diferentes clientes o proyectos
-- **Versiones de respaldo**: Crea múltiples versiones de tus prompts en diferentes fechas usando las carpetas y etiquetas
-- **Sincronización manual**: Usa servicios de nube personal (Google Drive, Dropbox) para sincronizar tus archivos JSON
 
 #### **Flujo de Trabajo Recomendado**
 1. **Exporta regularmente** tus prompts a una carpeta privada
