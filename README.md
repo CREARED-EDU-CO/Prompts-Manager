@@ -20,7 +20,7 @@ Una aplicación web local, moderna y completa para gestionar, organizar y export
 - **Vista expandible** de carpetas con contador de prompts
 
 ### 🏷️ **Sistema de Etiquetas y favoritos**
-- **Favoritos** se marcan o desmercan en la estrella de cada prompt
+- **Favoritos** se marcan o desmarcan en la estrella de cada prompt
 - **Etiquetas personalizadas** separadas por comas
 - **Filtrado por etiquetas** para búsqueda rápida
 - **Autocompletado** de etiquetas existentes
