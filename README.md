@@ -54,34 +54,15 @@ Una aplicación web moderna y completa para gestionar, organizar y exportar tus 
 - **Compartir con otros usuarios**: Exporta e importa colecciones de prompts entre usuarios
 - **Archivos privados**: Mantén archivos JSON personales en carpetas privadas para cargar cuando necesites
 
-### ⚠️ **Recordatorio Inteligente de Backup**
-- **Recordatorio dinámico** basado en actividad:
-  - **2 días**: Sugerencia de backup opcional
-  - **5 días**: Recomendación de exportación
-  - **10+ días**: Advertencia urgente de backup
-- **Mensajes contextuales** que incluyen número de prompts
-
-### 🌐 **Internacionalización**
+### 🌐 **Personalización**
 - **Soporte completo** para español e inglés y puede añadir en el archvo i18n.js otros idiomas pero debe enviarnos los cambios por la Licencia AGPL v3.0
-- **Cambio dinámico** de idioma sin recargar
-- **Persistencia** de preferencia de idioma
-- **Traducción completa** de interfaz y mensajes
-
-### 🎨 **Temas y Personalización**
 - **Modo oscuro/claro** con toggle visual
-- **Persistencia** de preferencia de tema
-- **Aplicación automática** al iniciar la app
-- **Transiciones suaves** entre temas
-
-### 📱 **Diseño Responsivo**
-- **Adaptable** a dispositivos móviles y desktop
 - **Interfaz optimizada** para touch y mouse
 - **Layout flexible** que se ajusta al contenido
-- **Experiencia consistente** en todos los dispositivos
 
 ## 🔒 Privacidad y Seguridad
 
-- **Almacenamiento local**: Todos los datos permanecen en tu perfil del navegador que usas y/o de tu cuenta de usuario en el computador que usas
+- **Almacenamiento local**: Todos los datos permanecen solo en tu perfil del navegador en tu cuenta de usuario del computador que usas
 - **Sin servidor**: No se envían datos a servidores externos
 - **Sin tracking**: No se recopila información personal
 - **Backup manual**: Control total sobre tus datos
@@ -95,10 +76,11 @@ Una aplicación web moderna y completa para gestionar, organizar y exportar tus 
 2. Descomprime el archivo ZIP en tu computador y abre la carpeta que contiene el archivo index.html 
 3. Dale click al archivo index.html y abre en tu navegador web el administrador de prompts
 4. ¡Listo! No requiere servidor ni instalación adicional
-5. Puede crear un acceso directo a este archivo index.html haciendo click derecho en el archivo index.html y abrir el menú contextual con esa funcíón
-6. Puede abrir el archivo index.html como una app web haciendo click derecho al acceso directo creado y copiando en "Destino" la siguiente línea reemplazado la ruta de acceso a la de su archivo index.html en su PC. Solo debe cambiar la ultima parte con la nueva ruta a su archivo index.html y mantener la comillas dobles al inicio y al final. Ejemplo:
+
+- Puede crear un acceso directo a este archivo index.html haciendo click derecho en el archivo index.html y abrir el menú contextual para llegar a esa funcíón
+- Puede abrir el archivo index.html como una app web haciendo click derecho al acceso directo creado y copiando en "Destino" la siguiente línea reemplazado la ruta de acceso a la de su archivo index.html en su computador. Solo debe cambiar la ultima parte con la nueva ruta a su archivo index.html y mantener la comillas dobles al inicio y al final. Ejemplo:
    "C:\Program Files\Google\Chrome\Application\chrome.exe" --profile-directory="Default" --start-maximized --app="file:///C:/Users/USUARIO/CARPETA/CARPETA/CARPETA/index.html"
-7. Tambien puede cambiar el nombre y el icono al acceso directo creado para que sea más visible y copiarlo en el escritorio de su PC para que este disponible muy facíl y rápido
+- Puede cambiar el nombre y el icono al acceso directo creado para que sea más visible y copiarlo en el escritorio de su PC para que este disponible muy facíl y rápido
 
 ### Primer Uso
 1. **Crea tu primera carpeta** usando el formulario "Nueva carpeta"
