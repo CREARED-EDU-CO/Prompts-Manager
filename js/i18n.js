@@ -117,6 +117,7 @@ window.MESSAGES = {
     next: 'Siguiente',
     copyError: 'Error al copiar al portapapeles',
     exportSuccess: 'Archivo exportado exitosamente',
+    downloadFromGitHub: '📥 Descargar desde GitHub',
   },
   en: {
     errors: {
@@ -215,6 +216,7 @@ window.MESSAGES = {
       next: 'Next',
       copyError: 'Error copying to clipboard',
       exportSuccess: 'File exported successfully',
+      downloadFromGitHub: '📥 Download from GitHub',
     }
   }
 };
