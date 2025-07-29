@@ -35,7 +35,7 @@ window.View = {
         if (darkModeToggle) {
             // Obtener la preferencia guardada
             const isDarkMode = window.Storage.getDarkModePreference();
-            
+
             // Establecer el estado inicial del checkbox (el tema ya fue aplicado por Storage.initDarkMode)
             darkModeToggle.checked = isDarkMode;
 
@@ -213,7 +213,7 @@ window.View = {
     renderPromptEditForm: function (p) {
         // Asegurarse de que dict esté definido correctamente según el idioma actual
         const dict = window.MESSAGES[window.currentLang]?.ui || window.MESSAGES.ui;
-        
+
         const form = window.DOMUtils.createElement('form', {
             className: 'edit-prompt-form mb-prompt-form',
             dataset: { id: p.id }
@@ -246,21 +246,27 @@ window.View = {
             className: 'folder-select'
         });
 
-        // Opción por defecto - siempre seleccionada al editar
+        // Opción por defecto
         const defaultOption = window.DOMUtils.createElement('option', {
             value: '',
-            disabled: true,
-            selected: true
+            disabled: true
         }, dict.selectFolderOption || 'Selecciona una carpeta');
         folderSelect.appendChild(defaultOption);
 
-        // Opciones de carpetas - ninguna preseleccionada
+        // Opciones de carpetas
         (window.FoldersModel.folders || []).forEach(f => {
             const option = window.DOMUtils.createElement('option', {
                 value: f.id
             }, window.sanitizeHTML(f.name));
             folderSelect.appendChild(option);
         });
+
+        // Establecer el valor seleccionado después de crear todas las opciones
+        if (p.folderId) {
+            folderSelect.value = p.folderId;
+        } else {
+            folderSelect.value = '';
+        }
 
         formRow.appendChild(folderSelect);
 
@@ -469,12 +475,12 @@ window.View = {
     renderFolders: function (folders, prompts) {
         const list = document.getElementById('folders-list');
         if (!list) return;
-        
+
         // Limpiar la lista antes de renderizar
         window.DOMUtils.updateElement(list, '');
-        
+
         if (!folders.length) {
-            const message = window.DOMUtils.createElement('p', {}, 
+            const message = window.DOMUtils.createElement('p', {},
                 window.MESSAGES[window.currentLang]?.ui?.noFolders || window.MESSAGES.ui.noFolders);
             list.appendChild(message);
             // Actualizar contador y recordatorio
@@ -558,24 +564,24 @@ window.View = {
     // Función para obtener recordatorio dinámico basado en actividad reciente
     getDynamicExportReminderByDate: function (prompts, currentLang = 'es') {
         const dict = window.MESSAGES[currentLang]?.ui || window.MESSAGES.ui;
-        
+
         // Si no hay prompts, usar mensaje estándar
         if (!prompts || prompts.length === 0) {
             return dict.exportReminder || "Recuerda exportar tus datos periódicamente.";
         }
-        
+
         // Encontrar la fecha más reciente (creación o edición)
         const mostRecentDate = Math.max(...prompts.map(prompt => {
             const createdAt = prompt.createdAt || 0;
             const updatedAt = prompt.updatedAt || 0;
             return Math.max(createdAt, updatedAt);
         }));
-        
+
         // Calcular días desde la última actividad
         const currentTime = Date.now();
         const daysSinceLastActivity = Math.floor((currentTime - mostRecentDate) / (1000 * 60 * 60 * 24));
         const promptCount = prompts.length;
-        
+
         // Mostrar mensaje solo en días específicos usando mensajes de i18n
         if (daysSinceLastActivity === 2) {
             return `📝 ${dict.exportReminderDay2.replace('{count}', promptCount)}`;
@@ -584,7 +590,7 @@ window.View = {
         } else if (daysSinceLastActivity >= 10) {
             return `🚨 ${dict.exportReminderDay10.replace('{count}', promptCount)}`;
         }
-        
+
         // Para todos los otros días, usar mensaje estándar
         return dict.exportReminder || "Recuerda exportar tus datos periódicamente.";
     },
