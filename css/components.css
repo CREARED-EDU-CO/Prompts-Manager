@@ -139,18 +139,19 @@
 }
 
 .tag {
-    background: #e0e7ff;
-    color: #3730a3;
+    background: var(--primary-color);
+    color: white;
     border-radius: var(--border-radius-sm);
     padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: 0.95em;
+    font-size: 0.85em;
     margin-right: var(--spacing-xs);
     display: inline-block;
+    font-weight: 500;
 }
 
 .prompt-item .date,
 .prompt-item .usage {
-    font-size: 0.85em;
+    font-size: 0.9em;
     color: var(--text-color-secondary);
     margin-left: var(--spacing-sm);
 }
