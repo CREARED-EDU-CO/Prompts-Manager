@@ -246,19 +246,18 @@ window.View = {
             className: 'folder-select'
         });
 
-        // Opción por defecto
+        // Opción por defecto - siempre seleccionada al editar
         const defaultOption = window.DOMUtils.createElement('option', {
             value: '',
             disabled: true,
-            selected: !p.folderId
+            selected: true
         }, dict.selectFolderOption || 'Selecciona una carpeta');
         folderSelect.appendChild(defaultOption);
 
-        // Opciones de carpetas
+        // Opciones de carpetas - ninguna preseleccionada
         (window.FoldersModel.folders || []).forEach(f => {
             const option = window.DOMUtils.createElement('option', {
-                value: f.id,
-                selected: p.folderId === f.id
+                value: f.id
             }, window.sanitizeHTML(f.name));
             folderSelect.appendChild(option);
         });
