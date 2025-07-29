@@ -1,0 +1,83 @@
+/* style/base.css: Estilos base y tipografía global */
+
+body {
+  font-family: var(--font-family-base);
+  margin: 0;
+  padding: 0;
+  background: var(--background-light);
+  color: var(--text-color-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+main {
+  max-width: 900px;
+  margin: var(--spacing-xl) auto;
+  background: var(--main-background);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  padding: var(--spacing-xl) var(--spacing-xl);
+  display: block;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  min-width: 220px;
+  max-width: 90vw;
+  background: var(--primary-color);
+  color: #fff;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: var(--border-radius-lg);
+  font-size: 1.15em;
+  font-weight: 500;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5000;
+  transition: opacity 0.35s, transform 0.35s, top 0.35s;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  letter-spacing: 0.01em;
+}
+
+.toast.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.toast.toast-success {
+  background: linear-gradient(90deg, var(--success-color) 80%, #38e08b 100%);
+  box-shadow: 0 8px 32px rgba(34, 197, 94, 0.18);
+}
+
+.toast.toast-error {
+  background: linear-gradient(90deg, var(--danger-color) 80%, #f87171 100%);
+  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.18);
+}
+
+/* 
+  NOTA: Esta clase no se utiliza actualmente en el HTML, 
+  pero se mantiene para posibles mejoras futuras en los toasts 
+*/
+.toast .toast-icon {
+  font-size: 1.4em;
+  margin-right: 0.5em;
+  display: flex;
+  align-items: center;
+}
