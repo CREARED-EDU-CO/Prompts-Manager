@@ -1,4 +1,4 @@
-# 📝 Prompt Manager
+# 📝 Prompts Manager - Administrador de Prompts
 
 Una aplicación web moderna y completa para gestionar, organizar y exportar tus prompts de IA de manera eficiente.
 
