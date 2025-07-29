@@ -108,123 +108,123 @@
     },
     {
       "id": "5c2f0f09-f937-4853-857d-b7731cce988c",
-      "text": "<|10.relacionados|> = {(primero, escribir siempre exactamente: \"🎯Por favor, selecciona el próximo tema para enseñarte de los siguientes 5 contenidos relacionados con \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, escribir en una lista numerada ['1','2','3','4','5'] los contenidos relacionados con el {{tema}} en {{materia}} de educación secundaria y media incluyendo siempre la definición de cada uno). (tercero, escribir siempre exactamente: \"➡️ Por favor, escriba el número del contenido relacionado seleccionado\"). (jamás escribir ((antes de continuar, ChatGPT siempre debe esperar mi respuesta: ['1','2','3','4','5']). (después, el número seleccionado de contenidos = {{tema}} nuevo en {{materia}}))). ((escribir siempre exactamente: \"El tema nuevo seleccionado es \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\"). (escribir únicamente sobre la importancia de aprender el nuevo {{tema}} en {{materia}} de educación secundaria y media). (escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 2 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\"))}",
+      "text": "{{10. Relacionados}} = {(primero, escribir siempre exactamente: \"🎯Por favor, selecciona el próximo tema para enseñarte de los siguientes 5 contenidos relacionados con \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, escribir en una lista numerada ['1','2','3','4','5'] los contenidos relacionados con el {{tema}} en {{materia}} de educación secundaria y media incluyendo siempre la definición de cada uno). (tercero, escribir siempre exactamente: \"➡️ Por favor, escriba el número del contenido relacionado seleccionado\"). (jamás escribir ((antes de continuar, ChatGPT siempre debe esperar mi respuesta: ['1','2','3','4','5']). (después, el número seleccionado de contenidos = {{tema}} nuevo en {{materia}}))). ((escribir siempre exactamente: \"El tema nuevo seleccionado es \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\"). (escribir únicamente sobre la importancia de aprender el nuevo {{tema}} en {{materia}} de educación secundaria y media). (escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 2 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\"))}",
       "tags": [
         "10"
       ],
       "favorite": false,
       "folderId": "2fdfe2d2-8533-444a-bb63-02f5be3471fd",
       "createdAt": 1753817091985,
-      "updatedAt": 1753817091985,
+      "updatedAt": 1753832747602,
       "usageCount": 1
     },
     {
       "id": "ed0975a5-0fa7-4905-aaee-e81652f63661",
-      "text": "<|9.aplicación|> = {(primero, escribir siempre exactamente: \"💡Estas son 5 aplicaciones asociadas a \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, escribir en una lista numerada las 5 [aplicaciones, utilidades, inventos, usos] asociadas con el {{tema}} en {{materia}} de educación secundaria y media explicando cada una de forma clara, detallada, amplia, extensa y precisa). (para finalizar, escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 10 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\")}",
+      "text": "{{9. Aplicación}} = {(primero, escribir siempre exactamente: \"💡Estas son 5 aplicaciones asociadas a \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, escribir en una lista numerada las 5 [aplicaciones, utilidades, inventos, usos] asociadas con el {{tema}} en {{materia}} de educación secundaria y media explicando cada una de forma clara, detallada, amplia, extensa y precisa). (para finalizar, escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 10 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\")}",
       "tags": [
         "9"
       ],
       "favorite": false,
       "folderId": "2fdfe2d2-8533-444a-bb63-02f5be3471fd",
       "createdAt": 1753817066234,
-      "updatedAt": 1753817066234,
+      "updatedAt": 1753832738670,
       "usageCount": 1
     },
     {
       "id": "429f400c-cd64-4816-8510-c33546a08cd1",
-      "text": "<|8.corrección|> = {(primero, escribir siempre exactamente: \"✅Estas son las respuestas y soluciones correctas de las 5 preguntas o ejercicios de la evaluación para enseñarte \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, resolver y explicar paso a paso las respuestas correctas de las 5 preguntas o ejercicios de la <|7.evaluación|> de forma clara, detallada, amplia, extensa y precisa). (para finalizar, escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 9 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\")}",
+      "text": "{{8. Corrección}} = {(primero, escribir siempre exactamente: \"✅Estas son las respuestas y soluciones correctas de las 5 preguntas o ejercicios de la evaluación para enseñarte \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, resolver y explicar paso a paso las respuestas correctas de las 5 preguntas o ejercicios de la {{7. Evaluación}} de forma clara, detallada, amplia, extensa y precisa). (para finalizar, escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 9 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\")}",
       "tags": [
         "8"
       ],
       "favorite": false,
       "folderId": "2fdfe2d2-8533-444a-bb63-02f5be3471fd",
       "createdAt": 1753817046041,
-      "updatedAt": 1753817046041,
+      "updatedAt": 1753833149249,
       "usageCount": 1
     },
     {
       "id": "9f09ee29-a6aa-4bf6-8f70-5def7253554b",
-      "text": "<|7.evaluación|> = {(primero, escribir siempre exactamente: \"❓Por favor, responde estas 5 nuevas preguntas o ejercicios para enseñarte \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, escribir nuevas 5 preguntas o ejercicios diferentes a las preguntas de los <|6.ejemplos|> sobre el {{tema}} en {{materia}} de educación secundaria y media (jamás escribir las respuestas y soluciones)). (tercero, escribir siempre exactamente: \"Nota: Recuerda que puedes investigar para responder estas preguntas o solucionar los ejercicios\"). (para finalizar, escribir siempre exactamente: \"➡️ Cuando termines de responder y solucionar las preguntas o ejercicios, por favor, copia y pega el punto 8 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\")}",
+      "text": "{{7. Evaluación}} = {(primero, escribir siempre exactamente: \"❓Por favor, responde estas 5 nuevas preguntas o ejercicios para enseñarte \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, escribir nuevas 5 preguntas o ejercicios diferentes a las preguntas de los {{6. Ejemplos}} sobre el {{tema}} en {{materia}} de educación secundaria y media (jamás escribir las respuestas y soluciones)). (tercero, escribir siempre exactamente: \"Nota: Recuerda que puedes investigar para responder estas preguntas o solucionar los ejercicios\"). (para finalizar, escribir siempre exactamente: \"➡️ Cuando termines de responder y solucionar las preguntas o ejercicios, por favor, copia y pega el punto 8 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\")}",
       "tags": [
         "7"
       ],
       "favorite": false,
       "folderId": "2fdfe2d2-8533-444a-bb63-02f5be3471fd",
       "createdAt": 1753817027936,
-      "updatedAt": 1753817027936,
+      "updatedAt": 1753833109636,
       "usageCount": 1
     },
     {
       "id": "54b2759f-3e81-42a1-a40e-96c41e13a044",
-      "text": "<|6.ejemplos|> = {(primero, escribir siempre exactamente: \"🔎Estos son 5 ejemplos de preguntas o ejercicios solucionados para enseñarte \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, escribir 5 preguntas o ejercicios para enseñar el {{tema}} en {{materia}} de educación secundaria y media incluyendo siempre las respuestas y soluciones correctas de cada pregunta explicadas paso a paso de forma clara, detallada, amplia, extensa y precisa). (para finalizar, escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 7 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\")}",
+      "text": "{{6. Ejemplos}} = {(primero, escribir siempre exactamente: \"🔎Estos son 5 ejemplos de preguntas o ejercicios solucionados para enseñarte \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, escribir 5 preguntas o ejercicios para enseñar el {{tema}} en {{materia}} de educación secundaria y media incluyendo siempre las respuestas y soluciones correctas de cada pregunta explicadas paso a paso de forma clara, detallada, amplia, extensa y precisa). (para finalizar, escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 7 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\")}",
       "tags": [
         "6"
       ],
       "favorite": false,
       "folderId": "2fdfe2d2-8533-444a-bb63-02f5be3471fd",
       "createdAt": 1753817008975,
-      "updatedAt": 1753817008975,
+      "updatedAt": 1753832763113,
       "usageCount": 1
     },
     {
       "id": "f82526e3-9092-4247-aa45-35f93ddcc3a7",
-      "text": "<|5.explicación|> = {(primero, escribir siempre exactamente: \"🧠Explicación de los 4 subtemas importantes para enseñarte \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, explicar de forma clara, detallada, amplia, extensa y precisa de cada uno de los <|4.subtemas|> usando siempre [nombres, definiciones, conceptos, fórmulas, ecuaciones, reacciones, moléculas, factores, fases, etapas, fechas, ubicaciones, eventos, causas, consecuencias, datos, tablas, analogías] necesarios para enseñar el {{tema}} en {{materia}} de educación secundaria y media (jamás escribir las palabras [aplicaciones, ejemplos, ejercicios resueltos, problemas resueltos, ejercicios de evaluación, preguntas resueltas, ejercicios de práctica])). (para finalizar, escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 6 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\")}",
+      "text": "{{5. Explicación}} = {(primero, escribir siempre exactamente: \"🧠Explicación de los 4 subtemas importantes para enseñarte \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, explicar de forma clara, detallada, amplia, extensa y precisa de cada uno de los {{4. Subtemas}} usando siempre [nombres, definiciones, conceptos, fórmulas, ecuaciones, reacciones, moléculas, factores, fases, etapas, fechas, ubicaciones, eventos, causas, consecuencias, datos, tablas, analogías] necesarios para enseñar el {{tema}} en {{materia}} de educación secundaria y media (jamás escribir las palabras [aplicaciones, ejemplos, ejercicios resueltos, problemas resueltos, ejercicios de evaluación, preguntas resueltas, ejercicios de práctica])). (para finalizar, escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 6 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\")}",
       "tags": [
         "5"
       ],
       "favorite": false,
       "folderId": "2fdfe2d2-8533-444a-bb63-02f5be3471fd",
       "createdAt": 1753816977972,
-      "updatedAt": 1753816987475,
+      "updatedAt": 1753833069528,
       "usageCount": 1
     },
     {
       "id": "ec83f095-0ee0-44d7-8698-d44e5191c437",
-      "text": "<|4.subtemas|> = {(primero, escribir siempre exactamente: \"📚Estos son los 4 subtemas importantes para enseñarte \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, escribir en negrita una lista numerada con los títulos de los 4 subtemas importantes para enseñar el {{tema}} en {{materia}} de educación secundaria y media con una clara, detallada, amplia, extensa y precisa definición de cada subtema). (para finalizar, escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 5 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\")}",
+      "text": "{{4. Subtemas}} = {(primero, escribir siempre exactamente: \"📚Estos son los 4 subtemas importantes para enseñarte \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, escribir en negrita una lista numerada con los títulos de los 4 subtemas importantes para enseñar el {{tema}} en {{materia}} de educación secundaria y media con una clara, detallada, amplia, extensa y precisa definición de cada subtema). (para finalizar, escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 5 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\")}",
       "tags": [
         "4"
       ],
       "favorite": false,
       "folderId": "2fdfe2d2-8533-444a-bb63-02f5be3471fd",
       "createdAt": 1753816954492,
-      "updatedAt": 1753816954492,
+      "updatedAt": 1753832794580,
       "usageCount": 1
     },
     {
       "id": "0a9509dd-cd50-4d77-89b4-19184a6e67ce",
-      "text": "<|3.memorizar|> = {(primero, escribir siempre exactamente: \"📝Contesta estas 5 preguntas de opción múltiple para memorizar los términos y sus definiciones del glosario y seguir enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, escribir 5 preguntas de opción múltiple usando únicamente como distractores los 15 términos en negrita del <|2.glosario|>. Nunca escribir las respuestas correctas). (tercero, escribir siempre exactamente: \"➡️ Por favor, escribe tus 5 respuestas usando las letras 'a', 'b', 'c' o 'd' para cada pregunta y sepárelas con comas más un espacio\"). (jamás escribir (antes de continuar, ChatGPT siempre deberá esperar que escriba mis 5 respuestas)). (después, compare mis respuestas con la respuesta correcta de cada pregunta y evalúe). (para finalizar, escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 4 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\")}",
+      "text": "{{3. Memorizar}} = {(primero, escribir siempre exactamente: \"📝Contesta estas 5 preguntas de opción múltiple para memorizar los términos y sus definiciones del glosario y seguir enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, escribir 5 preguntas de opción múltiple usando únicamente como distractores los 15 términos en negrita del {{2. Glosario}}. Nunca escribir las respuestas correctas). (tercero, escribir siempre exactamente: \"➡️ Por favor, escribe tus 5 respuestas usando las letras 'a', 'b', 'c' o 'd' para cada pregunta y sepárelas con comas más un espacio\"). (jamás escribir (antes de continuar, ChatGPT siempre deberá esperar que escriba mis 5 respuestas)). (después, compare mis respuestas con la respuesta correcta de cada pregunta y evalúe). (para finalizar, escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 4 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\")}",
       "tags": [
         "3"
       ],
       "favorite": false,
       "folderId": "2fdfe2d2-8533-444a-bb63-02f5be3471fd",
       "createdAt": 1753816936413,
-      "updatedAt": 1753816936413,
-      "usageCount": 2
+      "updatedAt": 1753833032792,
+      "usageCount": 3
     },
     {
       "id": "a0230301-eda9-4b0b-80ec-bf1d588cbc65",
-      "text": "<|2.glosario|> = {(primero, escribir siempre exactamente: \"📢Estos son 15 términos relevantes y su definición para enseñarte \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, escribir en una lista numerada y en negrita los 15 [términos, nombres, conceptos, datos] relevantes incluyendo sus 15 definiciones para enseñar el {{tema}} en {{materia}} de educación secundaria y media). (para finalizar, escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 3 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\")}",
+      "text": "{{2. Glosario}} = {(primero, escribir siempre exactamente: \"📢Estos son 15 términos relevantes y su definición para enseñarte \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, escribir en una lista numerada y en negrita los 15 [términos, nombres, conceptos, datos] relevantes incluyendo sus 15 definiciones para enseñar el {{tema}} en {{materia}} de educación secundaria y media). (para finalizar, escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 3 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\")}",
       "tags": [
         "2"
       ],
       "favorite": false,
       "folderId": "2fdfe2d2-8533-444a-bb63-02f5be3471fd",
       "createdAt": 1753816917312,
-      "updatedAt": 1753816917312,
-      "usageCount": 2
+      "updatedAt": 1753832824388,
+      "usageCount": 3
     },
     {
       "id": "e4b0281d-d09f-443e-a6de-eaeaf74d31ac",
-      "text": "ChatGPT es el mejor profesor y tutor experto para enseñarme {{tema}} en {{materia}} de educación secundaria y media. Solicite al usuario el tema y materia para empezar. <|1.inicio|> = {(primero, escribir siempre exactamente: \"🔟Razones por las que ChatGPT es tu mejor profesor y tutor experto 🧑‍🏫 para enseñarte \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, escribir siempre en una lista desde la A hasta la J las 10 razones porqué ChatGPT es el mejor profesor y tutor experto para enseñar el {{tema}} en {{materia}} de educación secundaria y media usando emoticones en cada ítem de la lista). (para finalizar, escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 2 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\")}.",
+      "text": "ChatGPT es el mejor profesor y tutor experto para enseñarme {{tema}} en {{materia}} de educación secundaria y media. Solicite al usuario el tema y materia para empezar. {{1. Inicio}} = {(primero, escribir siempre exactamente: \"🔟Razones por las que ChatGPT es tu mejor profesor y tutor experto 🧑‍🏫 para enseñarte \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media\"). (segundo, escribir siempre en una lista desde la A hasta la J las 10 razones porqué ChatGPT es el mejor profesor y tutor experto para enseñar el {{tema}} en {{materia}} de educación secundaria y media usando emoticones en cada ítem de la lista). (para finalizar, escribir siempre exactamente: \"➡️ Por favor, copia y pega el punto 2 para continuar enseñándote \" + {{tema}} + \" en \" + {{materia}} + \" de educación secundaria y media.\")}.",
       "tags": [
         "1"
       ],
       "favorite": false,
       "folderId": "2fdfe2d2-8533-444a-bb63-02f5be3471fd",
       "createdAt": 1753816899624,
-      "updatedAt": 1753821445663,
-      "usageCount": 2
+      "updatedAt": 1753832856699,
+      "usageCount": 3
     },
     {
       "id": "2b3c64ea-3c7b-4c78-8fef-103a2aa94a1f",
