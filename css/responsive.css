@@ -17,81 +17,203 @@
  * junto con este programa. En caso contrario, consulta <https://www.gnu.org/licenses/agpl-3.0.html>.
  */
 
-/* style/responsive.css: Todas las Media Queries */
+/* 
+  ================================================================================
+  SISTEMA RESPONSIVE CSS: Adaptabilidad cross-device y cross-viewport
+  ================================================================================
+  
+  MOBILE-FIRST: Estilos base para móvil, media queries para desktop
+  BREAKPOINTS: 900px (tablet), 700px (mobile) basados en content, no devices
+  PROGRESSIVE ENHANCEMENT: Funcionalidad core en todos los tamaños
+  TOUCH-FRIENDLY: Áreas de click ampliadas para interfaces táctiles
+  CONTENT PRIORITY: Reorganización de layout priorizando contenido esencial
+  
+  ESTRATEGIA DE ADAPTACIÓN:
+  1. Layout: Flexbox/Grid se adaptan automáticamente
+  2. Typography: Escalado de fuentes para legibilidad en pantallas pequeñas
+  3. Spacing: Reducción de padding/margin para optimizar espacio
+  4. Navigation: Simplificación de controles complejos
+  5. Content: Priorización de información esencial
+*/
 
+/* 
+  BREAKPOINT TABLET (900px): Adaptaciones para pantallas medianas
+  CONTENT-BASED: Breakpoint basado en longitud de línea óptima (900px)
+  SPACING REDUCTION: Padding y margin reducidos para optimizar espacio
+  BACKGROUND ADJUSTMENT: Cambio a background-card para diferenciación visual
+*/
 @media (max-width: 900px) {
+    /* 
+      CONTENEDOR PRINCIPAL TABLET: Adaptación del layout central
+      REDUCED SPACING: Padding y margin reducidos para aprovechar espacio
+      BACKGROUND CHANGE: Fondo de card para mejor integración visual
+    */
     main {
-        padding: var(--spacing-md);
-        margin: var(--spacing-md) auto;
-        background: var(--background-card);
+        padding: var(--spacing-md);      /* Padding reducido - Optimización de espacio en tablet */
+        margin: var(--spacing-md) auto;  /* Margin reducido - Menos espaciado vertical */
+        background: var(--background-card); /* Fondo de card - Mejor integración visual */
     }
 
+    /* 
+      TÍTULO EN TABLET: Reducción tipográfica para proporción adecuada
+      FONT SCALING: De 2.5rem a 2rem para mejor proporción en tablet
+      PADDING ADJUSTMENT: Espaciado interno reducido proporcionalmente
+    */
+    .app-title {
+        font-size: 2rem;                /* Tamaño reducido - Proporción adecuada para tablet */
+        padding: var(--spacing-md) var(--spacing-sm); /* Padding reducido - Espaciado proporcional */
+    }
+
+    /* 
+      SECCIÓN DE CARPETAS TABLET: Optimización de espaciado vertical
+      MARGIN REDUCTION: Menos separación entre secciones
+      BACKGROUND CHANGE: Fondo alternativo para diferenciación
+    */
     #folders-section {
-        margin-bottom: var(--spacing-md);
-        background: var(--background-card-alt);
+        margin-bottom: var(--spacing-md); /* Margen reducido - Optimización de espacio vertical */
+        background: var(--background-card-alt); /* Fondo alternativo - Diferenciación visual */
     }
 }
 
+/* 
+  BREAKPOINT MOBILE (700px): Adaptaciones para pantallas pequeñas
+  MOBILE-OPTIMIZED: Layout completamente reorganizado para móviles
+  TOUCH-FRIENDLY: Elementos ampliados para interacción táctil
+  VERTICAL STACKING: Cambio a layouts verticales para aprovechar altura
+  MINIMAL SPACING: Espaciado mínimo para maximizar contenido visible
+*/
 @media (max-width: 700px) {
+    /* 
+      CONTENEDOR PRINCIPAL MÓVIL: Máxima optimización de espacio
+      MINIMAL MARGINS: Espaciado mínimo para aprovechar toda la pantalla
+      EDGE-TO-EDGE: Casi sin márgenes para maximizar área de contenido
+    */
     main {
-        margin: var(--spacing-xs);
-        padding: var(--spacing-xs);
-        background: var(--background-card);
+        margin: var(--spacing-xs);       /* Margen mínimo - Aprovecha casi toda la pantalla */
+        padding: var(--spacing-xs);      /* Padding mínimo - Maximiza área de contenido */
+        background: var(--background-card); /* Fondo de card - Consistencia visual */
     }
 
+    /* 
+      HEADER MÓVIL: Reducción de espaciado para optimizar altura
+      COMPACT HEADER: Menos espaciado vertical para más contenido visible
+    */
+    .app-header {
+        margin-bottom: var(--spacing-md); /* Margen reducido - Optimización de altura */
+        padding-bottom: var(--spacing-md); /* Padding reducido - Espaciado compacto */
+    }
+
+    /* 
+      TÍTULO MÓVIL: Escalado tipográfico para pantallas pequeñas
+      MOBILE TYPOGRAPHY: Tamaño apropiado para legibilidad en móvil
+      LETTER SPACING: Ajuste fino para mejor legibilidad en tamaño reducido
+    */
+    .app-title {
+        font-size: 1.5rem;              /* Tamaño móvil - Legibilidad en pantallas pequeñas */
+        padding: var(--spacing-sm);     /* Padding compacto - Optimización de espacio */
+        letter-spacing: 0.01em;         /* Espaciado ajustado - Legibilidad en tamaño pequeño */
+    }
+
+    /* 
+      SECCIONES PRINCIPALES MÓVIL: Reorganización a layout vertical
+      COLUMN LAYOUT: Cambio a dirección columna para stacking vertical
+      STRETCH ALIGNMENT: Elementos ocupan ancho completo
+      MINIMAL GAPS: Espaciado mínimo entre elementos
+    */
     #prompt-form,
     #filters,
     #import-export-section {
-        flex-direction: column;
-        gap: var(--spacing-xs);
-        align-items: stretch;
+        flex-direction: column;          /* Dirección columna - Layout vertical para móvil */
+        gap: var(--spacing-xs);          /* Gap mínimo - Espaciado compacto */
+        align-items: stretch;            /* Estiramiento - Elementos ocupan ancho completo */
     }
 
+    /* 
+      SECCIÓN DE FILTROS MÓVIL: Adaptación específica para controles
+      COMPACT PADDING: Espaciado reducido para optimizar espacio
+      BACKGROUND CONSISTENCY: Fondo coherente con diseño móvil
+    */
     .filters-section {
-        padding: var(--spacing-sm);
-        background: var(--background-card);
+        padding: var(--spacing-sm);     /* Padding pequeño - Optimización de espacio */
+        background: var(--background-card); /* Fondo de card - Consistencia visual */
     }
 
+    /* 
+      FILAS DE FORMULARIO MÓVIL: Stacking vertical de controles
+      VERTICAL STACKING: Todos los controles en columna para touch-friendly
+      FULL WIDTH: Elementos ocupan ancho completo para área de touch máxima
+    */
     .prompt-form-row,
     .filters-row {
-        flex-direction: column;
-        gap: var(--spacing-xs);
-        align-items: stretch;
+        flex-direction: column;          /* Dirección columna - Stacking vertical */
+        gap: var(--spacing-xs);          /* Gap mínimo - Espaciado compacto */
+        align-items: stretch;            /* Estiramiento - Ancho completo para touch */
     }
 
+    /* 
+      PANEL DE IMPORTACIÓN MÓVIL: Adaptación completa para pantallas pequeñas
+      FULL WIDTH: Ocupa todo el ancho disponible
+      EDGE-TO-EDGE: Sin márgenes laterales para maximizar espacio
+      MOBILE OPTIMIZED: Padding y radius apropiados para móvil
+    */
     .import-choice-panel {
-        width: 100%;
-        min-width: 0;
-        padding: var(--spacing-md);
-        margin-left: 0;
-        margin-right: 0;
-        background: #fff;
-        border-radius: var(--border-radius-lg);
+        width: 100%;                    /* Ancho completo - Aprovecha todo el espacio */
+        min-width: 0;                   /* Sin ancho mínimo - Flexibilidad total */
+        padding: var(--spacing-md);     /* Padding estándar - Espaciado cómodo */
+        margin-left: 0;                 /* Sin margen izquierdo - Edge-to-edge */
+        margin-right: 0;                /* Sin margen derecho - Edge-to-edge */
+        background: var(--main-background); /* Fondo principal - Máximo contraste */
+        border-radius: var(--border-radius-lg); /* Radio grande - Esquinas suaves */
     }
 
+    /* 
+      ACCIONES MODALES MÓVIL: Botones en layout vertical
+      COLUMN LAYOUT: Stacking vertical para touch-friendly
+      FULL WIDTH: Botones ocupan ancho completo para área de touch máxima
+    */
     .import-choice-panel .modal-actions {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: column;          /* Dirección columna - Stacking vertical */
+        align-items: stretch;            /* Estiramiento - Botones ancho completo */
     }
 
+    /* 
+      BOTONES MODALES MÓVIL: Optimización para interacción táctil
+      FULL WIDTH: Ancho completo para área de touch máxima
+      VERTICAL SPACING: Margen inferior para separación entre botones
+      NO LEFT MARGIN: Elimina margen izquierdo para alineación limpia
+    */
     .import-choice-panel .modal-actions button {
-        width: 100%;
-        margin-left: 0;
-        margin-bottom: var(--spacing-xs);
+        width: 100%;                    /* Ancho completo - Área de touch máxima */
+        margin-left: 0;                 /* Sin margen izquierdo - Alineación limpia */
+        margin-bottom: var(--spacing-xs); /* Margen inferior - Separación entre botones */
     }
 
+    /* 
+      ÚLTIMO BOTÓN MODAL: Eliminación de margen inferior
+      CLEAN ENDING: Sin margen en el último elemento para layout limpio
+    */
     .import-choice-panel .modal-actions button:last-child {
-        margin-bottom: 0;
+        margin-bottom: 0;               /* Sin margen inferior - Final limpio */
     }
 
+    /* 
+      METADATOS Y ACCIONES DE PROMPT MÓVIL: Layout vertical para legibilidad
+      COLUMN LAYOUT: Stacking vertical para mejor organización
+      LEFT ALIGNMENT: Alineación izquierda para lectura natural
+      COMPACT SPACING: Gap mínimo para optimizar espacio
+    */
     .prompt-meta,
     .prompt-actions {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-xs);
+        flex-direction: column;          /* Dirección columna - Organización vertical */
+        align-items: flex-start;         /* Alineación izquierda - Lectura natural */
+        gap: var(--spacing-xs);          /* Gap mínimo - Espaciado compacto */
     }
 
+    /* 
+      BOTÓN DE FAVORITO MÓVIL: Alineación específica para layout vertical
+      LEFT ALIGNMENT: Alineación izquierda para consistencia con otros elementos
+    */
     .prompt-item .fav-btn {
-        align-self: flex-start;
+        align-self: flex-start;          /* Alineación izquierda - Consistencia visual */
     }
 }
