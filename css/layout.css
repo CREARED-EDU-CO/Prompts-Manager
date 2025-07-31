@@ -17,157 +17,275 @@
  * junto con este programa. En caso contrario, consulta <https://www.gnu.org/licenses/agpl-3.0.html>.
  */
 
-/* style/layout.css: Estilos para las secciones principales de la página */
+/* 
+  ARQUITECTURA DE LAYOUT CSS: Estructura visual y espacial de la aplicación
+  DESIGN SYSTEM: Utiliza design tokens para consistencia visual
+  RESPONSIVE: Layouts adaptativos con flexbox y grid
+  COMPONENT-BASED: Cada sección tiene responsabilidades específicas de layout
+  PERFORMANCE: Optimizado para reflows mínimos y paint eficiente
+*/
 
+/* 
+  CONTENEDOR DE PROMPTS: Área principal de visualización de contenido
+  SEMANTIC: Contenedor semántico para lista de prompts renderizados
+  CONSTRAINTS: Altura mínima para evitar colapso cuando está vacío
+  ELEVATION: Sombra y borde para diferenciación visual del fondo
+  RESPONSIVE: Padding adaptativo para diferentes tamaños de pantalla
+*/
 #prompt-container {
-    min-height: 100px;
-    box-shadow: 0 2px 8px rgba(16, 24, 40, 0.10);
-    border: 1.5px solid var(--border-color-alt);
-    background: var(--background-card);
-    border-radius: var(--border-radius-lg);
-    padding: var(--spacing-md) var(--spacing-lg);
+    min-height: 100px;                    /* Altura mínima - Previene colapso visual cuando no hay contenido */
+    box-shadow: var(--shadow-md);         /* Sombra media - Elevación visual del contenedor */
+    border: 1.5px solid var(--border-color-alt); /* Borde alternativo - Separación sutil del fondo */
+    background: var(--background-card);   /* Fondo de card - Color de fondo para contenido */
+    border-radius: var(--border-radius-lg); /* Radio grande - Esquinas suaves para modernidad */
+    padding: var(--spacing-md) var(--spacing-lg); /* Padding asimétrico - Más horizontal para legibilidad */
 }
 
+/* 
+  SECCIÓN DE CARPETAS: Gestión y visualización de estructura organizacional
+  HIERARCHY: Contenedor principal para CRUD de carpetas
+  COLLAPSIBLE: Diseño preparado para colapso/expansión de contenido
+  VISUAL SEPARATION: Diferenciación clara del resto de secciones
+*/
 #folders-section {
-    background: var(--background-card);
-    border-radius: var(--border-radius-lg);
-    padding: var(--spacing-lg) var(--spacing-xl);
-    margin-bottom: var(--spacing-xl);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-    border: 1.5px solid var(--border-color);
+    background: var(--background-card);   /* Fondo de card - Diferenciación visual del contenido */
+    border-radius: var(--border-radius-lg); /* Radio grande - Consistencia con otros contenedores */
+    padding: var(--spacing-lg) var(--spacing-xl); /* Padding generoso - Espaciado cómodo para interacción */
+    margin-bottom: var(--spacing-xl);     /* Margen inferior - Separación de secciones siguientes */
+    box-shadow: var(--shadow-md);         /* Sombra media - Elevación visual moderada */
+    border: 1.5px solid var(--border-color); /* Borde estándar - Definición clara del contenedor */
 }
 
+/* 
+  LISTA DE CARPETAS: Contenedor para items de carpetas renderizados
+  SPACING: Margen superior para separación del formulario de creación
+  DYNAMIC: Contenido poblado dinámicamente por JavaScript
+*/
 #folders-list {
-    margin-top: var(--spacing-md);
+    margin-top: var(--spacing-md);       /* Margen superior - Separación del formulario superior */
 }
 
+/* 
+  TOGGLE DE COLAPSO: Control para mostrar/ocultar carpetas
+  CENTERED: Alineación centrada para énfasis visual
+  SPACING: Márgenes verticales para separación visual
+  UX: Permite optimizar espacio vertical en la interfaz
+*/
 .folders-collapse-toggle {
-    margin: var(--spacing-sm) 0;
-    text-align: center;
+    margin: var(--spacing-sm) 0;         /* Márgenes verticales - Separación del contenido adyacente */
+    text-align: center;                  /* Centrado - Énfasis visual del control */
 }
 
+/* 
+  ESTADO COLAPSADO: Estilo para carpetas en estado minimizado
+  VISUAL CUE: Borde punteado indica contenido colapsado
+  SPACING: Padding y margin para separación visual clara
+  PROGRESSIVE DISCLOSURE: Patrón UX para gestión de información
+*/
 .folders-collapsed {
-    margin-top: var(--spacing-sm);
-    border-top: 1px dashed var(--border-color);
-    padding-top: var(--spacing-sm);
+    margin-top: var(--spacing-sm);       /* Margen superior - Separación del toggle */
+    border-top: 1px dashed var(--border-color); /* Borde punteado - Indica estado colapsado */
+    padding-top: var(--spacing-sm);      /* Padding superior - Espaciado interno del contenido */
 }
 
+/* 
+  BOTÓN DE TOGGLE: Control interactivo para colapso/expansión
+  FULL WIDTH: Ocupa todo el ancho para área de click máxima
+  COMPACT: Padding reducido para integración visual sutil
+  TYPOGRAPHY: Tamaño de fuente pequeño para discreción
+*/
 #folders-toggle-btn {
-    width: 100%;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: 0.9em;
+    width: 100%;                         /* Ancho completo - Maximiza área de interacción */
+    padding: var(--spacing-xs) var(--spacing-sm); /* Padding compacto - Botón discreto */
+    font-size: var(--font-size-sm);     /* Fuente pequeña - Integración visual sutil */
 }
 
+/* 
+  SECCIONES PRINCIPALES: Contenedores de funcionalidad core
+  VISUAL HIERARCHY: Borde primario para destacar importancia
+  FLEXBOX LAYOUT: Layout flexible para componentes internos
+  RESPONSIVE: Flex-wrap permite adaptación a diferentes anchos
+  CONSISTENCY: Estilos compartidos para coherencia visual
+*/
 #prompt-form,
 #filters,
 #import-export-section {
-    margin-bottom: var(--spacing-xl);
-    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.07);
-    border: 1.5px solid var(--primary-color);
-    background: var(--background-card);
-    padding: var(--spacing-md) var(--spacing-lg);
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm);
-    align-items: center;
-    border-radius: var(--border-radius-lg);
+    margin-bottom: var(--spacing-xl);     /* Margen inferior - Separación entre secciones principales */
+    box-shadow: var(--shadow-md);         /* Sombra media - Elevación visual moderada */
+    border: 1.5px solid var(--primary-color); /* Borde primario - Destaca importancia funcional */
+    background: var(--background-card);   /* Fondo de card - Diferenciación del fondo base */
+    padding: var(--spacing-md) var(--spacing-lg); /* Padding asimétrico - Más horizontal para contenido */
+    position: relative;                   /* Posicionamiento relativo - Contexto para elementos absolutos */
+    display: flex;                        /* Layout flex - Distribución flexible de elementos internos */
+    flex-wrap: wrap;                      /* Flex wrap - Permite salto de línea en pantallas pequeñas */
+    gap: var(--spacing-sm);               /* Gap entre elementos - Espaciado uniforme entre componentes */
+    align-items: center;                  /* Centrado vertical - Alineación de elementos internos */
+    border-radius: var(--border-radius-lg); /* Radio grande - Esquinas suaves consistentes */
 }
 
-/* Clase específica para secciones principales en lugar de usar main > section */
+/* 
+  SECCIONES DE CONTENIDO PRINCIPAL: Contenedores genéricos para contenido
+  ELEVATION: Sombra y borde para diferenciación visual
+  SPACING: Padding generoso para legibilidad y respiración visual
+  MODULARITY: Clase reutilizable para diferentes tipos de contenido
+*/
 .main-content-section {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-    border-radius: var(--border-radius-lg);
-    border: 1.5px solid var(--border-color);
-    margin-bottom: var(--spacing-xl);
-    background: #fff;
-    padding: var(--spacing-lg) var(--spacing-xl);
+    box-shadow: var(--shadow-md);         /* Sombra media - Elevación visual estándar */
+    border-radius: var(--border-radius-lg); /* Radio grande - Esquinas suaves modernas */
+    border: 1.5px solid var(--border-color); /* Borde estándar - Definición sutil del contenedor */
+    margin-bottom: var(--spacing-xl);     /* Margen inferior - Separación entre secciones */
+    background: var(--main-background);   /* Fondo principal - Color de fondo limpio */
+    padding: var(--spacing-lg) var(--spacing-xl); /* Padding generoso - Espaciado cómodo para contenido */
 }
 
+/* 
+  SECCIÓN DE FILTROS: Layout especializado para controles de filtrado
+  COLUMN LAYOUT: Dirección vertical para apilamiento de controles
+  STRETCH: Elementos ocupan todo el ancho disponible
+  COMPACT SPACING: Gap reducido para agrupación visual de controles
+*/
 .filters-section {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--spacing-sm);
+    flex-direction: column;               /* Dirección columna - Apilamiento vertical de controles */
+    align-items: stretch;                 /* Estiramiento - Elementos ocupan ancho completo */
+    gap: var(--spacing-sm);               /* Gap pequeño - Agrupación visual de controles relacionados */
 }
 
+/* 
+  SECCIÓN DE IMPORTACIÓN/EXPORTACIÓN: Funcionalidad de gestión de datos
+  SPACING: Margen superior adicional para separación visual
+  FUNCTIONALITY: Contiene controles para I/O de archivos JSON
+*/
 #import-export-section {
-    margin-top: var(--spacing-xl);
+    margin-top: var(--spacing-xl);       /* Margen superior - Separación adicional del contenido previo */
 }
 
+/* 
+  INFORMACIÓN CONTEXTUAL: Mensaje explicativo para funcionalidad de exportación
+  FULL WIDTH: Ocupa todo el ancho del contenedor padre
+  INFO DESIGN: Estilo de información con fondo alternativo
+  TYPOGRAPHY: Tipografía optimizada para legibilidad de texto informativo
+  ELEVATION: Sombra sutil para diferenciación del fondo
+*/
 .import-export-info {
-    width: 100%;
-    margin-bottom: var(--spacing-sm);
-    padding: var(--spacing-sm);
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 6px;
-    font-size: 0.95em;
-    font-weight: 500;
-    color: #495057;
-    line-height: 1.5;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 100%;                         /* Ancho completo - Ocupa todo el espacio disponible */
+    margin-bottom: var(--spacing-sm);    /* Margen inferior - Separación de controles siguientes */
+    padding: var(--spacing-sm);          /* Padding uniforme - Espaciado interno cómodo */
+    background-color: var(--background-card-alt); /* Fondo alternativo - Diferenciación visual */
+    border: 1px solid var(--border-color); /* Borde sutil - Definición del área informativa */
+    border-radius: var(--border-radius-md); /* Radio medio - Esquinas suaves moderadas */
+    font-size: var(--font-size-sm);     /* Fuente pequeña - Texto informativo secundario */
+    font-weight: 500;                    /* Peso medio - Legibilidad sin exceso de énfasis */
+    color: var(--text-color-secondary);  /* Color secundario - Jerarquía visual apropiada */
+    line-height: 1.5;                   /* Interlineado - Legibilidad óptima para texto informativo */
+    box-shadow: var(--shadow-sm);       /* Sombra sutil - Elevación mínima para diferenciación */
 }
 
-/* Estilos para la sección de configuración */
+/* 
+  SECCIÓN DE CONFIGURACIÓN: Controles globales de la aplicación
+  FOOTER LAYOUT: Posicionado al final con separación visual
+  RIGHT ALIGNMENT: Justificación a la derecha para controles secundarios
+  RESPONSIVE: Flex-wrap permite adaptación en pantallas pequeñas
+  VISUAL SEPARATION: Borde superior para delimitar área de configuración
+*/
 .configuration {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: var(--spacing-sm) var(--spacing-md);
-    margin-top: var(--spacing-lg);
-    margin-bottom: var(--spacing-md);
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
-    border-top: 1px solid var(--border-color-alt);
-    padding-top: var(--spacing-md);
+    display: flex;                       /* Layout flex - Distribución horizontal de controles */
+    justify-content: flex-end;           /* Justificación derecha - Controles secundarios al final */
+    align-items: center;                 /* Centrado vertical - Alineación de elementos de control */
+    padding: var(--spacing-sm) var(--spacing-md); /* Padding asimétrico - Espaciado interno moderado */
+    margin-top: var(--spacing-lg);      /* Margen superior - Separación del contenido principal */
+    margin-bottom: var(--spacing-md);   /* Margen inferior - Espaciado final de la aplicación */
+    flex-wrap: wrap;                     /* Flex wrap - Adaptación responsive de controles */
+    gap: var(--spacing-md);              /* Gap medio - Separación entre grupos de controles */
+    border-top: 1px solid var(--border-color-alt); /* Borde superior - Separación visual del contenido */
+    padding-top: var(--spacing-md);     /* Padding superior - Espaciado adicional tras el borde */
 }
 
+/* 
+  ITEM DE CONFIGURACIÓN: Contenedor individual para cada control
+  INLINE LAYOUT: Flexbox horizontal para label + control
+  SPACING: Margen derecho para separación entre items
+  ALIGNMENT: Centrado vertical de elementos internos
+*/
 .config-item {
-    display: flex;
-    align-items: center;
-    margin-right: var(--spacing-lg);
+    display: flex;                       /* Layout flex - Alineación horizontal de label y control */
+    align-items: center;                 /* Centrado vertical - Alineación de label con input */
+    margin-right: var(--spacing-lg);    /* Margen derecho - Separación entre items de configuración */
 }
 
+/* 
+  ETIQUETA DE CONFIGURACIÓN: Label para controles de configuración
+  TYPOGRAPHY: Peso medio para diferenciación sin exceso de énfasis
+  COLOR: Texto secundario para jerarquía visual apropiada
+  SPACING: Margen derecho para separación del control asociado
+*/
 .config-label {
-    margin-right: var(--spacing-xs);
-    font-weight: 500;
-    color: var(--text-color-secondary);
+    margin-right: var(--spacing-xs);    /* Margen derecho - Separación mínima del control */
+    font-weight: 500;                   /* Peso medio - Legibilidad sin exceso de énfasis */
+    color: var(--text-color-secondary); /* Color secundario - Jerarquía visual de labels */
 }
 
+/* 
+  SELECT DE CONFIGURACIÓN: Control de selección para opciones globales
+  COMPACT DESIGN: Padding reducido para integración visual discreta
+  THEMING: Colores y bordes consistentes con design system
+  TYPOGRAPHY: Fuente pequeña para controles secundarios
+*/
 .config-select {
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--border-radius-sm);
-    border: 1px solid var(--border-color);
-    background-color: var(--background-card);
-    color: var(--text-color-primary);
-    font-size: 0.9rem;
+    padding: var(--spacing-xs) var(--spacing-sm); /* Padding compacto - Control discreto */
+    border-radius: var(--border-radius-sm); /* Radio pequeño - Esquinas suaves sutiles */
+    border: 1px solid var(--border-color); /* Borde estándar - Definición del control */
+    background-color: var(--background-card); /* Fondo de card - Consistencia visual */
+    color: var(--text-color-primary);   /* Color primario - Legibilidad del texto seleccionado */
+    font-size: var(--font-size-sm);     /* Fuente pequeña - Proporcional a controles secundarios */
 }
 
-/* Estilos para la paginación dentro del contenedor de prompts */
+/* 
+  CONTENEDOR DE PAGINACIÓN: Layout para controles de navegación de páginas
+  CENTERED: Centrado horizontal para énfasis visual
+  SEPARATION: Borde superior para delimitar área de navegación
+  SPACING: Márgenes y padding para respiración visual
+*/
 #pagination-container {
-    display: flex;
-    justify-content: center;
-    margin-top: var(--spacing-md);
-    padding-top: var(--spacing-md);
-    border-top: 1px solid var(--border-color-alt);
+    display: flex;                       /* Layout flex - Para centrado de controles */
+    justify-content: center;             /* Centrado horizontal - Énfasis en controles de navegación */
+    margin-top: var(--spacing-md);      /* Margen superior - Separación del contenido principal */
+    padding-top: var(--spacing-md);     /* Padding superior - Espaciado adicional tras borde */
+    border-top: 1px solid var(--border-color-alt); /* Borde superior - Separación visual */
 }
 
+/* 
+  COMPONENTE PAGINACIÓN: Contenedor para botones de página
+  INLINE LAYOUT: Flexbox horizontal para secuencia de botones
+  COMPACT SPACING: Gap mínimo para agrupación visual de controles
+*/
 .pagination {
-    display: flex;
-    gap: var(--spacing-xs);
+    display: flex;                       /* Layout flex - Alineación horizontal de botones */
+    gap: var(--spacing-xs);              /* Gap mínimo - Separación compacta entre botones */
 }
 
+/* 
+  BOTÓN DE PÁGINA: Control individual para navegación de páginas
+  SQUARE DESIGN: Dimensiones cuadradas para consistencia visual
+  CENTERED CONTENT: Flexbox para centrado perfecto de números/iconos
+  INTERACTIVE: Preparado para estados hover/active/focus
+*/
 .pagination .page-btn {
-    min-width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--border-radius-sm);
-    font-weight: 500;
+    min-width: 2.5rem;                  /* Ancho mínimo - Área de click consistente */
+    height: 2.5rem;                     /* Alto fijo - Botones cuadrados uniformes */
+    display: flex;                      /* Layout flex - Para centrado de contenido */
+    align-items: center;                /* Centrado vertical - Alineación del texto/icono */
+    justify-content: center;            /* Centrado horizontal - Centrado perfecto del contenido */
+    border-radius: var(--border-radius-sm); /* Radio pequeño - Esquinas suaves sutiles */
+    font-weight: 500;                   /* Peso medio - Legibilidad sin exceso de énfasis */
 }
 
+/* 
+  BOTÓN ACTIVO: Estado para página actualmente seleccionada
+  PRIMARY COLOR: Color de marca para indicar estado actual
+  HIGH CONTRAST: Texto blanco sobre fondo primario para máxima legibilidad
+  VISUAL HIERARCHY: Destaca la página actual en la secuencia
+*/
 .pagination .page-btn.active {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--primary-color); /* Fondo primario - Indica página actual */
+    color: white;                       /* Texto blanco - Contraste máximo sobre fondo primario */
 }
