@@ -17,178 +17,352 @@
  * junto con este programa. En caso contrario, consulta <https://www.gnu.org/licenses/agpl-3.0.html>.
  */
 
-/* style/forms.css: Estilos para formularios y sus elementos */
+/* 
+  SISTEMA DE FORMULARIOS CSS: Estilos para elementos de entrada de datos
+  CONSISTENCY: Diseño uniforme para todos los inputs de texto
+  ACCESSIBILITY: Contraste y tamaños optimizados para usabilidad
+  RESPONSIVE: Flexibilidad para adaptación a diferentes layouts
+  THEMING: Preparado para cambios dinámicos de tema
+  INTERACTION: Estados visuales para feedback del usuario
+*/
 
-/* Clase compartida para entradas de texto en formularios */
+/* 
+  INPUT DE TEXTO BASE: Estilo fundamental para campos de entrada
+  FLEXIBLE: Flex properties para adaptación responsive
+  CONSTRAINTS: Min-width para prevenir colapso excesivo
+  THEMING: Colores vinculados a design tokens para consistencia
+  TRANSITIONS: Suaviza cambios de tema y estados de focus
+*/
 .form-input-text {
-    flex: 1 1 180px;
-    min-width: 120px;
-    padding: var(--spacing-sm);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-sm);
-    font-size: 1rem;
+    flex: 1 1 180px;                    /* Flex grow/shrink con base 180px - Adaptabilidad responsive */
+    min-width: 120px;                   /* Ancho mínimo - Previene colapso excesivo en pantallas pequeñas */
+    padding: var(--spacing-sm);         /* Padding uniforme - Espaciado interno cómodo para texto */
+    border: 1px solid var(--border-color); /* Borde estándar - Definición visual del campo */
+    border-radius: var(--border-radius-sm); /* Radio pequeño - Esquinas suaves sutiles */
+    font-size: var(--font-size-base);  /* Tamaño base - Legibilidad óptima para entrada de texto */
+    background-color: var(--background-card); /* Fondo de card - Diferenciación del fondo base */
+    color: var(--text-color-primary);  /* Color primario - Contraste óptimo para texto ingresado */
+    transition: var(--transition-colors); /* Transición de colores - Suaviza cambios de tema */
 }
 
-/* Aplicar la clase compartida a elementos específicos: Eliminar 'composes' y usar solo la clase base en HTML */
-
+/* 
+  TEXTAREA DE PROMPTS: Campo principal para entrada de texto largo
+  AUTO-RESIZE: Configurado para crecimiento automático via JavaScript
+  TYPOGRAPHY: Justificación y line-height optimizados para legibilidad
+  CONSTRAINTS: Min-height para área de entrada adecuada
+  OVERFLOW: Oculto verticalmente para auto-resize seamless
+  BOX MODEL: Border-box para cálculos de dimensiones predecibles
+*/
 #prompt-input,
 .prompt-input {
-    width: 100%;
-    min-height: 3.5em;
-    resize: none;
-    text-align: justify;
-    overflow-y: hidden;
-    font-size: 1rem;
-    padding: var(--spacing-sm);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-sm);
-    box-sizing: border-box;
-    line-height: 1.5;
-    margin-bottom: var(--spacing-sm);
-    color: var(--text-color-primary);
+    width: 100%;                        /* Ancho completo - Ocupa todo el espacio disponible */
+    min-height: 3.5em;                  /* Altura mínima - Área de entrada adecuada para texto */
+    resize: none;                       /* Sin resize manual - Auto-resize controlado por JavaScript */
+    text-align: justify;                /* Justificación - Mejora legibilidad en texto largo */
+    overflow-y: hidden;                 /* Overflow Y oculto - Permite auto-resize sin scrollbars */
+    font-size: var(--font-size-base);  /* Tamaño base - Legibilidad óptima para entrada de texto */
+    padding: var(--spacing-sm);         /* Padding uniforme - Espaciado interno cómodo */
+    border: 1px solid var(--border-color); /* Borde estándar - Definición visual del campo */
+    border-radius: var(--border-radius-sm); /* Radio pequeño - Esquinas suaves sutiles */
+    box-sizing: border-box;             /* Border-box - Incluye padding y border en dimensiones */
+    line-height: 1.5;                   /* Interlineado - Legibilidad óptima para texto multilínea */
+    margin-bottom: var(--spacing-sm);   /* Margen inferior - Separación de elementos siguientes */
+    color: var(--text-color-primary);  /* Color primario - Contraste óptimo para texto */
+    background-color: var(--background-card); /* Fondo de card - Diferenciación visual */
+    transition: var(--transition-colors); /* Transición - Suaviza cambios de tema */
 }
 
+/* 
+  FILA DE FORMULARIO: Layout horizontal para controles relacionados
+  RESPONSIVE: Flex-wrap permite adaptación a pantallas pequeñas
+  FULL WIDTH: Ocupa todo el ancho del contenedor padre
+  SPACING: Gap uniforme entre elementos para respiración visual
+*/
 .prompt-form-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm);
-    width: 100%;
+    display: flex;                      /* Layout flex - Distribución horizontal de controles */
+    flex-wrap: wrap;                    /* Flex wrap - Adaptación responsive con salto de línea */
+    gap: var(--spacing-sm);             /* Gap pequeño - Separación uniforme entre elementos */
+    width: 100%;                        /* Ancho completo - Ocupa todo el espacio disponible */
 }
 
+/* 
+  BOTÓN BASE: Estilo fundamental para todos los botones de la aplicación
+  BORDERLESS: Sin borde para diseño moderno y limpio
+  INTERACTIVE: Cursor pointer y transiciones para feedback visual
+  TYPOGRAPHY: Peso medio para legibilidad sin exceso de énfasis
+  MICRO-INTERACTIONS: Transformaciones sutiles para feedback táctil
+  SPACING: Padding asimétrico y margen para integración en layouts
+*/
 .btn {
-    border: none;
-    border-radius: var(--border-radius-sm, 5px);
-    padding: calc(var(--spacing-sm) - 0.05rem) var(--spacing-lg);
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
-    margin-left: var(--spacing-xs);
+    border: none;                       /* Sin borde - Diseño moderno y limpio */
+    border-radius: var(--border-radius-sm); /* Radio pequeño - Esquinas suaves sutiles */
+    padding: calc(var(--spacing-sm) - 0.05rem) var(--spacing-lg); /* Padding asimétrico - Más horizontal, ajuste fino vertical */
+    font-size: var(--font-size-base);  /* Tamaño base - Legibilidad óptima para labels de botón */
+    font-weight: 500;                   /* Peso medio - Énfasis sin exceso de boldness */
+    cursor: pointer;                    /* Cursor pointer - Indica interactividad */
+    transition: background var(--transition-fast), transform var(--transition-fast); /* Transiciones - Feedback visual suave */
+    margin-left: var(--spacing-xs);    /* Margen izquierdo - Separación en grupos de botones */
 }
 
+/* 
+  BOTÓN PRIMARIO: Variante principal para acciones importantes
+  BRAND COLOR: Utiliza color de marca para máxima prominencia visual
+  HIGH CONTRAST: Texto blanco sobre fondo primario para legibilidad
+  SEMANTIC: Reservado para acciones principales y CTAs
+*/
 .btn-primary {
-    background: var(--primary-color, #2563eb);
-    color: #fff;
+    background: var(--primary-color);   /* Fondo primario - Color de marca para acciones principales */
+    color: #fff;                        /* Texto blanco - Contraste máximo sobre fondo primario */
 }
 
+/* 
+  ESTADOS INTERACTIVOS PRIMARIOS: Feedback visual para hover y focus
+  ELEVATION: Transform translateY simula elevación física
+  SCALE: Ligero aumento de escala para feedback táctil
+  DARKER VARIANT: Color más oscuro para indicar estado activo
+  ACCESSIBILITY: Estados focus para navegación por teclado
+*/
 .btn-primary:hover,
 .btn-primary:focus {
-    background: var(--primary-color-darker, #1d4ed8);
-    transform: translateY(-2px) scale(1.04);
+    background: var(--primary-color-darker); /* Fondo más oscuro - Indica estado interactivo */
+    transform: translateY(-2px) scale(1.04); /* Elevación + escala - Feedback visual de hover */
 }
 
+/* 
+  ESTADO ACTIVO PRIMARIO: Feedback para click/press
+  PRESSED EFFECT: Escala reducida simula presión física
+  IMMEDIATE FEEDBACK: Respuesta visual instantánea al click
+*/
 .btn-primary:active {
-    background: var(--primary-color-darker, #1d4ed8);
-    transform: scale(0.98);
+    background: var(--primary-color-darker); /* Fondo oscuro - Mantiene consistencia con hover */
+    transform: scale(0.98);             /* Escala reducida - Simula presión del botón */
 }
 
+/* 
+  BOTÓN DE PELIGRO: Variante para acciones destructivas
+  SEMANTIC COLOR: Rojo para comunicar peligro y acciones irreversibles
+  HIGH CONTRAST: Texto blanco para máxima legibilidad
+  PSYCHOLOGY: Color que demanda atención y precaución del usuario
+*/
 .btn-danger {
-    background: var(--danger-color, #dc2626);
-    color: #fff;
+    background: var(--danger-color);    /* Fondo rojo - Indica acción destructiva/peligrosa */
+    color: #fff;                        /* Texto blanco - Contraste máximo sobre fondo rojo */
 }
 
+/* 
+  ESTADOS INTERACTIVOS DE PELIGRO: Feedback para acciones destructivas
+  DARKER VARIANT: Intensifica el color para confirmar intención
+  CONSISTENT BEHAVIOR: Mantiene patrones de interacción familiares
+*/
 .btn-danger:hover,
 .btn-danger:focus {
-    background: var(--danger-color-darker, #b91c1c);
+    background: var(--danger-color-darker); /* Fondo rojo intenso - Confirma intención destructiva */
 }
 
+/* 
+  BOTÓN SECUNDARIO: Variante para acciones de menor importancia
+  SUBTLE DESIGN: Fondo alternativo con borde para definición
+  LOWER HIERARCHY: Menos prominente que botones primarios
+  VERSATILE: Apropiado para acciones de cancelación o secundarias
+*/
 .btn-secondary {
-    background: #e5e7eb;
-    color: var(--text-color-primary);
+    background: var(--background-card-alt); /* Fondo alternativo - Menos prominencia visual */
+    color: var(--text-color-primary);  /* Color primario - Legibilidad sobre fondo claro */
+    border: 1px solid var(--border-color); /* Borde estándar - Definición sobre fondo sutil */
 }
 
+/* 
+  ESTADOS INTERACTIVOS SECUNDARIOS: Feedback sutil para acciones secundarias
+  SUBTLE HOVER: Cambio de fondo moderado para feedback discreto
+  CONSISTENT: Mantiene jerarquía visual apropiada
+*/
 .btn-secondary:hover,
 .btn-secondary:focus {
-    background: #cbd5e1;
+    background: var(--border-color);    /* Fondo de borde - Feedback hover sutil */
 }
 
+/* 
+  BOTÓN DE FUSIÓN: Variante específica para operaciones de merge
+  SUCCESS COLOR: Verde para comunicar acción positiva/aditiva
+  SEMANTIC: Específico para contexto de importación con fusión
+  POSITIVE PSYCHOLOGY: Color asociado con crecimiento y adición
+*/
 .btn-merge {
-    background: var(--success-color, #22c55e);
-    color: #fff;
+    background: var(--success-color);   /* Fondo verde - Indica acción positiva/aditiva */
+    color: #fff;                        /* Texto blanco - Contraste sobre fondo verde */
 }
 
+/* 
+  ESTADOS INTERACTIVOS DE FUSIÓN: Feedback para acciones de merge
+  SUCCESS DARKER: Variante más intensa del color de éxito
+  CONFIRMATION: Refuerza la naturaleza positiva de la acción
+*/
 .btn-merge:hover,
 .btn-merge:focus {
-    background: var(--success-color-darker, #16a34a);
+    background: var(--success-color-darker); /* Fondo verde intenso - Confirma acción positiva */
 }
 
+/* 
+  BOTÓN DE AGREGAR: Variante específica para acciones de creación
+  FIXED SIZE: Flex properties para tamaño fijo y consistente
+  MIN-WIDTH: Ancho mínimo para legibilidad del label
+  NO SHRINK: Mantiene dimensiones en layouts flexibles
+*/
 .add-btn {
-    flex: 0 0 auto;
-    min-width: 110px;
+    flex: 0 0 auto;                     /* No grow/shrink - Mantiene tamaño fijo */
+    min-width: 110px;                   /* Ancho mínimo - Asegura legibilidad del texto del botón */
 }
 
+/* 
+  INPUT DE BÚSQUEDA: Campo especializado para filtrado de contenido
+  FULL WIDTH: Ocupa todo el ancho disponible para área de entrada máxima
+  COMPACT PADDING: Espaciado reducido para integración visual discreta
+  DEBOUNCE READY: Preparado para implementación de debounce en JavaScript
+  REAL-TIME: Diseñado para búsqueda en tiempo real mientras se escribe
+*/
 .search-input {
-    width: 100%;
-    margin-bottom: var(--spacing-xs);
-    padding: var(--spacing-xs);
-    border-radius: var(--border-radius-sm);
-    border: 1px solid var(--border-color);
-    font-size: 1em;
-    color: var(--text-color-primary);
+    width: 100%;                        /* Ancho completo - Maximiza área de entrada de búsqueda */
+    margin-bottom: var(--spacing-xs);   /* Margen inferior - Separación mínima de elementos siguientes */
+    padding: var(--spacing-xs);         /* Padding compacto - Integración visual discreta */
+    border-radius: var(--border-radius-sm); /* Radio pequeño - Esquinas suaves sutiles */
+    border: 1px solid var(--border-color); /* Borde estándar - Definición visual del campo */
+    font-size: var(--font-size-base);  /* Tamaño base - Legibilidad óptima para entrada */
+    color: var(--text-color-primary);  /* Color primario - Contraste óptimo para texto */
+    background-color: var(--background-card); /* Fondo de card - Diferenciación visual */
+    transition: var(--transition-colors); /* Transición - Suaviza cambios de tema */
 }
 
+/* 
+  FILA DE FILTROS: Layout horizontal para controles de filtrado
+  RESPONSIVE: Flex-wrap permite adaptación a pantallas pequeñas
+  CENTERED: Alineación vertical centrada para consistencia visual
+  GROUPED: Gap uniforme para agrupación visual de controles relacionados
+*/
 .filters-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm);
-    align-items: center;
+    display: flex;                      /* Layout flex - Distribución horizontal de filtros */
+    flex-wrap: wrap;                    /* Flex wrap - Adaptación responsive con salto de línea */
+    gap: var(--spacing-sm);             /* Gap pequeño - Separación uniforme entre filtros */
+    align-items: center;                /* Centrado vertical - Alineación consistente de controles */
 }
 
+/* 
+  SELECTORES DE FILTRO: Controles de selección para filtrado de contenido
+  FLEXIBLE: Flex properties para adaptación responsive
+  BASE SIZE: Tamaño base de 150px con capacidad de crecimiento/contracción
+  COMPACT: Padding reducido para integración visual discreta
+  CONSISTENT: Estilos uniformes para todos los tipos de filtro
+*/
 .tag-filter,
 .folder-filter,
 #order-filter {
-    padding: var(--spacing-xs);
-    border-radius: var(--border-radius-sm);
-    border: 1px solid var(--border-color);
-    font-size: 1em;
-    flex: 1 1 150px;
-    color: var(--text-color-primary);
+    padding: var(--spacing-xs);         /* Padding compacto - Controles discretos */
+    border-radius: var(--border-radius-sm); /* Radio pequeño - Esquinas suaves sutiles */
+    border: 1px solid var(--border-color); /* Borde estándar - Definición visual del control */
+    font-size: var(--font-size-base);  /* Tamaño base - Legibilidad óptima para opciones */
+    flex: 1 1 150px;                    /* Flex con base 150px - Adaptabilidad responsive */
+    color: var(--text-color-primary);  /* Color primario - Legibilidad del texto seleccionado */
+    background-color: var(--background-card); /* Fondo de card - Consistencia visual */
+    transition: var(--transition-colors); /* Transición - Suaviza cambios de tema */
 }
 
+/* 
+  LABELS DE FILTROS: Etiquetas para controles de filtrado con checkboxes
+  INLINE LAYOUT: Flexbox horizontal para alineación de checkbox y texto
+  CENTERED: Alineación vertical centrada para consistencia visual
+  COMPACT SPACING: Gap mínimo para agrupación visual estrecha
+*/
 #filters label {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
+    display: flex;                      /* Layout flex - Alineación horizontal de checkbox y texto */
+    align-items: center;                /* Centrado vertical - Alineación de checkbox con texto */
+    gap: var(--spacing-xs);             /* Gap mínimo - Separación compacta entre elementos */
 }
 
+/* 
+  MENSAJE DE IMPORTACIÓN: Feedback textual para operaciones de importación
+  SECONDARY: Color y tamaño secundarios para información contextual
+  POSITIONED: Margen izquierdo para alineación con controles relacionados
+  INFORMATIVE: Proporciona contexto sobre el estado de la operación
+*/
 #import-msg {
-    font-size: 1em;
-    margin-left: var(--spacing-md);
+    font-size: var(--font-size-base);  /* Tamaño base - Legibilidad estándar para mensajes */
+    margin-left: var(--spacing-md);    /* Margen izquierdo - Alineación con controles */
+    color: var(--text-color-secondary); /* Color secundario - Jerarquía visual apropiada */
 }
 
+/* 
+  FORMULARIO DE EDICIÓN DE CARPETA: Layout inline para edición rápida
+  INLINE EDITING: Permite edición in-place sin modal separado
+  FULL WIDTH: Ocupa todo el ancho disponible del contenedor
+  COMPACT: Gap mínimo para agrupación visual estrecha
+*/
 .edit-folder-form {
-    display: flex;
-    gap: var(--spacing-xs);
-    width: 100%;
+    display: flex;                      /* Layout flex - Distribución horizontal de controles */
+    gap: var(--spacing-xs);             /* Gap mínimo - Separación compacta entre elementos */
+    width: 100%;                        /* Ancho completo - Ocupa todo el espacio disponible */
 }
 
+/* 
+  INPUT DE EDICIÓN DE CARPETA: Campo de texto para edición inline
+  FLEXIBLE: Flex-grow para ocupar espacio disponible
+  COMPACT: Padding reducido para integración visual discreta
+  CONSISTENT: Estilos coherentes con otros inputs de la aplicación
+*/
 .edit-folder-form input[type="text"] {
-    flex-grow: 1;
-    padding: var(--spacing-xs);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-sm);
+    flex-grow: 1;                       /* Crecimiento flexible - Ocupa espacio disponible */
+    padding: var(--spacing-xs);         /* Padding compacto - Integración visual discreta */
+    border: 1px solid var(--border-color); /* Borde estándar - Definición visual del campo */
+    border-radius: var(--border-radius-sm); /* Radio pequeño - Esquinas suaves sutiles */
 }
 
+/* 
+  FORMULARIO DE EDICIÓN DE PROMPT: Contenedor para edición inline de prompts
+  INLINE EDITING: Permite edición in-place sin modal separado
+  VISUAL DISTINCTION: Fondo alternativo para diferenciación del contenido normal
+  COMPACT: Padding reducido para integración visual discreta
+*/
 form.edit-prompt-form {
-    padding: var(--spacing-sm);
-    background-color: var(--background-card-alt);
-    border-radius: var(--border-radius-md);
+    padding: var(--spacing-sm);         /* Padding pequeño - Espaciado interno compacto */
+    background-color: var(--background-card-alt); /* Fondo alternativo - Diferenciación visual */
+    border-radius: var(--border-radius-md); /* Radio medio - Esquinas suaves moderadas */
 }
 
+/* 
+  TEXTAREA EN FORMULARIO DE EDICIÓN: Campo de texto para edición de prompt
+  COMPACT SPACING: Margen inferior reducido para layout compacto
+  CONSISTENT: Hereda estilos base del textarea principal
+*/
 form.edit-prompt-form textarea.prompt-input {
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);   /* Margen inferior mínimo - Layout compacto */
 }
 
+/* 
+  BOTONES EN FORMULARIO DE EDICIÓN: Controles para guardar/cancelar edición
+  COMPACT: Padding reducido para integración en layout inline
+  PROPORTIONAL: Espaciado proporcional al contexto de edición
+*/
 form.edit-prompt-form button {
-    padding: var(--spacing-xs) var(--spacing-md);
+    padding: var(--spacing-xs) var(--spacing-md); /* Padding compacto - Botones discretos */
 }
 
+/* 
+  MENSAJE DE PROMPT: Feedback visual para validación de formulario
+  HIDDEN BY DEFAULT: Oculto por defecto, mostrado via JavaScript
+  ERROR STYLING: Color de peligro para comunicar errores de validación
+  EMPHASIS: Peso de fuente medio para destacar mensajes importantes
+*/
 #prompt-msg {
-    display: none;
-    color: var(--danger-color, red);
-    font-size: 1em;
-    margin-bottom: var(--spacing-xs);
+    display: none;                      /* Oculto por defecto - Mostrado dinámicamente */
+    color: var(--danger-color);         /* Color de peligro - Indica error o advertencia */
+    font-size: var(--font-size-base);  /* Tamaño base - Legibilidad estándar para mensajes */
+    margin-bottom: var(--spacing-xs);   /* Margen inferior - Separación de elementos siguientes */
+    font-weight: 500;                   /* Peso medio - Énfasis sin exceso de boldness */
 }
 
+/* 
+  ESTADO VISIBLE DEL MENSAJE: Clase para mostrar mensajes de validación
+  TOGGLE VISIBILITY: Controlado por JavaScript para mostrar/ocultar
+  BLOCK DISPLAY: Display block para ocupar línea completa
+*/
 #prompt-msg.visible {
-    display: block;
+    display: block;                     /* Display block - Hace visible el mensaje */
 }
