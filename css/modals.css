@@ -17,47 +17,80 @@
  * junto con este programa. En caso contrario, consulta <https://www.gnu.org/licenses/agpl-3.0.html>.
  */
 
-/* style/modals.css: Estilos para todos los modales y paneles de elección */
+/* 
+  ================================================================================
+  SISTEMA MODAL CSS: Componentes de overlay y diálogos modales
+  ================================================================================
+  
+  PATRÓN MODAL: Implementación de overlay pattern para diálogos críticos
+  ACCESSIBILITY: Cumple WCAG guidelines para modal dialogs
+  FOCUS MANAGEMENT: Preparado para focus trap via JavaScript
+  ESCAPE HANDLING: Diseñado para cierre con tecla Escape
+  BACKDROP: Overlay semi-transparente para context switching
+  Z-INDEX STACKING: Niveles altos para aparecer sobre todo el contenido
+  
+  FLUJO DE INTERACCIÓN:
+  1. JavaScript muestra modal agregando clase 'active'
+  2. CSS transitions proporcionan animación de entrada/salida
+  3. Focus trap mantiene navegación por teclado dentro del modal
+  4. Backdrop click o Escape key cierran el modal
+  5. Promise-based API para confirmaciones (showConfirmModal)
+*/
 
-/* Clase base para contenido de modales */
+/* 
+  CONTENIDO BASE MODAL: Estilo fundamental para todos los modales
+  RESPONSIVE: Constraints min/max-width para adaptabilidad
+  CENTERED: Text-align center para contenido simétrico
+  ELEVATED: Background principal para máximo contraste
+  GENEROUS PADDING: Espaciado asimétrico calculado para respiración visual
+  RELATIVE POSITIONING: Contexto para elementos absolutos internos
+*/
 .modal-content-base {
-    background: #fff;
-    border-radius: var(--border-radius-lg);
-    padding: var(--spacing-xl) calc(var(--spacing-xl) + var(--spacing-md)) var(--spacing-lg) calc(var(--spacing-xl) + var(--spacing-md));
-    min-width: 320px;
-    max-width: 90vw;
-    position: relative;
-    text-align: center;
+    background: var(--main-background);  /* Fondo principal - Máximo contraste para legibilidad */
+    border-radius: var(--border-radius-lg); /* Radio grande - Esquinas suaves modernas */
+    padding: var(--spacing-xl) calc(var(--spacing-xl) + var(--spacing-md)) var(--spacing-lg) calc(var(--spacing-xl) + var(--spacing-md)); /* Padding asimétrico calculado - Más horizontal para respiración */
+    min-width: 320px;                   /* Ancho mínimo - Asegura usabilidad en móviles */
+    max-width: 90vw;                    /* Ancho máximo - Previene overflow en pantallas pequeñas */
+    position: relative;                 /* Posicionamiento relativo - Contexto para elementos internos */
+    text-align: center;                 /* Centrado - Alineación simétrica del contenido */
 }
 
+/* 
+  MODAL DE CONFIRMACIÓN: Overlay principal para diálogos críticos
+  FULLSCREEN OVERLAY: Cubre toda la pantalla para context switching
+  BACKDROP: Fondo semi-transparente para enfocar atención en modal
+  FLEXBOX CENTERING: Centrado perfecto horizontal y vertical
+  VISIBILITY CONTROL: Manejo de visibilidad via JavaScript con transiciones
+  HIGH Z-INDEX: Aparece sobre todo el contenido de la aplicación
+  TRANSITION TIMING: Opacity inmediata, visibility con delay para smooth exit
+*/
 #confirm-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 3000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.2s, visibility 0s 0.2s;
+    position: fixed;                    /* Posicionamiento fijo - Relativo al viewport */
+    top: 0;                            /* Posición superior - Cubre desde arriba */
+    left: 0;                           /* Posición izquierda - Cubre desde izquierda */
+    right: 0;                          /* Posición derecha - Cubre hasta derecha */
+    bottom: 0;                         /* Posición inferior - Cubre hasta abajo */
+    background: rgba(0, 0, 0, 0.4);    /* Backdrop semi-transparente - Context switching visual */
+    z-index: 3000;                     /* Z-index alto - Aparece sobre todo el contenido */
+    display: flex;                     /* Layout flex - Para centrado perfecto */
+    align-items: center;               /* Centrado vertical - Alineación vertical del modal */
+    justify-content: center;           /* Centrado horizontal - Alineación horizontal del modal */
+    visibility: hidden;                /* Invisible por defecto - Estado inicial oculto */
+    opacity: 0;                        /* Transparente inicial - Para transición de entrada */
+    transition: opacity var(--transition-fast), visibility 0s var(--transition-fast); /* Transiciones - Opacity inmediata, visibility con delay */
 }
 
 #confirm-modal.active {
     visibility: visible;
     opacity: 1;
-    transition: opacity 0.2s;
+    transition: opacity var(--transition-fast);
 }
 
 #confirm-modal .modal-box {
-    /* Estilos específicos */
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+    box-shadow: var(--shadow-lg);
     margin: auto;
     transform: scale(0.95);
-    transition: transform 0.2s;
+    transition: transform var(--transition-fast);
 }
 
 #confirm-modal.active .modal-box {
@@ -65,7 +98,7 @@
 }
 
 #confirm-modal .modal-msg {
-    font-size: 1.1em;
+    font-size: var(--font-size-lg);
     margin-bottom: var(--spacing-lg);
     color: var(--text-color-primary);
 }
@@ -78,8 +111,7 @@
 
 #edit-prompt-modal .modal-box,
 .import-choice-panel {
-    /* Estilos específicos */
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
+    box-shadow: var(--shadow-md);
     border: 1.5px solid var(--primary-color);
     margin: 0 0 var(--spacing-xl) 0;
     display: flex;
@@ -91,7 +123,7 @@
 
 .modal-title {
     margin-bottom: var(--spacing-md);
-    font-size: 1.2em;
+    font-size: var(--font-size-lg);
     font-weight: 500;
 }
 
@@ -99,7 +131,7 @@
     background: var(--background-card);
     border-radius: var(--border-radius-md);
     border: 1.5px solid var(--primary-color);
-    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.07);
+    box-shadow: var(--shadow-md);
     padding: var(--spacing-md) var(--spacing-lg);
     margin-bottom: 0;
     display: flex;
@@ -125,6 +157,6 @@
 
 .import-choice-panel .modal-msg {
     margin-bottom: var(--spacing-md);
-    font-size: 1em;
+    font-size: var(--font-size-base);
     color: var(--text-color-primary);
 }
