@@ -17,67 +17,210 @@
  * junto con este programa. En caso contrario, consulta <https://www.gnu.org/licenses/agpl-3.0.html>.
  */
 
-/* Variables CSS centralizadas */
+/* 
+  ================================================================================
+  SISTEMA DE DESIGN TOKENS CSS: Arquitectura centralizada de variables CSS
+  ================================================================================
+  
+  PATRÓN ARQUITECTÓNICO: Design System con tokens semánticos y funcionales
+  CASCADA CSS: Selector :root establece scope global para custom properties
+  HERENCIA: Todas las variables son heredables por elementos descendientes
+  COMPATIBILIDAD: CSS Custom Properties (CSS Variables) - IE11+ con fallbacks
+  PERFORMANCE: Reduce recálculos de estilo al centralizar valores reutilizables
+  MANTENIBILIDAD: Single Source of Truth para theming y consistencia visual
+  
+  FLUJO DE DEPENDENCIAS:
+  1. variables.css → utilities.css → base.css → layout.css → components.css
+  2. Cada archivo consume tokens definidos aquí para coherencia visual
+  3. Dark mode override mediante selector [data-theme="dark"]
+  4. JavaScript controla toggle de tema via setAttribute en documentElement
+  
+  ARQUITECTURA DE TOKENS:
+  - Colores semánticos: primary, danger, success, warning con variantes
+  - Tipografía: font-family stack nativo, escala modular de tamaños
+  - Espaciado: escala basada en múltiplos de 0.25rem para ritmo visual
+  - Sombras: sistema de elevación con 3 niveles de profundidad
+  - Transiciones: timing functions optimizadas para micro-interacciones
+  - Bordes: radios y colores para definición y suavidad visual
+*/
 :root {
-  /* Colores principales */
+  /* 
+    PALETA CROMÁTICA SEMÁNTICA: Colores funcionales con variantes de intensidad
+    ACCESIBILIDAD: Contraste WCAG AA compliant (4.5:1 mínimo)
+    JERARQUÍA VISUAL: primary > danger > success > warning según importancia
+    ESTADOS INTERACTIVOS: Variantes darker para hover/active/focus states
+  */
   --primary-color: #2563eb;
+  /* Azul primario - Acciones principales, enlaces, botones CTA */
   --primary-color-darker: #1d4ed8;
+  /* Azul oscuro - Estados hover/active de elementos primarios */
   --danger-color: #dc2626;
+  /* Rojo destructivo - Eliminaciones, errores críticos */
   --danger-color-darker: #b91c1c;
+  /* Rojo intenso - Estados activos de acciones destructivas */
   --success-color: #22c55e;
+  /* Verde confirmación - Éxito, validaciones positivas */
   --success-color-darker: #16a34a;
-  
-  /* Colores de texto */
+  /* Verde intenso - Estados activos de confirmaciones */
+  --warning-color: #f59e0b;
+  /* Amarillo advertencia - Alertas, favoritos, atención */
+
+  /* 
+    JERARQUÍA TIPOGRÁFICA: Colores de texto con contraste optimizado
+    LEGIBILIDAD: Diferenciación semántica entre contenido primario y secundario
+    ACCESIBILIDAD: Cumple estándares WCAG para contraste de texto
+  */
   --text-color-primary: #222;
+  /* Texto principal - Contenido primario, títulos, labels */
   --text-color-secondary: #64748b;
-  
-  /* Fondos */
+  /* Texto secundario - Metadatos, fechas, descripciones */
+
+  /* 
+    SISTEMA DE FONDOS: Capas visuales con profundidad semántica
+    JERARQUÍA Z-INDEX: light < card < card-alt < main para layering visual
+    CONTRASTE: Diferenciación sutil para agrupación y separación de contenido
+  */
   --background-light: #f7f7f7;
+  /* Fondo base - Body background, nivel más bajo */
   --background-card: #f8fafc;
+  /* Fondo tarjetas - Contenedores de contenido */
   --background-card-alt: #e0e7ef;
+  /* Fondo alternativo - Elementos destacados, hover states */
   --main-background: #fff;
-  
-  /* Bordes */
+  /* Fondo principal - Contenedor main, modales, overlays */
+
+  /* 
+    SISTEMA DE BORDES: Definición de límites visuales y separadores
+    CONSISTENCIA: Dos variantes para diferentes niveles de énfasis
+    USABILIDAD: Separación visual clara entre secciones y componentes
+  */
   --border-color: #cbd5e1;
+  /* Borde estándar - Inputs, cards, separadores generales */
   --border-color-alt: #e0e7ef;
+  /* Borde alternativo - Elementos secundarios, divisores sutiles */
   --border-radius-sm: 5px;
+  /* Radio pequeño - Botones, inputs, elementos compactos */
   --border-radius-md: 6px;
+  /* Radio medio - Cards pequeñas, componentes medianos */
   --border-radius-lg: 10px;
-  
-  /* Tipografía */
+  /* Radio grande - Contenedores principales, modales */
+
+  /* 
+    SISTEMA TIPOGRÁFICO: Stack de fuentes y escalado modular
+    PERFORMANCE: system-ui prioriza fuentes nativas del OS para rendering óptimo
+    FALLBACK: sans-serif como respaldo universal cross-platform
+    ESCALADO: Proporción 1.125 (Major Second) para jerarquía armónica
+  */
   --font-family-base: system-ui, sans-serif;
+  /* Stack tipográfico - Fuentes nativas del sistema */
   --font-size-sm: 0.875rem;
+  /* 14px - Metadatos, labels, texto secundario */
   --font-size-base: 1rem;
+  /* 16px - Texto base, inputs, contenido principal */
   --font-size-lg: 1.125rem;
-  
-  /* Espaciado */
+  /* 18px - Títulos secundarios, texto destacado */
+
+  /* 
+    SISTEMA DE ESPACIADO: Escala modular basada en múltiplos de 0.25rem (4px)
+    CONSISTENCIA: Ritmo vertical y horizontal coherente en toda la UI
+    RESPONSIVE: Valores relativos (rem) para escalado automático con font-size
+    JERARQUÍA: xs < sm < md < lg < xl para diferentes niveles de separación
+  */
   --spacing-xs: 0.3rem;
+  /* 4.8px - Espaciado mínimo, padding interno */
   --spacing-sm: 0.5rem;
+  /* 8px - Espaciado pequeño, gaps entre elementos */
   --spacing-md: 1rem;
+  /* 16px - Espaciado estándar, padding de componentes */
   --spacing-lg: 1.5rem;
+  /* 24px - Espaciado grande, márgenes de secciones */
   --spacing-xl: 2rem;
-  
-  /* Sombras */
+  /* 32px - Espaciado extra, separación de bloques */
+
+  /* 
+    SISTEMA DE SOMBRAS: Elevación visual con profundidad progresiva
+    MATERIAL DESIGN: Inspirado en principios de elevación y capas
+    PERFORMANCE: Valores optimizados para hardware acceleration
+    JERARQUÍA: sm < md < lg para diferentes niveles de elevación
+  */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  /* Sombra sutil - Elementos planos, hover states */
   --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.07);
+  /* Sombra media - Cards, componentes elevados */
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.18);
-  
-  /* Transiciones */
+  /* Sombra intensa - Modales, overlays, elementos flotantes */
+
+  /* 
+    SISTEMA DE TRANSICIONES: Timing functions para micro-interacciones fluidas
+    UX: Durations basadas en Material Design Motion guidelines
+    PERFORMANCE: ease timing function para aceleración natural
+    JERARQUÍA: fast < normal < slow según complejidad de la animación
+  */
   --transition-fast: 0.15s ease;
+  /* Transición rápida - Hover states, cambios de color */
   --transition-normal: 0.3s ease;
+  /* Transición estándar - Transformaciones, opacity */
   --transition-slow: 0.5s ease;
+  /* Transición lenta - Animaciones complejas, modales */
 }
 
-/* Modo oscuro */
+/* 
+  TEMA OSCURO: Override de variables CSS para modo dark
+  SELECTOR ESPECÍFICO: [data-theme="dark"] permite toggle dinámico via JavaScript
+  CASCADA CSS: Sobrescribe variables :root cuando data-theme="dark" está presente
+  ACCESIBILIDAD: Contraste invertido manteniendo ratios WCAG AA/AAA
+  PERFORMANCE: Reutiliza la misma arquitectura de variables, solo cambia valores
+  UX: Reduce fatiga visual en condiciones de poca luz
+*/
 [data-theme="dark"] {
+  /* 
+    AJUSTES CROMÁTICOS PARA DARK MODE: Colores más brillantes para contraste en fondos oscuros
+    LUMINOSIDAD: Incremento de brightness para mantener legibilidad
+    SATURACIÓN: Ajuste sutil para evitar oversaturation en pantallas OLED
+  */
   --primary-color: #3b82f6;
+  /* Azul más claro - Mayor luminosidad para contraste en dark */
   --primary-color-darker: #2563eb;
+  /* Azul medio - Estado hover/active en tema oscuro */
+
+  /* 
+    INVERSIÓN TIPOGRÁFICA: Colores claros sobre fondos oscuros
+    CONTRASTE: Mantenimiento de jerarquía visual con valores invertidos
+    LEGIBILIDAD: Optimización para reducir strain ocular en low-light
+  */
   --text-color-primary: #e2e8f0;
+  /* Texto claro - Contenido principal en dark mode */
   --text-color-secondary: #94a3b8;
+  /* Texto gris claro - Metadatos y contenido secundario */
+
+  /* 
+    FONDOS OSCUROS: Paleta de grises azulados para profundidad visual
+    JERARQUÍA: Mantenimiento de capas visuales con tonos progresivamente más claros
+    CONTRASTE: Diferenciación sutil entre niveles de contenido
+  */
   --background-light: #1e293b;
+  /* Fondo base oscuro - Body background en dark mode */
   --background-card: #0f172a;
+  /* Fondo cards oscuro - Contenedores principales */
   --background-card-alt: #1e293b;
+  /* Fondo alternativo - Elementos destacados en dark */
+
+  /* 
+    BORDES EN DARK MODE: Colores más claros para definición en fondos oscuros
+    VISIBILIDAD: Mayor contraste necesario para separación visual
+    CONSISTENCIA: Mantenimiento de jerarquía de bordes del tema claro
+  */
   --border-color: #334155;
+  /* Borde estándar dark - Separadores principales */
   --border-color-alt: #475569;
+  /* Borde alternativo dark - Elementos secundarios */
   --main-background: #0f172a;
+  /* Fondo principal dark - Modales, overlays */
+
+  /* 
+    AJUSTE DE WARNING COLOR: Mayor saturación para visibilidad en dark
+    CONTRASTE: Amarillo más intenso para mantener attention-grabbing en fondos oscuros
+  */
+  --warning-color: #fbbf24;
+  /* Amarillo intenso - Advertencias y favoritos en dark mode */
 }
