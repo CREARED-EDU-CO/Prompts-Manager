@@ -17,86 +17,142 @@
  * junto con este programa. En caso contrario, consulta <https://www.gnu.org/licenses/agpl-3.0.html>.
  */
 
-/* style/base.css: Estilos base y tipografía global */
+/* 
+  ESTILOS BASE CSS: Fundamentos tipográficos y reset del navegador
+  NORMALIZE: Establece base consistente cross-browser
+  DESIGN TOKENS: Utiliza variables CSS para coherencia con design system
+  THEMING: Preparado para cambio dinámico de tema claro/oscuro
+  PERFORMANCE: Transiciones optimizadas para cambios de tema
+*/
 
+/* 
+  ELEMENTO BODY: Configuración base del documento
+  TIPOGRAFÍA: Sistema de fuentes nativas para performance óptima
+  RESET: Elimina márgenes/padding por defecto del navegador
+  THEMING: Colores y transiciones preparadas para dark mode
+  CASCADA: Establece herencia tipográfica para toda la aplicación
+*/
 body {
-  font-family: var(--font-family-base);
-  margin: 0;
-  padding: 0;
-  background: var(--background-light);
-  color: var(--text-color-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-main {
-  max-width: 900px;
-  margin: var(--spacing-xl) auto;
-  background: var(--main-background);
-  border-radius: var(--border-radius-lg);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-  padding: var(--spacing-xl) var(--spacing-xl);
-  display: block;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
-
-.toast {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) scale(0.95);
-  min-width: 220px;
-  max-width: 90vw;
-  background: var(--primary-color);
-  color: #fff;
-  padding: var(--spacing-lg) var(--spacing-xl);
-  border-radius: var(--border-radius-lg);
-  font-size: 1.15em;
-  font-weight: 500;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 5000;
-  transition: opacity 0.35s, transform 0.35s, top 0.35s;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  letter-spacing: 0.01em;
-}
-
-.toast.visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-.toast.toast-success {
-  background: linear-gradient(90deg, var(--success-color) 80%, #38e08b 100%);
-  box-shadow: 0 8px 32px rgba(34, 197, 94, 0.18);
-}
-
-.toast.toast-error {
-  background: linear-gradient(90deg, var(--danger-color) 80%, #f87171 100%);
-  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.18);
+  font-family: var(--font-family-base);  /* Stack tipográfico - system-ui para fuentes nativas */
+  font-size: var(--font-size-base);      /* Tamaño base 16px - Referencia para escalado rem */
+  margin: 0;                             /* Reset margin - Elimina espaciado por defecto del navegador */
+  padding: 0;                            /* Reset padding - Elimina padding por defecto del navegador */
+  background: var(--background-light);   /* Fondo base - Color de fondo principal de la aplicación */
+  color: var(--text-color-primary);      /* Color de texto - Establece color por defecto para toda la tipografía */
+  transition: var(--transition-colors);  /* Transición de colores - Suaviza cambios de tema */
 }
 
 /* 
-  NOTA: Esta clase no se utiliza actualmente en el HTML, 
-  pero se mantiene para posibles mejoras futuras en los toasts 
+  CONTENEDOR PRINCIPAL: Layout central de la aplicación
+  RESPONSIVE: max-width con centrado automático para adaptabilidad
+  CARD DESIGN: Elevación visual con sombras y border-radius
+  SEMANTIC HTML: Elemento <main> para landmark navigation
+  THEMING: Preparado para transiciones suaves entre temas
+*/
+main {
+  max-width: 900px;                      /* Ancho máximo - Limita línea de lectura para UX óptima */
+  margin: var(--spacing-xl) auto;        /* Centrado horizontal - Margin auto con espaciado vertical */
+  background: var(--main-background);    /* Fondo principal - Color de fondo del contenedor central */
+  border-radius: var(--border-radius-lg); /* Radio de borde - Esquinas redondeadas para suavidad visual */
+  box-shadow: var(--shadow-lg);          /* Sombra intensa - Elevación visual del contenedor principal */
+  padding: var(--spacing-xl);            /* Padding interno - Espaciado interno generoso para contenido */
+  display: block;                        /* Display explícito - Asegura comportamiento block predecible */
+  transition: var(--transition-colors), box-shadow var(--transition-normal); /* Transiciones - Suaviza cambios de tema y sombra */
+}
+
+/* 
+  CLASE DE ACCESIBILIDAD: Oculta visualmente pero mantiene accesibilidad
+  SCREEN READERS: Contenido accesible para tecnologías asistivas
+  TÉCNICA ESTÁNDAR: Patrón establecido por WebAIM y W3C
+  SEO: Contenido indexable por motores de búsqueda
+  USABILIDAD: Labels y descripciones ocultas pero funcionales
+*/
+.visually-hidden {
+  position: absolute;      /* Posicionamiento absoluto - Saca del flujo normal sin afectar layout */
+  width: 1px;             /* Ancho mínimo - Dimensión mínima para existir en DOM */
+  height: 1px;            /* Alto mínimo - Altura mínima detectable por screen readers */
+  margin: -1px;           /* Margin negativo - Oculta completamente el elemento */
+  padding: 0;             /* Sin padding - Elimina espaciado interno */
+  overflow: hidden;       /* Overflow oculto - Previene contenido desbordante visible */
+  clip: rect(0, 0, 0, 0); /* Clipping rect - Técnica legacy para navegadores antiguos */
+  border: 0;              /* Sin borde - Elimina cualquier borde visible */
+}
+
+/* 
+  SISTEMA DE NOTIFICACIONES TOAST: Feedback visual no intrusivo
+  POSITIONING: Centrado absoluto en viewport con z-index alto
+  ANIMATION: Entrada/salida suave con scale y opacity
+  RESPONSIVE: Dimensiones adaptativas con constraints min/max
+  ACCESSIBILITY: Pointer-events controlados para interactividad
+  UX: Feedback inmediato para acciones del usuario
+*/
+.toast {
+  position: fixed;                       /* Posicionamiento fijo - Relativo al viewport, no scrollea */
+  left: 50%;                            /* Centrado horizontal - 50% desde borde izquierdo */
+  top: 50%;                             /* Centrado vertical - 50% desde borde superior */
+  transform: translate(-50%, -50%) scale(0.95); /* Centrado perfecto - Compensa dimensiones + escala inicial */
+  min-width: 220px;                     /* Ancho mínimo - Asegura legibilidad en mensajes cortos */
+  max-width: 90vw;                      /* Ancho máximo - Previene overflow en pantallas pequeñas */
+  background: var(--primary-color);     /* Fondo primario - Color de marca para notificaciones neutras */
+  color: #fff;                          /* Texto blanco - Contraste óptimo sobre fondo primario */
+  padding: var(--spacing-lg) var(--spacing-xl); /* Padding generoso - Espaciado cómodo para legibilidad */
+  border-radius: var(--border-radius-lg); /* Radio grande - Esquinas suaves para apariencia moderna */
+  font-size: var(--font-size-lg);      /* Tamaño grande - Mayor legibilidad para mensajes importantes */
+  font-weight: 500;                     /* Peso medio - Énfasis sin ser demasiado bold */
+  box-shadow: var(--shadow-lg);        /* Sombra intensa - Elevación visual sobre contenido */
+  opacity: 0;                           /* Invisible inicial - Estado por defecto oculto */
+  pointer-events: none;                 /* Sin interacción - Previene clicks accidentales cuando oculto */
+  z-index: 5000;                        /* Z-index alto - Aparece sobre todos los elementos */
+  transition: opacity var(--transition-slow), transform var(--transition-slow), top var(--transition-slow); /* Transiciones suaves - Animación de entrada/salida */
+  display: flex;                        /* Layout flex - Para alineación de icono y texto */
+  align-items: center;                  /* Centrado vertical - Alinea icono con texto */
+  gap: var(--spacing-sm);               /* Espacio entre elementos - Separación entre icono y texto */
+  letter-spacing: 0.01em;               /* Espaciado de letras - Mejora legibilidad en tamaño grande */
+}
+
+/* 
+  ESTADO VISIBLE DEL TOAST: Activación de la notificación
+  ANIMATION: Transición de entrada con scale y opacity
+  INTERACTIVITY: Habilita pointer-events para posible interacción
+  STATE MANAGEMENT: Controlado por JavaScript via clase CSS
+*/
+.toast.visible {
+  opacity: 1;                           /* Completamente visible - Opacidad total para visibilidad */
+  pointer-events: auto;                 /* Interacción habilitada - Permite clicks si es necesario */
+  transform: translate(-50%, -50%) scale(1); /* Escala normal - Animación de entrada completada */
+}
+
+/* 
+  VARIANTE DE ÉXITO: Toast para confirmaciones positivas
+  GRADIENT: Degradado sutil para profundidad visual
+  SEMANTIC COLOR: Verde para comunicar éxito/confirmación
+  PSYCHOLOGY: Color asociado con acciones completadas exitosamente
+*/
+.toast.toast-success {
+  background: linear-gradient(90deg, var(--success-color) 80%, var(--success-color-darker) 100%); /* Degradado verde - Éxito con profundidad */
+  box-shadow: var(--shadow-lg);        /* Sombra consistente - Mantiene elevación visual */
+}
+
+/* 
+  VARIANTE DE ERROR: Toast para notificaciones de error
+  GRADIENT: Degradado rojo para comunicar urgencia
+  SEMANTIC COLOR: Rojo para errores y acciones destructivas
+  ATTENTION: Color que demanda atención inmediata del usuario
+*/
+.toast.toast-error {
+  background: linear-gradient(90deg, var(--danger-color) 80%, var(--danger-color-darker) 100%); /* Degradado rojo - Error con profundidad */
+  box-shadow: var(--shadow-lg);        /* Sombra consistente - Mantiene elevación visual */
+}
+
+/* 
+  ICONO DEL TOAST: Elemento visual para reforzar el mensaje
+  SIZING: Tamaño relativo al texto para proporción armónica
+  LAYOUT: Flexbox para centrado perfecto con el texto
+  SPACING: Margen para separación visual del contenido textual
 */
 .toast .toast-icon {
-  font-size: 1.4em;
-  margin-right: 0.5em;
-  display: flex;
-  align-items: center;
+  font-size: 1.4em;                    /* Tamaño relativo - 1.4x el tamaño del texto base */
+  margin-right: var(--spacing-sm);     /* Margen derecho - Separación del texto */
+  display: flex;                       /* Display flex - Para centrado perfecto del icono */
+  align-items: center;                 /* Centrado vertical - Alinea icono con baseline del texto */
 }
