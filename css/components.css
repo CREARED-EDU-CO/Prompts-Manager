@@ -17,33 +17,106 @@
  * junto con este programa. En caso contrario, consulta <https://www.gnu.org/licenses/agpl-3.0.html>.
  */
 
-/* style/components.css: Estilos para componentes de UI */
+/* 
+  SISTEMA DE COMPONENTES CSS: Elementos reutilizables de la interfaz
+  COMPONENT-BASED: Arquitectura modular para reutilización y mantenimiento
+  DESIGN SYSTEM: Utiliza design tokens para consistencia visual
+  RESPONSIVE: Componentes adaptativos para diferentes dispositivos
+  THEMING: Preparado para cambios dinámicos de tema claro/oscuro
+  ACCESSIBILITY: Consideraciones de contraste y usabilidad
+*/
 
+/* 
+  HEADER DE LA APLICACIÓN: Cabecera principal con branding
+  CENTERED: Alineación centrada para énfasis y simetría visual
+  GRADIENT: Degradado sutil para profundidad y modernidad
+  ELEVATION: Sombra y borde para diferenciación del contenido
+  BRAND IDENTITY: Borde primario para reforzar identidad de marca
+*/
+.app-header {
+    text-align: center;                 /* Centrado - Énfasis y simetría visual del título */
+    margin-bottom: var(--spacing-xl);   /* Margen inferior - Separación generosa del contenido */
+    padding-bottom: var(--spacing-lg);  /* Padding inferior - Espaciado interno del header */
+    border-bottom: 2px solid var(--primary-color); /* Borde inferior - Línea de marca prominente */
+    background: linear-gradient(135deg, var(--background-card) 0%, var(--background-card-alt) 100%); /* Degradado - Profundidad visual sutil */
+    border-radius: var(--border-radius-lg); /* Radio grande - Esquinas suaves modernas */
+    box-shadow: var(--shadow-md);       /* Sombra media - Elevación visual del header */
+}
+
+/* 
+  TÍTULO DE LA APLICACIÓN: Elemento principal de branding y identidad
+  TYPOGRAPHY: Escala tipográfica grande para jerarquía visual máxima
+  GRADIENT TEXT: Degradado en texto para efecto visual moderno
+  WEBKIT CLIP: Técnica para aplicar degradado como color de texto
+  BRAND IDENTITY: Color primario para reforzar identidad de marca
+  MICRO-TYPOGRAPHY: Letter-spacing y line-height optimizados para legibilidad
+*/
+.app-title {
+    font-size: 2.5rem;                  /* Tamaño grande - Jerarquía visual máxima para título principal */
+    font-weight: 700;                   /* Peso bold - Énfasis y presencia visual fuerte */
+    color: var(--primary-color);        /* Color primario - Fallback para navegadores sin gradient support */
+    margin: 0;                          /* Sin margen - Control preciso del espaciado */
+    padding: var(--spacing-lg) var(--spacing-md); /* Padding asimétrico - Más vertical para respiración */
+    text-shadow: 0 2px 4px rgba(37, 99, 235, 0.1); /* Sombra de texto - Profundidad sutil */
+    letter-spacing: 0.02em;             /* Espaciado de letras - Mejora legibilidad en tamaño grande */
+    line-height: 1.2;                   /* Interlineado compacto - Proporción óptima para títulos */
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color-darker) 100%); /* Degradado - Efecto visual moderno */
+    -webkit-background-clip: text;      /* Webkit clip - Aplica degradado como color de texto */
+    -webkit-text-fill-color: transparent; /* Webkit fill - Hace transparente el color base */
+    background-clip: text;              /* Standard clip - Soporte para navegadores modernos */
+    transition: var(--transition-normal); /* Transición - Suaviza cambios de tema */
+}
+
+/* 
+  CONTADOR DE PROMPTS: Indicador numérico de cantidad de elementos
+  SECONDARY: Tipografía y color secundarios para información contextual
+  INLINE: Display inline-block para flujo con texto adyacente
+  ALIGNMENT: Vertical-align middle para alineación con texto base
+*/
 .prompt-count {
-    margin-left: 10px;
-    font-size: 0.9em;
-    color: var(--text-color-secondary);
-    display: inline-block;
-    vertical-align: middle;
+    margin-left: var(--spacing-sm);     /* Margen izquierdo - Separación del elemento precedente */
+    font-size: var(--font-size-sm);    /* Fuente pequeña - Información secundaria */
+    color: var(--text-color-secondary); /* Color secundario - Jerarquía visual apropiada */
+    display: inline-block;              /* Display inline-block - Flujo con texto */
+    vertical-align: middle;             /* Alineación media - Centrado con texto adyacente */
 }
 
+/* 
+  RECORDATORIO DE EXPORTACIÓN: Indicador visual para acciones pendientes
+  WARNING COLOR: Color de advertencia para llamar la atención
+  ANIMATED: Animación pulse para énfasis visual continuo
+  ATTENTION-GRABBING: Diseñado para capturar atención del usuario
+*/
 .export-reminder {
-    margin-left: 10px;
-    font-size: 0.9em;
-    color: var(--warning-color, #f59e0b);
-    display: inline-block;
-    vertical-align: middle;
-    font-weight: 500;
-    animation: pulse 2s infinite;
+    margin-left: var(--spacing-sm);     /* Margen izquierdo - Separación del elemento precedente */
+    font-size: var(--font-size-sm);    /* Fuente pequeña - Información contextual */
+    color: var(--warning-color);        /* Color de advertencia - Demanda atención */
+    display: inline-block;              /* Display inline-block - Flujo con texto */
+    vertical-align: middle;             /* Alineación media - Centrado con texto adyacente */
+    font-weight: 500;                   /* Peso medio - Énfasis sin exceso */
+    animation: pulse 2s infinite;       /* Animación pulse - Atención visual continua */
 }
 
+/* 
+  ANIMACIÓN PULSE: Efecto de pulsación para elementos que requieren atención
+  KEYFRAMES: Transición suave de opacidad para efecto breathing
+  INFINITE: Loop continuo para mantener atención
+  SUBTLE: Rango de opacidad moderado para no ser intrusivo
+*/
 @keyframes pulse {
-    0% { opacity: 0.7; }
-    50% { opacity: 1; }
-    100% { opacity: 0.7; }
+    0% {
+        opacity: 0.7;                   /* Opacidad inicial - Estado semi-transparente */
+    }
+
+    50% {
+        opacity: 1;                     /* Opacidad máxima - Pico de visibilidad */
+    }
+
+    100% {
+        opacity: 0.7;                   /* Opacidad final - Retorno al estado inicial */
+    }
 }
 
-/* Sección de paginación unificada */
 .pagination-section {
     display: flex;
     justify-content: space-between;
@@ -63,7 +136,6 @@
     margin-left: var(--spacing-md);
 }
 
-/* Items de Prompt */
 .prompt-item {
     display: flex;
     flex-direction: column;
@@ -73,10 +145,11 @@
     border-radius: var(--border-radius-md);
     padding: var(--spacing-sm) var(--spacing-md);
     margin-bottom: var(--spacing-md);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    box-shadow: var(--shadow-sm);
     width: 100%;
     box-sizing: border-box;
     color: var(--text-color-primary);
+    transition: var(--transition-colors);
 }
 
 .prompt-item .prompt-text {
@@ -86,10 +159,9 @@
     word-break: break-word;
     padding: var(--spacing-xs);
     border-radius: var(--border-radius-sm);
-    transition: background-color 0.2s;
+    transition: background-color var(--transition-fast);
 }
 
-/* Solo los prompts expandibles tendrán cursor pointer y efectos de hover */
 .prompt-item .expandable-prompt {
     cursor: pointer;
     position: relative;
@@ -102,9 +174,9 @@
 .prompt-item .expandable-prompt:after {
     content: "⤵";
     position: absolute;
-    right: 5px;
-    bottom: 5px;
-    font-size: 0.8em;
+    right: var(--spacing-xs);
+    bottom: var(--spacing-xs);
+    font-size: var(--font-size-sm);
     opacity: 0.5;
     color: var(--primary-color);
 }
@@ -120,16 +192,17 @@
 .prompt-item .fav-btn {
     font-size: 1.3rem;
     background: none;
-    color: #fbbf24;
+    color: var(--warning-color);
     padding: 0 var(--spacing-sm);
     border: none;
     cursor: pointer;
-    transition: color 0.2s;
+    transition: color var(--transition-fast);
     margin-left: 0;
 }
 
 .prompt-item .fav-btn:hover {
-    color: #f59e42;
+    color: var(--warning-color);
+    opacity: 0.8;
     background: none;
     transform: none;
 }
@@ -143,7 +216,7 @@
     color: white;
     border-radius: var(--border-radius-sm);
     padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: 0.85em;
+    font-size: var(--font-size-sm);
     margin-right: var(--spacing-xs);
     display: inline-block;
     font-weight: 500;
@@ -151,7 +224,7 @@
 
 .prompt-item .date,
 .prompt-item .usage {
-    font-size: 0.9em;
+    font-size: var(--font-size-sm);
     color: var(--text-color-secondary);
     margin-left: var(--spacing-sm);
 }
@@ -171,7 +244,7 @@
 .prompt-actions .copy-btn,
 .prompt-actions .edit-btn {
     padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: 0.9em;
+    font-size: var(--font-size-sm);
 }
 
 .folder-item {
@@ -191,7 +264,7 @@
 }
 
 .folder-item button {
-    font-size: 0.95em;
+    font-size: var(--font-size-sm);
     padding: var(--spacing-xs) var(--spacing-sm);
     border-radius: var(--border-radius-sm);
 }
@@ -214,7 +287,7 @@
 }
 
 .folder-label-warning {
-    color: var(--warning-color, #f59e0b);
+    color: var(--warning-color);
     font-style: italic;
 }
 
@@ -236,10 +309,6 @@
     margin-left: auto;
 }
 
-/* 
-  Estas clases se utilizan dinámicamente en view.js para el formulario de edición de prompts
-  No aparecen en el HTML estático pero son necesarias
-*/
 .mb-prompt-form {
     width: 100%;
     margin-bottom: var(--spacing-md);
@@ -249,9 +318,6 @@
     margin-bottom: var(--spacing-xs);
 }
 
-/* Eliminar spinner y .btn.loading: ya no se usa feedback visual de carga para importación JSON */
-
-/* Línea divisoria entre prompts */
 .prompt-divider {
     border: 0;
     height: 2px;
@@ -261,7 +327,6 @@
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* Configuración con layout de dos columnas */
 .configuration {
     display: flex;
     justify-content: space-between;
@@ -283,7 +348,7 @@
 
 .copyright-info {
     text-align: right;
-    font-size: 0.85em;
+    font-size: var(--font-size-sm);
     color: var(--text-color-secondary);
 }
 
