@@ -19,8 +19,46 @@
 
 'use strict';
 
-// Centralización de mensajes de la app
+/**
+ * SISTEMA DE INTERNACIONALIZACIÓN (I18N)
+ * 
+ * PROPÓSITO: Gestión centralizada de traducciones y localización
+ * PATRÓN: Resource Bundle Pattern con estructura jerárquica
+ * IDIOMAS SOPORTADOS: Español (es) e Inglés (en)
+ * 
+ * ESTRUCTURA:
+ * - Mensajes base en español (compatibilidad hacia atrás)
+ * - Traducciones específicas por idioma en objetos anidados
+ * - Categorización por tipo: errors, success, confirm, ui
+ * 
+ * CARACTERÍSTICAS:
+ * - Interpolación de variables con placeholders {variable}
+ * - Funciones para mensajes dinámicos (pluralización)
+ * - Fallback automático a idioma base
+ * - Aplicación dinámica sin recarga de página
+ * 
+ * DEPENDENCIAS: Ninguna (debe cargarse temprano)
+ * CONSUMIDORES: Todos los módulos que muestran texto al usuario
+ */
+
+/**
+ * OBJETO PRINCIPAL DE MENSAJES
+ * 
+ * ESTRUCTURA JERÁRQUICA:
+ * - Nivel 1: Categorías (errors, success, confirm, ui)
+ * - Nivel 2: Claves específicas de mensaje
+ * - Nivel 3: Idiomas específicos (es, en)
+ * 
+ * COMPATIBILIDAD: Mensajes en raíz para compatibilidad hacia atrás
+ */
 window.MESSAGES = {
+  /**
+   * MENSAJES DE ERROR
+   * 
+   * CATEGORÍA: Errores de validación, persistencia, y operaciones
+   * INTERPOLACIÓN: Algunos mensajes usan {variable} para datos dinámicos
+   * CONTEXTO: Proporcionan información específica sobre qué falló
+   */
   errors: {
     promptTooLong: 'El prompt excede el límite de {max} caracteres.',
     mustCreateFolder: 'Primero debes crear una carpeta antes de añadir un prompt.',
@@ -41,6 +79,13 @@ window.MESSAGES = {
     storagePromptsQuota: 'Espacio de almacenamiento excedido. Intenta exportar y eliminar algunos prompts.',
     storageFoldersQuota: 'Espacio de almacenamiento excedido. Intenta exportar y eliminar algunos datos.',
   },
+  /**
+   * MENSAJES DE ÉXITO
+   * 
+   * CATEGORÍA: Confirmaciones de operaciones exitosas
+   * PROPÓSITO: Feedback positivo para acciones del usuario
+   * TONO: Conciso y confirmatorio
+   */
   success: {
     promptAdded: 'Prompt añadido correctamente',
     promptEdited: 'Prompt editado correctamente',
@@ -48,12 +93,21 @@ window.MESSAGES = {
     allDeleted: 'Todos los prompts y carpetas han sido eliminados',
     importOk: '¡Importación exitosa!'
   },
+  
+  /**
+   * MENSAJES DE CONFIRMACIÓN
+   * 
+   * CATEGORÍA: Diálogos de confirmación para acciones destructivas
+   * PROPÓSITO: Prevenir acciones accidentales con consecuencias irreversibles
+   * TONO: Claro sobre las consecuencias de la acción
+   */
   confirm: {
     deleteAll: '¿Seguro que deseas borrar TODOS los prompts y carpetas? Esta acción no se puede deshacer.',
     deletePrompt: '¿Seguro que deseas eliminar este prompt?',
     deleteFolder: '¿Seguro que deseas eliminar esta carpeta?'
   },
   ui: {
+    appTitle: 'ADMINISTRADOR DE PROMPTS',
     add: 'Añadir',
     createFolder: 'Crear carpeta',
     export: 'Exportar JSON',
@@ -153,6 +207,7 @@ window.MESSAGES = {
       deleteFolder: 'Are you sure you want to delete this folder?'
     },
     ui: {
+      appTitle: 'PROMPT MANAGER',
       add: 'Add',
       createFolder: 'Create folder',
       export: 'Export JSON',
@@ -221,61 +276,124 @@ window.MESSAGES = {
   }
 };
 
-// Internacionalización dinámica de textos UI
+/**
+ * APLICADOR DE TRADUCCIONES AL DOM
+ * 
+ * @param {string|null} lang - Código de idioma a aplicar (null = idioma actual)
+ * 
+ * PROPÓSITO: Traduce dinámicamente todos los elementos con atributos i18n
+ * PATRÓN: DOM traversal con attribute-based selection
+ * PERFORMANCE: Usa querySelectorAll para batch processing
+ * 
+ * ATRIBUTOS SOPORTADOS:
+ * - data-i18n: Traduce textContent/value del elemento
+ * - data-i18n-placeholder: Traduce atributo placeholder
+ * 
+ * MECÁNICA:
+ * 1. Resuelve diccionario según idioma especificado
+ * 2. Busca todos los elementos con atributos i18n
+ * 3. Extrae clave de traducción del atributo
+ * 4. Aplica traducción según tipo de elemento
+ * 
+ * ROBUSTEZ: Maneja funciones dinámicas y elementos de formulario
+ */
 window.applyI18n = function (lang = null) {
+  // RESOLUCIÓN DE DICCIONARIO: Usa idioma específico o fallback a base
   let dict = window.MESSAGES && window.MESSAGES.ui ? window.MESSAGES.ui : {};
   if (lang && window.MESSAGES && window.MESSAGES[lang] && window.MESSAGES[lang].ui) {
     dict = window.MESSAGES[lang].ui;
   }
 
+  // TRADUCCIÓN DE CONTENIDO: Elementos con data-i18n
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
+    // EXTRACCIÓN DE CLAVE: Toma última parte después del punto
     let value = key && dict ? dict[key.split('.').pop()] : '';
+    
+    // MANEJO DE FUNCIONES: Para mensajes dinámicos (pluralización)
     if (typeof value === 'function') value = value(0);
+    
     if (value) {
+      // APLICACIÓN CONTEXTUAL: Diferentes propiedades según tipo de elemento
       if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
-        el.value = value;
+        el.value = value; // ELEMENTOS DE FORMULARIO: Usa value
       } else {
-        el.innerText = value;
+        el.innerText = value; // ELEMENTOS NORMALES: Usa innerText (seguro contra XSS)
       }
     }
   });
 
+  // TRADUCCIÓN DE PLACEHOLDERS: Elementos con data-i18n-placeholder
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const key = el.getAttribute('data-i18n-placeholder');
     let value = key && dict ? dict[key.split('.').pop()] : '';
+    
+    // MANEJO DE FUNCIONES: Consistente con traducción de contenido
     if (typeof value === 'function') value = value(0);
+    
+    // APLICACIÓN: Establece atributo placeholder
     if (value) el.setAttribute('placeholder', value);
   });
 };
 
-// Función para inicializar el idioma (será llamada desde app.js)
+/**
+ * INICIALIZADOR DEL SISTEMA DE IDIOMAS
+ * 
+ * PROPÓSITO: Configuración inicial del idioma y setup de cambio dinámico
+ * RESPONSABILIDADES:
+ * 1. Cargar idioma guardado desde localStorage
+ * 2. Aplicar traducciones iniciales
+ * 3. Configurar selector de idioma
+ * 4. Setup de event listener para cambios de idioma
+ * 5. Re-renderizado de componentes tras cambio de idioma
+ * 
+ * PATRÓN: Initialization + Event Setup con side effects coordinados
+ * TIMING: Llamado desde App.init() después de cargar modelos
+ */
 window.initLanguage = function() {
-  // Usar fallback si STORAGE_KEYS no está disponible
+  // RESOLUCIÓN DE CLAVE: Usa constante o fallback
   const storageKey = (window.STORAGE_KEYS && window.STORAGE_KEYS.LANG) ? window.STORAGE_KEYS.LANG : 'appLang';
   
+  // CARGA DE IDIOMA: Desde localStorage o español por defecto
   let lang = localStorage.getItem(storageKey) || 'es';
-  window.currentLang = lang;
+  window.currentLang = lang; // VARIABLE GLOBAL: Para acceso desde otros módulos
   
-  // Aplicar idioma primero
+  // APLICACIÓN INICIAL: Traduce toda la interfaz
   window.applyI18n(lang);
   
-  // Luego configurar el selector
+  // CONFIGURACIÓN DEL SELECTOR: Setup del dropdown de idiomas
   const langSelect = document.getElementById('language-select');
   if (langSelect) {
+    // SINCRONIZACIÓN: Establece valor actual en el selector
     langSelect.value = lang;
     
-    // Añadir event listener para cambios de idioma
+    /**
+     * EVENT LISTENER PARA CAMBIO DE IDIOMA
+     * 
+     * RESPONSABILIDADES:
+     * 1. Persistir nueva selección
+     * 2. Actualizar variable global
+     * 3. Re-traducir interfaz
+     * 4. Re-renderizar componentes dinámicos
+     * 5. Cancelar ediciones en progreso
+     * 
+     * SIDE EFFECTS: Múltiples componentes deben actualizarse
+     */
     langSelect.addEventListener('change', function () {
       const storageKey = (window.STORAGE_KEYS && window.STORAGE_KEYS.LANG) ? window.STORAGE_KEYS.LANG : 'appLang';
+      
+      // PERSISTENCIA: Guarda nueva selección
       localStorage.setItem(storageKey, this.value);
       window.currentLang = this.value;
+      
+      // RE-TRADUCCIÓN: Aplica nuevo idioma a toda la interfaz
       window.applyI18n(this.value);
 
+      // CLEANUP DE ESTADO: Cancela ediciones en progreso
       if (window.View) {
         window.View.editingPromptId = null;
         
-        // Actualizar selectores con el nuevo idioma
+        // RE-RENDERIZADO DE SELECTORES: Actualiza opciones traducidas
         if (typeof window.View.updateFolderSelect === 'function') {
           window.View.updateFolderSelect(window.FoldersModel.folders);
         }
@@ -287,10 +405,12 @@ window.initLanguage = function() {
         }
       }
 
+      // RE-RENDERIZADO DE COMPONENTES: Actualiza listas con nuevas traducciones
       if (window.View && typeof window.View.renderFolders === 'function') {
         window.View.renderFolders(window.FoldersModel.folders, window.PromptsModel.prompts);
       }
 
+      // RE-RENDERIZADO DE PAGINACIÓN: Actualiza controles de paginación
       if (window.PaginationController) {
         window.PaginationController.renderPromptsWithPagination();
       }
