@@ -18,12 +18,41 @@
  -->
 
 <!DOCTYPE html>
+<!-- 
+  ARQUITECTURA SEMÁNTICA: Documento HTML5 que implementa una aplicación SPA (Single Page Application)
+  para gestión de prompts de IA con arquitectura MVC modular y sistema de eventos desacoplado.
+  
+  FLUJO DE DEPENDENCIAS CRÍTICAS:
+  1. CSS: variables.css → utilities.css → base.css → layout.css → components.css → modals.css → responsive.css → dark-mode.css
+  2. JS: constants.js → eventBus.js → performance.js → utils.js → domUtils.js → i18n.js → storage.js → models → view.js → controllers → controller.js → app.js
+  
+  PATRONES DE DISEÑO IMPLEMENTADOS:
+  - MVC (Model-View-Controller): Separación clara de responsabilidades
+  - Observer Pattern: EventBus para comunicación inter-módulos
+  - Module Pattern: Encapsulación de funcionalidades en namespaces globales
+  - Strategy Pattern: Múltiples controladores especializados
+  - Factory Pattern: Generación dinámica de elementos DOM
+-->
 <html lang="es">
 
 <head>
+  <!-- CONFIGURACIÓN DE CODIFICACIÓN Y VIEWPORT: UTF-8 para soporte internacional, viewport responsive -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prompt Manager</title>
+  
+  <!-- 
+    JERARQUÍA DE ESTILOS CSS: Orden crítico para cascada correcta
+    1. variables.css: Definición de custom properties CSS para theming
+    2. utilities.css: Clases de utilidad atómicas
+    3. base.css: Reset CSS y estilos base
+    4. layout.css: Sistema de layout con CSS Grid/Flexbox
+    5. forms.css: Estilos específicos para elementos de formulario
+    6. components.css: Componentes reutilizables
+    7. modals.css: Sistema modal con overlay y accesibilidad
+    8. responsive.css: Media queries para adaptabilidad
+    9. dark-mode.css: Implementación de tema oscuro con data-theme
+  -->
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/utilities.css">
   <link rel="stylesheet" href="css/base.css">
@@ -36,74 +65,153 @@
 </head>
 
 <body>
+  <!-- 
+    ESTRUCTURA SEMÁNTICA PRINCIPAL: Elemento <main> como contenedor principal para accesibilidad
+    ARIA LANDMARKS: Navegación semántica para lectores de pantalla
+  -->
   <main>
+    <!-- 
+      HEADER SEMÁNTICO: Título principal con internacionalización
+      SISTEMA I18N: Atributo data-i18n vinculado a window.MESSAGES para traducción dinámica
+    -->
+    <header class="app-header">
+      <h1 class="app-title" data-i18n="ui.appTitle">ADMINISTRADOR DE PROMPTS</h1>
+    </header>
+
+    <!-- 
+      FORMULARIO PRINCIPAL DE CREACIÓN DE PROMPTS
+      CONTROLADOR: PromptFormController maneja eventos submit y validación
+      FLUJO DE DATOS: input → validación → PromptsModel.addPrompt() → Storage.savePrompts() → View.renderPrompts()
+      ACCESIBILIDAD: Labels visualmente ocultos pero accesibles para screen readers
+    -->
     <form id="prompt-form">
+      <!-- TEXTAREA PRINCIPAL: Auto-resize implementado en View.attachAutoResize() -->
       <label for="prompt-input" class="visually-hidden" data-i18n="ui.newPromptLabel"></label>
       <textarea id="prompt-input" class="prompt-input" data-i18n-placeholder="ui.newPromptPlaceholder"
         placeholder="Escribe un nuevo prompt..." required></textarea>
+      
+      <!-- CONTENEDOR DE MENSAJES: Feedback visual para validaciones -->
       <div id="prompt-msg"></div>
+      
+      <!-- FILA DE CONTROLES: Tags, selector de carpeta y botón de envío -->
       <div class="prompt-form-row">
+        <!-- INPUT DE ETIQUETAS: Separación por comas, procesamiento en PromptFormController -->
         <label for="tags-input" class="visually-hidden" data-i18n="ui.tagsLabel"></label>
         <input type="text" id="tags-input" class="tags-input form-input-text" data-i18n-placeholder="ui.tagsPlaceholder"
           placeholder="Etiquetas (separadas por coma)">
+        
+        <!-- SELECTOR DE CARPETA: Poblado dinámicamente por View.updateFolderSelect() -->
         <label for="folder-select" class="visually-hidden" data-i18n="ui.selectFolderLabel"></label>
         <select id="folder-select" class="folder-select form-input-text">
           <option value="" disabled selected data-i18n="ui.selectFolderOption"></option>
         </select>
+        
+        <!-- BOTÓN DE ENVÍO: Trigger para validación y creación de prompt -->
         <button type="submit" class="btn btn-primary add-btn" data-i18n="ui.add"></button>
       </div>
     </form>
 
+    <!-- 
+      SECCIÓN DE GESTIÓN DE CARPETAS
+      CONTROLADOR: FoldersController maneja CRUD de carpetas
+      MODELO: FoldersModel almacena estructura jerárquica de carpetas
+      RENDERIZADO: View.renderFolders() con colapso dinámico para performance
+    -->
     <section id="folders-section" class="main-content-section">
+      <!-- FORMULARIO DE CREACIÓN DE CARPETAS: Validación de duplicados en FoldersModel.addFolder() -->
       <form id="folder-form">
         <label for="folder-input" class="visually-hidden" data-i18n="ui.newFolderLabel"></label>
         <input type="text" id="folder-input" class="form-input-text" data-i18n-placeholder="ui.newFolderPlaceholder"
           required>
         <button type="submit" class="btn btn-primary" data-i18n="ui.createFolder"></button>
+        
+        <!-- CONTADOR DINÁMICO: Actualizado por View.updateTotalPromptsAndReminder() -->
         <span id="total-prompts-count" class="prompt-count"></span>
       </form>
+      
+      <!-- CONTENEDOR DE LISTA DE CARPETAS: Renderizado dinámico con lazy loading -->
       <div id="folders-list"></div>
     </section>
 
+    <!-- 
+      SISTEMA DE FILTROS AVANZADO
+      CONTROLADOR: FiltersController gestiona estado de filtros y sincronización
+      PATRÓN OBSERVER: Cambios en filtros disparan re-renderizado automático
+      PERFORMANCE: Debounce en búsqueda de texto para optimizar consultas
+    -->
     <section id="filters" class="filters-section">
+      <!-- FILA DE BÚSQUEDA: Input de texto con debounce y botón de limpieza -->
       <div class="filters-search-row">
         <label for="search-input" class="visually-hidden" data-i18n="ui.searchLabel"></label>
         <input type="text" id="search-input" class="search-input" data-i18n-placeholder="ui.searchPlaceholder">
         <button type="button" class="btn btn-primary" id="clear-filters-btn" data-i18n="ui.clearFilters"></button>
       </div>
+      
+      <!-- FILA DE FILTROS ESPECÍFICOS: Selectores dinámicos poblados por View -->
       <div class="filters-row">
+        <!-- FILTRO POR ETIQUETAS: Opciones generadas dinámicamente desde prompts existentes -->
         <label for="tag-filter" class="visually-hidden" data-i18n="ui.filterByTag"></label>
         <select id="tag-filter" class="tag-filter form-input-text">
           <option value="" data-i18n="ui.allTags"></option>
         </select>
+        
+        <!-- FILTRO POR CARPETAS: Sincronizado con FoldersModel.folders -->
         <label for="folder-filter" class="visually-hidden" data-i18n="ui.filterByFolder"></label>
         <select id="folder-filter" class="folder-filter form-input-text">
           <option value="" data-i18n="ui.allFolders"></option>
         </select>
+        
+        <!-- FILTRO DE ORDENAMIENTO: Múltiples criterios (creación, edición, uso) -->
         <label for="order-filter" class="visually-hidden" data-i18n="ui.orderBy"></label>
         <select id="order-filter" class="order-filter form-input-text">
           <option value="" data-i18n="ui.orderByCreated"></option>
           <option value="updatedAt" data-i18n="ui.orderByEdited"></option>
           <option value="usage" data-i18n="ui.orderByUsage"></option>
         </select>
+        
+        <!-- FILTRO DE FAVORITOS: Checkbox para mostrar solo prompts marcados -->
         <label for="fav-filter"><input type="checkbox" id="fav-filter"> <span
             data-i18n="ui.onlyFavorites"></span></label>
       </div>
     </section>
 
+    <!-- 
+      SECCIÓN DE IMPORTACIÓN/EXPORTACIÓN
+      CONTROLADOR: ImportExportController maneja File System Access API y FileReader API
+      FUNCIONALIDADES: Exportación filtrada, importación con validación, backup automático
+      FORMATOS: JSON estructurado con validación de esquema
+    -->
     <section id="import-export-section" class="main-content-section">
+      <!-- INFORMACIÓN CONTEXTUAL: Explica comportamiento de exportación filtrada -->
       <div class="import-export-info" data-i18n="ui.exportInfo"></div>
+      
+      <!-- BOTÓN DE EXPORTACIÓN: Usa File System Access API con fallback a download -->
       <button id="export-json-btn" class="btn btn-primary" data-i18n="ui.export"></button>
+      
+      <!-- INPUT DE ARCHIVO OCULTO: Trigger para importación de JSON -->
       <input type="file" id="import-json-input" accept="application/json" style="display:none">
       <button id="import-json-btn" class="btn btn-primary" data-i18n="ui.import"></button>
+      
+      <!-- BOTÓN DE ELIMINACIÓN TOTAL: Confirmación modal obligatoria -->
       <button id="delete-all-prompts-btn" class="btn btn-danger delete-btn" data-i18n="ui.deleteAll"></button>
+      
+      <!-- CONTENEDORES DE MENSAJES: Feedback de operaciones de I/O -->
       <span id="import-msg"></span>
       <span id="export-reminder" class="export-reminder"></span>
     </section>
 
-    <section id="import-choice-panel" class="import-choice-panel modal-content-base" style="display:none;" role="dialog"
-      aria-modal="true" aria-labelledby="import-choice-msg" tabindex="-1">
+    <!-- 
+      PANEL MODAL DE ELECCIÓN DE IMPORTACIÓN
+      PATRÓN MODAL: Overlay con focus trap y escape handling
+      OPCIONES: Reemplazar (destructivo) vs Fusionar (aditivo)
+      ACCESIBILIDAD: role="dialog", aria-modal, aria-labelledby para screen readers
+    -->
+    <section id="import-choice-panel" class="import-choice-panel modal-content-base" role="dialog" aria-modal="true"
+      aria-labelledby="import-choice-msg" tabindex="-1" style="display:none;">
+      <!-- MENSAJE EXPLICATIVO: Contexto para decisión del usuario -->
       <div class="modal-msg" id="import-choice-msg" data-i18n="ui.importChoiceMsg"></div>
+      
+      <!-- ACCIONES MODALES: Botones con aria-label para accesibilidad -->
       <div class="modal-actions">
         <button class="btn btn-primary accept-btn" id="import-choice-replace" aria-label="Reemplazar"
           data-i18n="ui.replace"></button>
@@ -114,17 +222,40 @@
       </div>
     </section>
 
+    <!-- 
+      CONTENEDOR PRINCIPAL DE PROMPTS
+      CONTROLADOR: PromptContainerController maneja interacciones CRUD
+      RENDERIZADO DINÁMICO: View.renderPrompts() con paginación y filtros aplicados
+      PERFORMANCE: Lazy loading y virtual scrolling para grandes datasets
+    -->
     <section id="prompt-container" class="main-content-section">
     </section>
 
-    <!-- Nueva sección unificada de paginación -->
+    <!-- 
+      SISTEMA DE PAGINACIÓN
+      CONTROLADOR: PaginationController gestiona navegación y elementos por página
+      OPTIMIZACIÓN: Reduce carga DOM para grandes colecciones de prompts
+      ACCESIBILIDAD: Navegación con teclado y aria-labels
+    -->
     <section id="pagination-section" class="pagination-section">
+      <!-- CONTENEDOR DE CONTROLES DE PAGINACIÓN: Botones prev/next y números de página -->
       <div id="pagination-container"></div>
+      <!-- SELECTOR DE ELEMENTOS POR PÁGINA: 5, 10, 20, 50, 100 opciones -->
       <div id="per-page-container"></div>
     </section>
 
+    <!-- 
+      SECCIÓN DE CONFIGURACIÓN GLOBAL
+      FUNCIONALIDADES: Tema oscuro/claro, selección de idioma, información de copyright
+      PERSISTENCIA: Preferencias guardadas en localStorage
+    -->
     <section id="configuration" class="configuration">
       <div class="config-left">
+        <!-- 
+          TOGGLE DE MODO OSCURO
+          IMPLEMENTACIÓN: CSS custom properties con data-theme attribute
+          PERSISTENCIA: Storage.saveDarkModePreference() y Storage.getDarkModePreference()
+        -->
         <div class="config-item dark-mode-switch">
           <label for="dark-mode-toggle">
             <span class="switch">
@@ -134,6 +265,12 @@
             <span data-i18n="ui.darkMode"></span>
           </label>
         </div>
+        
+        <!-- 
+          SELECTOR DE IDIOMA
+          SISTEMA I18N: window.MESSAGES con soporte es/en
+          CAMBIO DINÁMICO: window.applyI18n() re-traduce toda la interfaz
+        -->
         <div class="config-item" id="language-switcher-container">
           <label for="language-select" class="config-label" data-i18n="ui.language"></label>
           <select id="language-select" class="config-select">
@@ -141,12 +278,14 @@
             <option value="en">English</option>
           </select>
         </div>
-        <!-- Los selectores de configuración se insertarán aquí -->
       </div>
+      
+      <!-- INFORMACIÓN DE COPYRIGHT Y ENLACES EXTERNOS -->
       <div class="config-right">
         <div class="copyright-info">
           <p>© CREARED.EDU.CO</p>
-          <a href="https://github.com/CREARED-EDU-CO/Prompts-Manager/" target="_blank" rel="noopener noreferrer" data-i18n="ui.downloadFromGitHub">
+          <a href="https://github.com/CREARED-EDU-CO/Prompts-Manager/" target="_blank" rel="noopener noreferrer"
+            data-i18n="ui.downloadFromGitHub">
             📥 Descargar desde GitHub
           </a>
         </div>
@@ -154,9 +293,19 @@
     </section>
   </main>
 
+  <!-- 
+    MODAL DE CONFIRMACIÓN GLOBAL
+    PATRÓN MODAL: Sistema reutilizable para confirmaciones críticas
+    IMPLEMENTACIÓN: window.showConfirmModal() retorna Promise<boolean>
+    ACCESIBILIDAD: Focus trap, escape handling, aria attributes
+    USO: Eliminación de prompts, carpetas, y operaciones destructivas
+  -->
   <div id="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-msg" tabindex="-1">
     <div class="modal-box modal-content-base">
+      <!-- MENSAJE DINÁMICO: Contenido establecido por showConfirmModal(msg) -->
       <div class="modal-msg" id="confirm-modal-msg"></div>
+      
+      <!-- ACCIONES MODALES: Aceptar/Cancelar con cleanup automático -->
       <div class="modal-actions">
         <button class="btn btn-primary accept-btn" id="confirm-modal-accept" data-i18n="ui.accept">Aceptar</button>
         <button class="btn btn-secondary cancel-btn" id="confirm-modal-cancel" data-i18n="ui.cancel">Cancelar</button>
@@ -164,26 +313,56 @@
     </div>
   </div>
 
+  <!-- 
+    SISTEMA DE NOTIFICACIONES TOAST
+    IMPLEMENTACIÓN: window.showToast(msg, type, opts)
+    TIPOS: 'success', 'error' con iconografía diferenciada
+    DURACIÓN: Configurable via window.CONFIG.TOAST_DURATION
+    AUTO-DISMISS: setTimeout con fade-out animation
+  -->
   <div id="toast" class="toast"></div>
 
-  <script src="js/constants.js"></script>
-  <script src="js/eventBus.js"></script>
-  <script src="js/performance.js"></script>
-  <script src="js/i18n.js"></script>
-  <script src="js/promptsModel.js"></script>
-  <script src="js/foldersModel.js"></script>
-  <script src="js/storage.js"></script>
-  <script src="js/domUtils.js"></script>
-  <script src="js/view.js"></script>
-  <script src="js/utils.js"></script>
-  <script src="js/controllers/paginationController.js"></script>
-  <script src="js/controllers/filtersController.js"></script>
-  <script src="js/controllers/promptFormController.js"></script>
-  <script src="js/controllers/promptContainerController.js"></script>
-  <script src="js/controllers/foldersController.js"></script>
-  <script src="js/controllers/importExportController.js"></script>
-  <script src="js/controller.js"></script>
-  <script src="js/app.js"></script>
+  <!-- 
+    JERARQUÍA DE CARGA DE SCRIPTS JAVASCRIPT
+    ORDEN CRÍTICO: Dependencias deben cargarse antes que sus consumidores
+    
+    CAPA 1 - FUNDAMENTOS: Constantes, eventos, performance, utilidades
+    CAPA 2 - INTERNACIONALIZACIÓN: Sistema de traducciones
+    CAPA 3 - PERSISTENCIA Y MODELOS: Storage, modelos de datos
+    CAPA 4 - VISTA: Renderizado y manipulación DOM
+    CAPA 5 - CONTROLADORES: Lógica de negocio especializada
+    CAPA 6 - COORDINACIÓN: Controlador principal y bootstrap
+  -->
+  
+  <!-- CAPA 1: FUNDAMENTOS Y UTILIDADES -->
+  <script src="js/constants.js"></script>        <!-- Configuración global y constantes -->
+  <script src="js/eventBus.js"></script>         <!-- Sistema de eventos pub/sub -->
+  <script src="js/performance.js"></script>      <!-- Utilidades de optimización -->
+  <script src="js/utils.js"></script>            <!-- Funciones de utilidad general -->
+  <script src="js/domUtils.js"></script>         <!-- Manipulación DOM optimizada -->
+
+  <!-- CAPA 2: INTERNACIONALIZACIÓN -->
+  <script src="js/i18n.js"></script>             <!-- Sistema de traducciones es/en -->
+
+  <!-- CAPA 3: PERSISTENCIA Y MODELOS DE DATOS -->
+  <script src="js/storage.js"></script>          <!-- Abstracción de localStorage -->
+  <script src="js/promptsModel.js"></script>     <!-- Modelo de datos de prompts -->
+  <script src="js/foldersModel.js"></script>     <!-- Modelo de datos de carpetas -->
+
+  <!-- CAPA 4: CAPA DE VISTA -->
+  <script src="js/view.js"></script>             <!-- Renderizado y UI management -->
+
+  <!-- CAPA 5: CONTROLADORES ESPECIALIZADOS -->
+  <script src="js/controllers/filtersController.js"></script>        <!-- Gestión de filtros -->
+  <script src="js/controllers/paginationController.js"></script>     <!-- Control de paginación -->
+  <script src="js/controllers/promptFormController.js"></script>     <!-- Formulario de prompts -->
+  <script src="js/controllers/promptContainerController.js"></script><!-- Contenedor de prompts -->
+  <script src="js/controllers/foldersController.js"></script>        <!-- Gestión de carpetas -->
+  <script src="js/controllers/importExportController.js"></script>   <!-- I/O de archivos -->
+  
+  <!-- CAPA 6: COORDINACIÓN Y BOOTSTRAP -->
+  <script src="js/controller.js"></script>       <!-- Controlador principal MVC -->
+  <script src="js/app.js"></script>              <!-- Bootstrap y inicialización -->
 </body>
 
 </html>
