@@ -54,7 +54,7 @@ window.PromptContainerController = {
   /**
    * INICIALIZADOR DEL CONTROLADOR
    * 
-   * @param {Function} renderAndUpdateFiltersCb - Callback para actualización global
+   * @param {Function} renderAndUpdateFiltersCb Callback para actualización global
    * 
    * PATRÓN: Dependency validation + Element caching + Event delegation setup
    * VALIDACIÓN: Verifica dependencias críticas antes de proceder
@@ -155,7 +155,7 @@ window.PromptContainerController = {
   /**
    * MANEJADOR DE CLICK EN TEXTO DE PROMPT
    * 
-   * @param {HTMLElement} target - Elemento clickeado
+   * @param {HTMLElement} target Elemento clickeado
    * @returns {boolean} true si manejó el evento, false si no aplica
    * 
    * PROPÓSITO: Detectar y manejar expansión/colapso de texto largo
@@ -178,7 +178,7 @@ window.PromptContainerController = {
   /**
    * MANEJADOR DE BOTÓN DE EDICIÓN
    * 
-   * @param {string} id - ID del prompt a editar
+   * @param {string} id ID del prompt a editar
    * 
    * PATRÓN: State change + DOM replacement + Focus management
    * RESPONSABILIDADES:
@@ -281,8 +281,8 @@ window.PromptContainerController = {
   /**
    * MANEJADOR DE ELIMINACIÓN DE PROMPT
    * 
-   * @param {string} id - ID del prompt a eliminar
-   * @param {Function} renderAndUpdateFiltersCb - Callback de actualización global
+   * @param {string} id ID del prompt a eliminar
+   * @param {Function} renderAndUpdateFiltersCb Callback de actualización global
    * 
    * PATRÓN: Confirmation + Action + Feedback + Update
    * FLUJO ASÍNCRONO:
@@ -314,8 +314,8 @@ window.PromptContainerController = {
   /**
    * MANEJADOR DE TOGGLE DE FAVORITO
    * 
-   * @param {string} id - ID del prompt a marcar/desmarcar
-   * @param {Function} renderAndUpdateFiltersCb - Callback de actualización global
+   * @param {string} id ID del prompt a marcar/desmarcar
+   * @param {Function} renderAndUpdateFiltersCb Callback de actualización global
    * 
    * PATRÓN: Toggle + Update (operación idempotente)
    * FUNCIONALIDAD: Alterna estado favorito del prompt
@@ -332,9 +332,9 @@ window.PromptContainerController = {
   /**
    * MANEJADOR DE COPIADO AL PORTAPAPELES
    * 
-   * @param {string} id - ID del prompt a copiar
-   * @param {HTMLElement} target - Botón que disparó la acción
-   * @param {Function} renderAndUpdateFiltersCb - Callback de actualización global
+   * @param {string} id ID del prompt a copiar
+   * @param {HTMLElement} target Botón que disparó la acción
+   * @param {Function} renderAndUpdateFiltersCb Callback de actualización global
    * 
    * PATRÓN: Async operation + Visual feedback + Usage tracking + Error handling
    * FUNCIONALIDADES:
