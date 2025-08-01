@@ -21,7 +21,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prompt Manager</title>
-  
+
   <!-- 
     JERARQUÍA DE ESTILOS CSS: Orden crítico para cascada correcta
     1. variables.css: Definición de custom properties CSS para theming
@@ -70,23 +70,23 @@
       <label for="prompt-input" class="visually-hidden" data-i18n="ui.newPromptLabel"></label>
       <textarea id="prompt-input" class="prompt-input" data-i18n-placeholder="ui.newPromptPlaceholder"
         placeholder="Escribe un nuevo prompt..." required></textarea>
-      
+
       <!-- CONTENEDOR DE MENSAJES: Feedback visual para validaciones -->
       <div id="prompt-msg"></div>
-      
+
       <!-- FILA DE CONTROLES: Tags, selector de carpeta y botón de envío -->
       <div class="prompt-form-row">
         <!-- INPUT DE ETIQUETAS: Separación por comas, procesamiento en PromptFormController -->
         <label for="tags-input" class="visually-hidden" data-i18n="ui.tagsLabel"></label>
         <input type="text" id="tags-input" class="tags-input form-input-text" data-i18n-placeholder="ui.tagsPlaceholder"
           placeholder="Etiquetas (separadas por coma)">
-        
+
         <!-- SELECTOR DE CARPETA: Poblado dinámicamente por View.updateFolderSelect() -->
         <label for="folder-select" class="visually-hidden" data-i18n="ui.selectFolderLabel"></label>
         <select id="folder-select" class="folder-select form-input-text">
           <option value="" disabled selected data-i18n="ui.selectFolderOption"></option>
         </select>
-        
+
         <!-- BOTÓN DE ENVÍO: Trigger para validación y creación de prompt -->
         <button type="submit" class="btn btn-primary add-btn" data-i18n="ui.add"></button>
       </div>
@@ -105,11 +105,11 @@
         <input type="text" id="folder-input" class="form-input-text" data-i18n-placeholder="ui.newFolderPlaceholder"
           required>
         <button type="submit" class="btn btn-primary" data-i18n="ui.createFolder"></button>
-        
+
         <!-- CONTADOR DINÁMICO: Actualizado por View.updateTotalPromptsAndReminder() -->
         <span id="total-prompts-count" class="prompt-count"></span>
       </form>
-      
+
       <!-- CONTENEDOR DE LISTA DE CARPETAS: Renderizado dinámico con lazy loading -->
       <div id="folders-list"></div>
     </section>
@@ -127,7 +127,7 @@
         <input type="text" id="search-input" class="search-input" data-i18n-placeholder="ui.searchPlaceholder">
         <button type="button" class="btn btn-primary" id="clear-filters-btn" data-i18n="ui.clearFilters"></button>
       </div>
-      
+
       <!-- FILA DE FILTROS ESPECÍFICOS: Selectores dinámicos poblados por View -->
       <div class="filters-row">
         <!-- FILTRO POR ETIQUETAS: Opciones generadas dinámicamente desde prompts existentes -->
@@ -135,13 +135,13 @@
         <select id="tag-filter" class="tag-filter form-input-text">
           <option value="" data-i18n="ui.allTags"></option>
         </select>
-        
+
         <!-- FILTRO POR CARPETAS: Sincronizado con FoldersModel.folders -->
         <label for="folder-filter" class="visually-hidden" data-i18n="ui.filterByFolder"></label>
         <select id="folder-filter" class="folder-filter form-input-text">
           <option value="" data-i18n="ui.allFolders"></option>
         </select>
-        
+
         <!-- FILTRO DE ORDENAMIENTO: Múltiples criterios (creación, edición, uso) -->
         <label for="order-filter" class="visually-hidden" data-i18n="ui.orderBy"></label>
         <select id="order-filter" class="order-filter form-input-text">
@@ -149,7 +149,7 @@
           <option value="updatedAt" data-i18n="ui.orderByEdited"></option>
           <option value="usage" data-i18n="ui.orderByUsage"></option>
         </select>
-        
+
         <!-- FILTRO DE FAVORITOS: Checkbox para mostrar solo prompts marcados -->
         <label for="fav-filter"><input type="checkbox" id="fav-filter"> <span
             data-i18n="ui.onlyFavorites"></span></label>
@@ -165,17 +165,17 @@
     <section id="import-export-section" class="main-content-section">
       <!-- INFORMACIÓN CONTEXTUAL: Explica comportamiento de exportación filtrada -->
       <div class="import-export-info" data-i18n="ui.exportInfo"></div>
-      
+
       <!-- BOTÓN DE EXPORTACIÓN: Usa File System Access API con fallback a download -->
       <button id="export-json-btn" class="btn btn-primary" data-i18n="ui.export"></button>
-      
+
       <!-- INPUT DE ARCHIVO OCULTO: Trigger para importación de JSON -->
       <input type="file" id="import-json-input" accept="application/json" style="display:none">
       <button id="import-json-btn" class="btn btn-primary" data-i18n="ui.import"></button>
-      
+
       <!-- BOTÓN DE ELIMINACIÓN TOTAL: Confirmación modal obligatoria -->
       <button id="delete-all-prompts-btn" class="btn btn-danger delete-btn" data-i18n="ui.deleteAll"></button>
-      
+
       <!-- CONTENEDORES DE MENSAJES: Feedback de operaciones de I/O -->
       <span id="import-msg"></span>
       <span id="export-reminder" class="export-reminder"></span>
@@ -191,7 +191,7 @@
       aria-labelledby="import-choice-msg" tabindex="-1" style="display:none;">
       <!-- MENSAJE EXPLICATIVO: Contexto para decisión del usuario -->
       <div class="modal-msg" id="import-choice-msg" data-i18n="ui.importChoiceMsg"></div>
-      
+
       <!-- ACCIONES MODALES: Botones con aria-label para accesibilidad -->
       <div class="modal-actions">
         <button class="btn btn-primary accept-btn" id="import-choice-replace" aria-label="Reemplazar"
@@ -246,7 +246,7 @@
             <span data-i18n="ui.darkMode"></span>
           </label>
         </div>
-        
+
         <!-- 
           SELECTOR DE IDIOMA
           SISTEMA I18N: window.MESSAGES con soporte es/en
@@ -260,7 +260,7 @@
           </select>
         </div>
       </div>
-      
+
       <!-- INFORMACIÓN DE COPYRIGHT Y ENLACES EXTERNOS -->
       <div class="config-right">
         <div class="copyright-info">
@@ -285,7 +285,7 @@
     <div class="modal-box modal-content-base">
       <!-- MENSAJE DINÁMICO: Contenido establecido por showConfirmModal(msg) -->
       <div class="modal-msg" id="confirm-modal-msg"></div>
-      
+
       <!-- ACCIONES MODALES: Aceptar/Cancelar con cleanup automático -->
       <div class="modal-actions">
         <button class="btn btn-primary accept-btn" id="confirm-modal-accept" data-i18n="ui.accept">Aceptar</button>
@@ -314,38 +314,38 @@
     CAPA 5 - CONTROLADORES: Lógica de negocio especializada
     CAPA 6 - COORDINACIÓN: Controlador principal y bootstrap
   -->
-  
+
   <!-- CAPA 1: FUNDAMENTOS Y UTILIDADES -->
-  <script src="js/constants.js"></script>        <!-- Configuración global y constantes -->
-  <script src="js/eventBus.js"></script>         <!-- Sistema de eventos pub/sub -->
-  <script src="js/performance.js"></script>      <!-- Utilidades de optimización -->
-  <script src="js/utils.js"></script>            <!-- Funciones de utilidad general -->
-  <script src="js/domUtils.js"></script>         <!-- Manipulación DOM optimizada -->
+  <script src="js/constants.js"></script> <!-- Configuración global y constantes -->
+  <script src="js/eventBus.js"></script> <!-- Sistema de eventos pub/sub -->
+  <script src="js/performance.js"></script> <!-- Utilidades de optimización -->
+  <script src="js/utils.js"></script> <!-- Funciones de utilidad general -->
+  <script src="js/domUtils.js"></script> <!-- Manipulación DOM optimizada -->
 
   <!-- CAPA 2: INTERNACIONALIZACIÓN -->
-  <script src="js/i18n.js"></script>             <!-- Sistema de traducciones es/en -->
+  <script src="js/i18n.js"></script> <!-- Sistema de traducciones es/en -->
 
   <!-- CAPA 3: PERSISTENCIA Y MODELOS DE DATOS -->
-  <script src="js/storage.js"></script>          <!-- Abstracción de localStorage -->
-  <script src="js/promptsModel.js"></script>     <!-- Modelo de datos de prompts -->
-  <script src="js/foldersModel.js"></script>     <!-- Modelo de datos de carpetas -->
+  <script src="js/storage.js"></script> <!-- Abstracción de localStorage -->
+  <script src="js/promptsModel.js"></script> <!-- Modelo de datos de prompts -->
+  <script src="js/foldersModel.js"></script> <!-- Modelo de datos de carpetas -->
 
   <!-- CAPA 4: CAPA DE VISTA -->
-  <script src="js/view/core.js"></script>        <!-- Funcionalidades principales de renderizado -->
-  <script src="js/view/pagination.js"></script>  <!-- Sistema de paginación y filtros -->
-  <script src="js/view/folders.js"></script>     <!-- Gestión de carpetas y utilidades -->
+  <script src="js/view/core.js"></script> <!-- Funcionalidades principales de renderizado -->
+  <script src="js/view/pagination.js"></script> <!-- Sistema de paginación y filtros -->
+  <script src="js/view/folders.js"></script> <!-- Gestión de carpetas y utilidades -->
 
   <!-- CAPA 5: CONTROLADORES ESPECIALIZADOS -->
-  <script src="js/controllers/filtersController.js"></script>        <!-- Gestión de filtros -->
-  <script src="js/controllers/paginationController.js"></script>     <!-- Control de paginación -->
-  <script src="js/controllers/promptFormController.js"></script>     <!-- Formulario de prompts -->
+  <script src="js/controllers/filtersController.js"></script> <!-- Gestión de filtros -->
+  <script src="js/controllers/paginationController.js"></script> <!-- Control de paginación -->
+  <script src="js/controllers/promptFormController.js"></script> <!-- Formulario de prompts -->
   <script src="js/controllers/promptContainerController.js"></script><!-- Contenedor de prompts -->
-  <script src="js/controllers/foldersController.js"></script>        <!-- Gestión de carpetas -->
-  <script src="js/controllers/importExportController.js"></script>   <!-- I/O de archivos -->
-  
+  <script src="js/controllers/foldersController.js"></script> <!-- Gestión de carpetas -->
+  <script src="js/controllers/importExportController.js"></script> <!-- I/O de archivos -->
+
   <!-- CAPA 6: COORDINACIÓN Y BOOTSTRAP -->
-  <script src="js/controller.js"></script>       <!-- Controlador principal MVC -->
-  <script src="js/app.js"></script>              <!-- Bootstrap y inicialización -->
+  <script src="js/controller.js"></script> <!-- Controlador principal MVC -->
+  <script src="js/app.js"></script> <!-- Bootstrap y inicialización -->
 </body>
 
 </html>
