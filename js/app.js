@@ -16,7 +16,7 @@
  * 2. Inicialización de capa de persistencia y modelos
  * 3. Configuración de internacionalización
  * 4. Inicialización de vista y controladores
- * 5. Emisión de evento 'app:ready'
+ * 5. Emisión de evento APP_READY
  */
 const App = {
     /**
@@ -75,7 +75,7 @@ const App = {
             
             // FASE 5: NOTIFICACIÓN DE APLICACIÓN LISTA
             // EVENTO: Permite a otros módulos reaccionar cuando app está completamente inicializada
-            window.EventBus.emit('app:ready');
+            window.EventBus.emit(window.EVENTS.APP_INITIALIZED);
             
         } catch (error) {
             // ERROR HANDLING: Captura cualquier error de inicialización
