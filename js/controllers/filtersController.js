@@ -149,8 +149,8 @@ window.FiltersController = {
   /**
    * APLICADOR DE FILTRO CON RESET DE PAGINACIÓN
    * 
-   * @param {string} filterProperty - Propiedad del estado a actualizar
-   * @param {*} value - Nuevo valor para la propiedad
+   * @param {string} filterProperty Propiedad del estado a actualizar
+   * @param {*} value Nuevo valor para la propiedad
    * 
    * PATRÓN: State update + side effect coordination
    * LÓGICA: Cambio de filtro siempre resetea a página 1 (UX esperado)
