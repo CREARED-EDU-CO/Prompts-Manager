@@ -48,8 +48,8 @@ window.EventBus = {
   /**
    * REGISTRO DE CALLBACK PARA EVENTO
    * 
-   * @param {string} event - Nombre del evento a escuchar
-   * @param {Function} callback - Función a ejecutar cuando se dispare el evento
+   * @param {string} event Nombre del evento a escuchar
+   * @param {Function} callback Función a ejecutar cuando se dispare el evento
    * 
    * VALIDACIÓN: Verifica que callback sea función para evitar errores runtime
    * INICIALIZACIÓN LAZY: Crea Set solo cuando se necesita para memoria eficiente
@@ -74,8 +74,8 @@ window.EventBus = {
   /**
    * EMISIÓN DE EVENTO CON DATOS
    * 
-   * @param {string} event - Nombre del evento a disparar
-   * @param {*} data - Datos a pasar a los callbacks
+   * @param {string} event Nombre del evento a disparar
+   * @param {*} data Datos a pasar a los callbacks
    * 
    * OPTIMIZACIÓN UI: Eventos de UI se ejecutan en requestAnimationFrame
    * DETECCIÓN AUTOMÁTICA: Eventos con 'ui:' o 'view:' se consideran de UI
@@ -104,9 +104,9 @@ window.EventBus = {
   /**
    * EJECUCIÓN SEGURA DE CALLBACKS
    * 
-   * @param {Set<Function>} callbacks - Set de funciones a ejecutar
-   * @param {*} data - Datos a pasar a cada callback
-   * @param {string} event - Nombre del evento (para logging de errores)
+   * @param {Set<Function>} callbacks Set de funciones a ejecutar
+   * @param {*} data Datos a pasar a cada callback
+   * @param {string} event Nombre del evento (para logging de errores)
    * 
    * ERROR ISOLATION: Try/catch individual previene que un callback roto afecte otros
    * LOGGING: Errores se reportan con contexto del evento para debugging
@@ -126,8 +126,8 @@ window.EventBus = {
   /**
    * DESREGISTRO DE CALLBACK
    * 
-   * @param {string} event - Nombre del evento
-   * @param {Function} callback - Función específica a desregistrar
+   * @param {string} event Nombre del evento
+   * @param {Function} callback Función específica a desregistrar
    * 
    * LIMPIEZA AUTOMÁTICA: Elimina evento completo si no quedan callbacks
    * PREVENCIÓN DE MEMORY LEAKS: Importante para componentes dinámicos
@@ -147,7 +147,7 @@ window.EventBus = {
   /**
    * LIMPIEZA DE EVENTOS
    * 
-   * @param {string} [event] - Evento específico a limpiar, o undefined para todos
+   * @param {string} [event] Evento específico a limpiar, o undefined para todos
    * 
    * FLEXIBILIDAD: Puede limpiar evento específico o todos los eventos
    * USO: Útil para cleanup en tests o reset de aplicación
