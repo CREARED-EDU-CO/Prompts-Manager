@@ -33,7 +33,7 @@
 /**
  * MODAL DE CONFIRMACIÓN GLOBAL
  * 
- * @param {string} msg - Mensaje a mostrar en el modal
+ * @param {string} msg Mensaje a mostrar en el modal
  * @returns {Promise<boolean>} Promise que resuelve true/false según elección del usuario
  * 
  * PATRÓN: Promise-based modal para API asíncrona limpia
@@ -54,15 +54,15 @@ window.showConfirmModal = function (msg) {
     const msgEl = document.getElementById('confirm-modal-msg');
     const acceptBtn = document.getElementById('confirm-modal-accept');
     const cancelBtn = document.getElementById('confirm-modal-cancel');
-    
+
     // CONFIGURACIÓN: Establece mensaje y muestra modal
     msgEl.textContent = msg;
     modal.classList.add('active');
-    
+
     /**
      * FUNCIÓN DE CLEANUP
      * 
-     * @param {boolean} result - Resultado de la confirmación
+     * @param {boolean} result Resultado de la confirmación
      * 
      * RESPONSABILIDADES:
      * - Oculta modal removiendo clase 'active'
@@ -75,11 +75,11 @@ window.showConfirmModal = function (msg) {
       cancelBtn.removeEventListener('click', onCancel);
       resolve(result);
     }
-    
+
     // HANDLERS: Funciones de callback para botones
     function onAccept() { cleanup(true); }   // CONFIRMACIÓN: Usuario acepta
     function onCancel() { cleanup(false); }  // CANCELACIÓN: Usuario cancela
-    
+
     // REGISTRO DE EVENTOS: Listeners temporales para esta instancia del modal
     acceptBtn.addEventListener('click', onAccept);
     cancelBtn.addEventListener('click', onCancel);
@@ -89,9 +89,9 @@ window.showConfirmModal = function (msg) {
 /**
  * SISTEMA DE NOTIFICACIONES TOAST
  * 
- * @param {string} msg - Mensaje a mostrar en la notificación
- * @param {string} type - Tipo de notificación ('success' | 'error')
- * @param {Object} opts - Opciones adicionales (icon, duration)
+ * @param {string} msg Mensaje a mostrar en la notificación
+ * @param {string} type Tipo de notificación ('success' | 'error')
+ * @param {Object} opts Opciones adicionales (icon, duration)
  * 
  * PATRÓN: Non-blocking notifications para feedback inmediato sin interrumpir flujo
  * IMPLEMENTACIÓN: DOM manipulation con auto-cleanup y animaciones CSS
@@ -131,12 +131,12 @@ window.showToast = function (msg, type = 'success', opts = {}) {
 
   // CONFIGURACIÓN DE DURACIÓN: Usa configuración global o override específico
   const duration = opts.duration || window.CONFIG.TOAST_DURATION;
-  
+
   // AUTO-DISMISS: Programación de ocultación con doble timeout para animación
   setTimeout(() => {
     // FASE 1: Inicia animación de fade-out removiendo clase 'visible'
     toast.classList.remove('visible');
-    
+
     // FASE 2: Cleanup final del DOM después de animación CSS (300ms)
     setTimeout(() => toast.innerHTML = '', 300);
   }, duration);
@@ -157,7 +157,7 @@ window.generateUUID = function () {
   if (window.crypto && window.crypto.randomUUID) {
     return window.crypto.randomUUID();
   }
-  
+
   // FALLBACK: Combinación timestamp + random para compatibilidad
   // FORMATO: timestamp-hexadecimal para unicidad temporal y aleatoriedad
   return Date.now().toString() + '-' + Math.random().toString(16).slice(2);
@@ -166,7 +166,7 @@ window.generateUUID = function () {
 /**
  * SANITIZACIÓN DE INPUT DE USUARIO
  * 
- * @param {string} str - String a sanitizar
+ * @param {string} str String a sanitizar
  * @returns {string} String sanitizado y normalizado
  * 
  * PROPÓSITO: Limpieza de input para prevenir problemas de formato y seguridad
@@ -180,11 +180,36 @@ window.generateUUID = function () {
 window.sanitizeInput = function (str) {
   // VALIDACIÓN DE TIPO: Retorna string vacío para inputs no-string
   if (typeof str !== 'string') return '';
-  
+
   return str
     .replace(/\s+/g, ' ')           // NORMALIZACIÓN: Múltiples espacios → espacio único
     .replace(/[\x00-\x1F\x7F]+/g, '') // SANITIZACIÓN: Remueve caracteres de control
     .trim();                        // LIMPIEZA: Remueve espacios de bordes
+};
+
+/**
+ * SANITIZACIÓN HTML PARA PREVENCIÓN XSS
+ * 
+ * @param {string} text Texto a sanitizar para uso seguro en HTML
+ * @returns {string} HTML escapado seguro para inserción en DOM
+ * 
+ * PROPÓSITO: Convierte texto plano en HTML escapado para prevenir XSS
+ * MECÁNICA:
+ * 1. Crea elemento temporal div
+ * 2. Asigna texto como textContent (escape automático del navegador)
+ * 3. Lee innerHTML (texto escapado como HTML válido)
+ * 
+ * SEGURIDAD: Utiliza escape automático del navegador para máxima seguridad
+ * USO: Mostrar contenido de usuario en HTML sin riesgo de inyección
+ */
+window.sanitizeHTML = function (text) {
+  // VALIDACIÓN DE TIPO: Retorna string vacío para inputs no-string
+  if (typeof text !== 'string') return '';
+
+  // ESCAPE SEGURO: Usa DOM API nativo para escape automático
+  const temp = document.createElement('div');
+  temp.textContent = text; // ESCAPE: Navegador escapa automáticamente
+  return temp.innerHTML;   // EXTRACCIÓN: HTML escapado seguro
 };
 
 /**
@@ -201,7 +226,7 @@ window.sanitizeInput = function (str) {
 window.getLocalizedMessages = function () {
   // DETECCIÓN DE IDIOMA: Usa idioma actual o fallback a español
   const currentLang = window.currentLang || 'es';
-  
+
   // CONSTRUCCIÓN DE OBJETO: Cada categoría con fallback a mensajes base
   return {
     errors: window.MESSAGES[currentLang]?.errors || window.MESSAGES.errors,
@@ -214,8 +239,8 @@ window.getLocalizedMessages = function () {
 /**
  * VALIDADOR DE DEPENDENCIAS DE MÓDULO
  * 
- * @param {string[]} dependencies - Array de nombres de dependencias requeridas
- * @param {string} moduleName - Nombre del módulo para logging
+ * @param {string[]} dependencies Array de nombres de dependencias requeridas
+ * @param {string} moduleName Nombre del módulo para logging
  * @returns {boolean} true si todas las dependencias están disponibles
  * 
  * PATRÓN: Dependency injection validation para inicialización segura
@@ -226,7 +251,7 @@ window.getLocalizedMessages = function () {
  */
 window.validateDependencies = function (dependencies, moduleName = 'Unknown') {
   const missing = []; // ACUMULADOR: Lista de dependencias faltantes
-  
+
   // VALIDACIÓN: Verifica existencia de cada dependencia en window object
   dependencies.forEach(dep => {
     if (!window[dep]) {
@@ -239,15 +264,15 @@ window.validateDependencies = function (dependencies, moduleName = 'Unknown') {
     console.error(`${moduleName}: Dependencias faltantes: ${missing.join(', ')}`);
     return false;
   }
-  
+
   return true; // SUCCESS: Todas las dependencias están disponibles
 };
 
 /**
  * FUNCIÓN DE ERROR GLOBAL
  * 
- * @param {string} msg - Mensaje de error a mostrar
- * @param {Object} opts - Opciones de configuración (log, icon, duration)
+ * @param {string} msg Mensaje de error a mostrar
+ * @param {Object} opts Opciones de configuración (log, icon, duration)
  * 
  * PATRÓN: Centralized error handling para consistencia en manejo de errores
  * FUNCIONALIDADES:
@@ -262,7 +287,7 @@ window.showError = function (msg, opts = {}) {
   if (window.showToast) {
     window.showToast(msg, 'error', opts);
   }
-  
+
   // LOGGING: Console.error para debugging (configurable via opts.log)
   if (opts && opts.log !== false) {
     console.error(msg);
