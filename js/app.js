@@ -106,7 +106,7 @@ const App = {
     /**
      * INICIALIZADOR DE MÓDULO INDIVIDUAL
      * 
-     * @param {string} moduleName - Nombre del módulo a inicializar
+     * @param {string} moduleName Nombre del módulo a inicializar
      * @returns {Promise} Promise que resuelve cuando módulo está inicializado
      * 
      * PATRÓN: Promise wrapper para inicialización uniforme de módulos
@@ -151,7 +151,7 @@ const App = {
     /**
      * MANEJADOR DE ERRORES DE INICIALIZACIÓN
      * 
-     * @param {Error} error - Error ocurrido durante inicialización
+     * @param {Error} error Error ocurrido durante inicialización
      * 
      * PROPÓSITO: Manejo centralizado de errores críticos de startup
      * ESTRATEGIA: Múltiples niveles de fallback para notificación
