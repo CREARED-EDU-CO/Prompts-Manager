@@ -24,18 +24,17 @@ window.FoldersController = {
   /**
    * INICIALIZADOR DEL CONTROLADOR
    * 
-   * @param {Function} renderAndUpdateFiltersCb Callback para actualización global (no usado aquí)
-   * 
-   * PATRÓN: Event delegation setup con múltiples tipos de eventos
+   * PATRÓN: Event-driven initialization sin dependency injection
    * ESTRATEGIA: Un listener por contenedor que maneja múltiples acciones
    * ROBUSTEZ: Event delegation funciona con elementos dinámicos
+   * DESACOPLAMIENTO: Los modelos disparan eventos automáticamente
    * 
    * EVENTOS CONFIGURADOS:
    * 1. Submit del formulario de creación
    * 2. Click delegation para botones de acción
    * 3. Submit delegation para formularios de edición
    */
-  init: function (renderAndUpdateFiltersCb) {
+  init: function () {
     /**
      * EVENT LISTENER PARA CREACIÓN DE CARPETAS
      * 
