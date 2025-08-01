@@ -45,7 +45,7 @@ window.ImportExportController = {
   /**
    * INICIALIZADOR DEL CONTROLADOR
    * 
-   * @param {Function} renderAndUpdateFiltersCb - Callback para actualización global tras importación
+   * @param {Function} renderAndUpdateFiltersCb Callback para actualización global tras importación
    * 
    * PATRÓN: Event binding para operaciones de archivo
    * ESTRATEGIA: Separación entre triggers de UI y lógica de I/O
@@ -272,7 +272,7 @@ window.ImportExportController = {
   /**
    * VALIDADOR DE DATOS DE IMPORTACIÓN
    * 
-   * @param {Object} data - Datos parseados del archivo JSON
+   * @param {Object} data Datos parseados del archivo JSON
    * @returns {boolean} true si datos son válidos, false si hay errores
    * 
    * PATRÓN: Schema validation con early returns
@@ -315,9 +315,9 @@ window.ImportExportController = {
   /**
    * REEMPLAZADOR DE DATOS (MODO DESTRUCTIVO)
    * 
-   * @param {Object} data - Datos importados validados
-   * @param {Function} renderAndUpdateFiltersCb - Callback de actualización global
-   * @param {Function} closePanelCb - Callback para cerrar modal
+   * @param {Object} data Datos importados validados
+   * @param {Function} renderAndUpdateFiltersCb Callback de actualización global
+   * @param {Function} closePanelCb Callback para cerrar modal
    * 
    * PATRÓN: Replace operation con persistencia y feedback
    * COMPORTAMIENTO: Elimina todos los datos existentes y los reemplaza
@@ -355,9 +355,9 @@ window.ImportExportController = {
   /**
    * FUSIONADOR DE DATOS (MODO ADITIVO)
    * 
-   * @param {Object} data - Datos importados validados
-   * @param {Function} renderAndUpdateFiltersCb - Callback de actualización global
-   * @param {Function} closePanelCb - Callback para cerrar modal
+   * @param {Object} data Datos importados validados
+   * @param {Function} renderAndUpdateFiltersCb Callback de actualización global
+   * @param {Function} closePanelCb Callback para cerrar modal
    * 
    * PATRÓN: Merge operation con deduplicación por ID
    * COMPORTAMIENTO: Combina datos existentes con importados
@@ -399,8 +399,8 @@ window.ImportExportController = {
   /**
    * CONFIGURADOR DE MODAL DE ELECCIÓN
    * 
-   * @param {Object} data - Datos validados listos para importar
-   * @param {Function} renderAndUpdateFiltersCb - Callback de actualización global
+   * @param {Object} data Datos validados listos para importar
+   * @param {Function} renderAndUpdateFiltersCb Callback de actualización global
    * 
    * PATRÓN: Modal setup con event binding dinámico
    * PROPÓSITO: Permite al usuario elegir entre reemplazar o fusionar datos
