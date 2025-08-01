@@ -97,8 +97,8 @@ window.PromptsModel = {
     /**
      * FILTRADOR Y ORDENADOR DE PROMPTS
      * 
-     * @param {Array} prompts - Array de prompts a filtrar
-     * @param {Object} filters - Objeto con criterios de filtrado
+     * @param {Array} prompts Array de prompts a filtrar
+     * @param {Object} filters Objeto con criterios de filtrado
      * @returns {Array} Array filtrado y ordenado
      * 
      * PATRÓN: Pure function que no modifica datos originales
@@ -158,7 +158,7 @@ window.PromptsModel = {
     /**
      * CREADOR DE NUEVO PROMPT
      * 
-     * @param {Object} prompt - Objeto prompt a añadir
+     * @param {Object} prompt Objeto prompt a añadir
      * @returns {boolean} true si creación exitosa, false si error
      * 
      * PATRÓN: Validation + Persistence con feedback inmediato
@@ -206,8 +206,8 @@ window.PromptsModel = {
     /**
      * EDITOR DE PROMPT EXISTENTE
      * 
-     * @param {string} id - ID del prompt a editar
-     * @param {Object} data - Datos a actualizar
+     * @param {string} id ID del prompt a editar
+     * @param {Object} data Datos a actualizar
      * @returns {boolean} true si edición exitosa, false si error
      * 
      * PATRÓN: Find + Validate + Merge + Persist
@@ -260,7 +260,7 @@ window.PromptsModel = {
     /**
      * ELIMINADOR DE PROMPT
      * 
-     * @param {string} id - ID del prompt a eliminar
+     * @param {string} id ID del prompt a eliminar
      * 
      * PATRÓN: Filter + Persist (operación destructiva)
      * MECÁNICA: Filtra array excluyendo el prompt con ID especificado
@@ -280,7 +280,7 @@ window.PromptsModel = {
     /**
      * TOGGLE DE ESTADO FAVORITO
      * 
-     * @param {string} id - ID del prompt a modificar
+     * @param {string} id ID del prompt a modificar
      * 
      * PATRÓN: Find + Toggle + Persist
      * FUNCIONALIDAD: Alterna estado favorito (true ↔ false)
@@ -304,7 +304,7 @@ window.PromptsModel = {
     /**
      * INCREMENTADOR DE CONTADOR DE USO
      * 
-     * @param {string} id - ID del prompt usado
+     * @param {string} id ID del prompt usado
      * 
      * PATRÓN: Find + Increment + Persist
      * PROPÓSITO: Tracking de frecuencia de uso para ordenamiento
