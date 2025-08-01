@@ -34,15 +34,24 @@
   TRANSITIONS: Suaviza cambios de tema y estados de focus
 */
 .form-input-text {
-    flex: 1 1 180px;                    /* Flex grow/shrink con base 180px - Adaptabilidad responsive */
-    min-width: 120px;                   /* Ancho mínimo - Previene colapso excesivo en pantallas pequeñas */
-    padding: var(--spacing-sm);         /* Padding uniforme - Espaciado interno cómodo para texto */
-    border: 1px solid var(--border-color); /* Borde estándar - Definición visual del campo */
-    border-radius: var(--border-radius-sm); /* Radio pequeño - Esquinas suaves sutiles */
-    font-size: var(--font-size-base);  /* Tamaño base - Legibilidad óptima para entrada de texto */
-    background-color: var(--background-card); /* Fondo de card - Diferenciación del fondo base */
-    color: var(--text-color-primary);  /* Color primario - Contraste óptimo para texto ingresado */
-    transition: var(--transition-colors); /* Transición de colores - Suaviza cambios de tema */
+  flex: 1 1 180px;
+  /* Flex grow/shrink con base 180px - Adaptabilidad responsive */
+  min-width: 120px;
+  /* Ancho mínimo - Previene colapso excesivo en pantallas pequeñas */
+  padding: var(--spacing-sm);
+  /* Padding uniforme - Espaciado interno cómodo para texto */
+  border: 1px solid var(--border-color);
+  /* Borde estándar - Definición visual del campo */
+  border-radius: var(--border-radius-sm);
+  /* Radio pequeño - Esquinas suaves sutiles */
+  font-size: var(--font-size-base);
+  /* Tamaño base - Legibilidad óptima para entrada de texto */
+  background-color: var(--background-card);
+  /* Fondo de card - Diferenciación del fondo base */
+  color: var(--text-color-primary);
+  /* Color primario - Contraste óptimo para texto ingresado */
+  transition: var(--transition-colors);
+  /* Transición de colores - Suaviza cambios de tema */
 }
 
 /* 
@@ -55,21 +64,36 @@
 */
 #prompt-input,
 .prompt-input {
-    width: 100%;                        /* Ancho completo - Ocupa todo el espacio disponible */
-    min-height: 3.5em;                  /* Altura mínima - Área de entrada adecuada para texto */
-    resize: none;                       /* Sin resize manual - Auto-resize controlado por JavaScript */
-    text-align: justify;                /* Justificación - Mejora legibilidad en texto largo */
-    overflow-y: hidden;                 /* Overflow Y oculto - Permite auto-resize sin scrollbars */
-    font-size: var(--font-size-base);  /* Tamaño base - Legibilidad óptima para entrada de texto */
-    padding: var(--spacing-sm);         /* Padding uniforme - Espaciado interno cómodo */
-    border: 1px solid var(--border-color); /* Borde estándar - Definición visual del campo */
-    border-radius: var(--border-radius-sm); /* Radio pequeño - Esquinas suaves sutiles */
-    box-sizing: border-box;             /* Border-box - Incluye padding y border en dimensiones */
-    line-height: 1.5;                   /* Interlineado - Legibilidad óptima para texto multilínea */
-    margin-bottom: var(--spacing-sm);   /* Margen inferior - Separación de elementos siguientes */
-    color: var(--text-color-primary);  /* Color primario - Contraste óptimo para texto */
-    background-color: var(--background-card); /* Fondo de card - Diferenciación visual */
-    transition: var(--transition-colors); /* Transición - Suaviza cambios de tema */
+  width: 100%;
+  /* Ancho completo - Ocupa todo el espacio disponible */
+  min-height: 3.5em;
+  /* Altura mínima - Área de entrada adecuada para texto */
+  resize: none;
+  /* Sin resize manual - Auto-resize controlado por JavaScript */
+  text-align: justify;
+  /* Justificación - Mejora legibilidad en texto largo */
+  overflow-y: hidden;
+  /* Overflow Y oculto - Permite auto-resize sin scrollbars */
+  font-size: var(--font-size-base);
+  /* Tamaño base - Legibilidad óptima para entrada de texto */
+  padding: var(--spacing-sm);
+  /* Padding uniforme - Espaciado interno cómodo */
+  border: 1px solid var(--border-color);
+  /* Borde estándar - Definición visual del campo */
+  border-radius: var(--border-radius-sm);
+  /* Radio pequeño - Esquinas suaves sutiles */
+  box-sizing: border-box;
+  /* Border-box - Incluye padding y border en dimensiones */
+  line-height: 1.5;
+  /* Interlineado - Legibilidad óptima para texto multilínea */
+  margin-bottom: var(--spacing-sm);
+  /* Margen inferior - Separación de elementos siguientes */
+  color: var(--text-color-primary);
+  /* Color primario - Contraste óptimo para texto */
+  background-color: var(--background-card);
+  /* Fondo de card - Diferenciación visual */
+  transition: var(--transition-colors);
+  /* Transición - Suaviza cambios de tema */
 }
 
 /* 
@@ -79,10 +103,14 @@
   SPACING: Gap uniforme entre elementos para respiración visual
 */
 .prompt-form-row {
-    display: flex;                      /* Layout flex - Distribución horizontal de controles */
-    flex-wrap: wrap;                    /* Flex wrap - Adaptación responsive con salto de línea */
-    gap: var(--spacing-sm);             /* Gap pequeño - Separación uniforme entre elementos */
-    width: 100%;                        /* Ancho completo - Ocupa todo el espacio disponible */
+  display: flex;
+  /* Layout flex - Distribución horizontal de controles */
+  flex-wrap: wrap;
+  /* Flex wrap - Adaptación responsive con salto de línea */
+  gap: var(--spacing-sm);
+  /* Gap pequeño - Separación uniforme entre elementos */
+  width: 100%;
+  /* Ancho completo - Ocupa todo el espacio disponible */
 }
 
 /* 
@@ -94,14 +122,22 @@
   SPACING: Padding asimétrico y margen para integración en layouts
 */
 .btn {
-    border: none;                       /* Sin borde - Diseño moderno y limpio */
-    border-radius: var(--border-radius-sm); /* Radio pequeño - Esquinas suaves sutiles */
-    padding: calc(var(--spacing-sm) - 0.05rem) var(--spacing-lg); /* Padding asimétrico - Más horizontal, ajuste fino vertical */
-    font-size: var(--font-size-base);  /* Tamaño base - Legibilidad óptima para labels de botón */
-    font-weight: 500;                   /* Peso medio - Énfasis sin exceso de boldness */
-    cursor: pointer;                    /* Cursor pointer - Indica interactividad */
-    transition: background var(--transition-fast), transform var(--transition-fast); /* Transiciones - Feedback visual suave */
-    margin-left: var(--spacing-xs);    /* Margen izquierdo - Separación en grupos de botones */
+  border: none;
+  /* Sin borde - Diseño moderno y limpio */
+  border-radius: var(--border-radius-sm);
+  /* Radio pequeño - Esquinas suaves sutiles */
+  padding: calc(var(--spacing-sm) - 0.05rem) var(--spacing-lg);
+  /* Padding asimétrico - Más horizontal, ajuste fino vertical */
+  font-size: var(--font-size-base);
+  /* Tamaño base - Legibilidad óptima para labels de botón */
+  font-weight: 500;
+  /* Peso medio - Énfasis sin exceso de boldness */
+  cursor: pointer;
+  /* Cursor pointer - Indica interactividad */
+  transition: background var(--transition-fast), transform var(--transition-fast);
+  /* Transiciones - Feedback visual suave */
+  margin-left: var(--spacing-xs);
+  /* Margen izquierdo - Separación en grupos de botones */
 }
 
 /* 
@@ -111,8 +147,10 @@
   SEMANTIC: Reservado para acciones principales y CTAs
 */
 .btn-primary {
-    background: var(--primary-color);   /* Fondo primario - Color de marca para acciones principales */
-    color: #fff;                        /* Texto blanco - Contraste máximo sobre fondo primario */
+  background: var(--primary-color);
+  /* Fondo primario - Color de marca para acciones principales */
+  color: #fff;
+  /* Texto blanco - Contraste máximo sobre fondo primario */
 }
 
 /* 
@@ -124,8 +162,10 @@
 */
 .btn-primary:hover,
 .btn-primary:focus {
-    background: var(--primary-color-darker); /* Fondo más oscuro - Indica estado interactivo */
-    transform: translateY(-2px) scale(1.04); /* Elevación + escala - Feedback visual de hover */
+  background: var(--primary-color-darker);
+  /* Fondo más oscuro - Indica estado interactivo */
+  transform: translateY(-2px) scale(1.04);
+  /* Elevación + escala - Feedback visual de hover */
 }
 
 /* 
@@ -134,8 +174,10 @@
   IMMEDIATE FEEDBACK: Respuesta visual instantánea al click
 */
 .btn-primary:active {
-    background: var(--primary-color-darker); /* Fondo oscuro - Mantiene consistencia con hover */
-    transform: scale(0.98);             /* Escala reducida - Simula presión del botón */
+  background: var(--primary-color-darker);
+  /* Fondo oscuro - Mantiene consistencia con hover */
+  transform: scale(0.98);
+  /* Escala reducida - Simula presión del botón */
 }
 
 /* 
@@ -145,8 +187,10 @@
   PSYCHOLOGY: Color que demanda atención y precaución del usuario
 */
 .btn-danger {
-    background: var(--danger-color);    /* Fondo rojo - Indica acción destructiva/peligrosa */
-    color: #fff;                        /* Texto blanco - Contraste máximo sobre fondo rojo */
+  background: var(--danger-color);
+  /* Fondo rojo - Indica acción destructiva/peligrosa */
+  color: #fff;
+  /* Texto blanco - Contraste máximo sobre fondo rojo */
 }
 
 /* 
@@ -156,7 +200,8 @@
 */
 .btn-danger:hover,
 .btn-danger:focus {
-    background: var(--danger-color-darker); /* Fondo rojo intenso - Confirma intención destructiva */
+  background: var(--danger-color-darker);
+  /* Fondo rojo intenso - Confirma intención destructiva */
 }
 
 /* 
@@ -166,9 +211,12 @@
   VERSATILE: Apropiado para acciones de cancelación o secundarias
 */
 .btn-secondary {
-    background: var(--background-card-alt); /* Fondo alternativo - Menos prominencia visual */
-    color: var(--text-color-primary);  /* Color primario - Legibilidad sobre fondo claro */
-    border: 1px solid var(--border-color); /* Borde estándar - Definición sobre fondo sutil */
+  background: var(--background-card-alt);
+  /* Fondo alternativo - Menos prominencia visual */
+  color: var(--text-color-primary);
+  /* Color primario - Legibilidad sobre fondo claro */
+  border: 1px solid var(--border-color);
+  /* Borde estándar - Definición sobre fondo sutil */
 }
 
 /* 
@@ -178,7 +226,8 @@
 */
 .btn-secondary:hover,
 .btn-secondary:focus {
-    background: var(--border-color);    /* Fondo de borde - Feedback hover sutil */
+  background: var(--border-color);
+  /* Fondo de borde - Feedback hover sutil */
 }
 
 /* 
@@ -188,8 +237,10 @@
   POSITIVE PSYCHOLOGY: Color asociado con crecimiento y adición
 */
 .btn-merge {
-    background: var(--success-color);   /* Fondo verde - Indica acción positiva/aditiva */
-    color: #fff;                        /* Texto blanco - Contraste sobre fondo verde */
+  background: var(--success-color);
+  /* Fondo verde - Indica acción positiva/aditiva */
+  color: #fff;
+  /* Texto blanco - Contraste sobre fondo verde */
 }
 
 /* 
@@ -199,7 +250,8 @@
 */
 .btn-merge:hover,
 .btn-merge:focus {
-    background: var(--success-color-darker); /* Fondo verde intenso - Confirma acción positiva */
+  background: var(--success-color-darker);
+  /* Fondo verde intenso - Confirma acción positiva */
 }
 
 /* 
@@ -209,8 +261,10 @@
   NO SHRINK: Mantiene dimensiones en layouts flexibles
 */
 .add-btn {
-    flex: 0 0 auto;                     /* No grow/shrink - Mantiene tamaño fijo */
-    min-width: 110px;                   /* Ancho mínimo - Asegura legibilidad del texto del botón */
+  flex: 0 0 auto;
+  /* No grow/shrink - Mantiene tamaño fijo */
+  min-width: 110px;
+  /* Ancho mínimo - Asegura legibilidad del texto del botón */
 }
 
 /* 
@@ -221,15 +275,24 @@
   REAL-TIME: Diseñado para búsqueda en tiempo real mientras se escribe
 */
 .search-input {
-    width: 100%;                        /* Ancho completo - Maximiza área de entrada de búsqueda */
-    margin-bottom: var(--spacing-xs);   /* Margen inferior - Separación mínima de elementos siguientes */
-    padding: var(--spacing-xs);         /* Padding compacto - Integración visual discreta */
-    border-radius: var(--border-radius-sm); /* Radio pequeño - Esquinas suaves sutiles */
-    border: 1px solid var(--border-color); /* Borde estándar - Definición visual del campo */
-    font-size: var(--font-size-base);  /* Tamaño base - Legibilidad óptima para entrada */
-    color: var(--text-color-primary);  /* Color primario - Contraste óptimo para texto */
-    background-color: var(--background-card); /* Fondo de card - Diferenciación visual */
-    transition: var(--transition-colors); /* Transición - Suaviza cambios de tema */
+  width: 100%;
+  /* Ancho completo - Maximiza área de entrada de búsqueda */
+  margin-bottom: var(--spacing-xs);
+  /* Margen inferior - Separación mínima de elementos siguientes */
+  padding: var(--spacing-xs);
+  /* Padding compacto - Integración visual discreta */
+  border-radius: var(--border-radius-sm);
+  /* Radio pequeño - Esquinas suaves sutiles */
+  border: 1px solid var(--border-color);
+  /* Borde estándar - Definición visual del campo */
+  font-size: var(--font-size-base);
+  /* Tamaño base - Legibilidad óptima para entrada */
+  color: var(--text-color-primary);
+  /* Color primario - Contraste óptimo para texto */
+  background-color: var(--background-card);
+  /* Fondo de card - Diferenciación visual */
+  transition: var(--transition-colors);
+  /* Transición - Suaviza cambios de tema */
 }
 
 /* 
@@ -239,10 +302,14 @@
   GROUPED: Gap uniforme para agrupación visual de controles relacionados
 */
 .filters-row {
-    display: flex;                      /* Layout flex - Distribución horizontal de filtros */
-    flex-wrap: wrap;                    /* Flex wrap - Adaptación responsive con salto de línea */
-    gap: var(--spacing-sm);             /* Gap pequeño - Separación uniforme entre filtros */
-    align-items: center;                /* Centrado vertical - Alineación consistente de controles */
+  display: flex;
+  /* Layout flex - Distribución horizontal de filtros */
+  flex-wrap: wrap;
+  /* Flex wrap - Adaptación responsive con salto de línea */
+  gap: var(--spacing-sm);
+  /* Gap pequeño - Separación uniforme entre filtros */
+  align-items: center;
+  /* Centrado vertical - Alineación consistente de controles */
 }
 
 /* 
@@ -255,14 +322,22 @@
 .tag-filter,
 .folder-filter,
 #order-filter {
-    padding: var(--spacing-xs);         /* Padding compacto - Controles discretos */
-    border-radius: var(--border-radius-sm); /* Radio pequeño - Esquinas suaves sutiles */
-    border: 1px solid var(--border-color); /* Borde estándar - Definición visual del control */
-    font-size: var(--font-size-base);  /* Tamaño base - Legibilidad óptima para opciones */
-    flex: 1 1 150px;                    /* Flex con base 150px - Adaptabilidad responsive */
-    color: var(--text-color-primary);  /* Color primario - Legibilidad del texto seleccionado */
-    background-color: var(--background-card); /* Fondo de card - Consistencia visual */
-    transition: var(--transition-colors); /* Transición - Suaviza cambios de tema */
+  padding: var(--spacing-xs);
+  /* Padding compacto - Controles discretos */
+  border-radius: var(--border-radius-sm);
+  /* Radio pequeño - Esquinas suaves sutiles */
+  border: 1px solid var(--border-color);
+  /* Borde estándar - Definición visual del control */
+  font-size: var(--font-size-base);
+  /* Tamaño base - Legibilidad óptima para opciones */
+  flex: 1 1 150px;
+  /* Flex con base 150px - Adaptabilidad responsive */
+  color: var(--text-color-primary);
+  /* Color primario - Legibilidad del texto seleccionado */
+  background-color: var(--background-card);
+  /* Fondo de card - Consistencia visual */
+  transition: var(--transition-colors);
+  /* Transición - Suaviza cambios de tema */
 }
 
 /* 
@@ -272,9 +347,12 @@
   COMPACT SPACING: Gap mínimo para agrupación visual estrecha
 */
 #filters label {
-    display: flex;                      /* Layout flex - Alineación horizontal de checkbox y texto */
-    align-items: center;                /* Centrado vertical - Alineación de checkbox con texto */
-    gap: var(--spacing-xs);             /* Gap mínimo - Separación compacta entre elementos */
+  display: flex;
+  /* Layout flex - Alineación horizontal de checkbox y texto */
+  align-items: center;
+  /* Centrado vertical - Alineación de checkbox con texto */
+  gap: var(--spacing-xs);
+  /* Gap mínimo - Separación compacta entre elementos */
 }
 
 /* 
@@ -284,9 +362,12 @@
   INFORMATIVE: Proporciona contexto sobre el estado de la operación
 */
 #import-msg {
-    font-size: var(--font-size-base);  /* Tamaño base - Legibilidad estándar para mensajes */
-    margin-left: var(--spacing-md);    /* Margen izquierdo - Alineación con controles */
-    color: var(--text-color-secondary); /* Color secundario - Jerarquía visual apropiada */
+  font-size: var(--font-size-base);
+  /* Tamaño base - Legibilidad estándar para mensajes */
+  margin-left: var(--spacing-md);
+  /* Margen izquierdo - Alineación con controles */
+  color: var(--text-color-secondary);
+  /* Color secundario - Jerarquía visual apropiada */
 }
 
 /* 
@@ -296,9 +377,12 @@
   COMPACT: Gap mínimo para agrupación visual estrecha
 */
 .edit-folder-form {
-    display: flex;                      /* Layout flex - Distribución horizontal de controles */
-    gap: var(--spacing-xs);             /* Gap mínimo - Separación compacta entre elementos */
-    width: 100%;                        /* Ancho completo - Ocupa todo el espacio disponible */
+  display: flex;
+  /* Layout flex - Distribución horizontal de controles */
+  gap: var(--spacing-xs);
+  /* Gap mínimo - Separación compacta entre elementos */
+  width: 100%;
+  /* Ancho completo - Ocupa todo el espacio disponible */
 }
 
 /* 
@@ -308,10 +392,14 @@
   CONSISTENT: Estilos coherentes con otros inputs de la aplicación
 */
 .edit-folder-form input[type="text"] {
-    flex-grow: 1;                       /* Crecimiento flexible - Ocupa espacio disponible */
-    padding: var(--spacing-xs);         /* Padding compacto - Integración visual discreta */
-    border: 1px solid var(--border-color); /* Borde estándar - Definición visual del campo */
-    border-radius: var(--border-radius-sm); /* Radio pequeño - Esquinas suaves sutiles */
+  flex-grow: 1;
+  /* Crecimiento flexible - Ocupa espacio disponible */
+  padding: var(--spacing-xs);
+  /* Padding compacto - Integración visual discreta */
+  border: 1px solid var(--border-color);
+  /* Borde estándar - Definición visual del campo */
+  border-radius: var(--border-radius-sm);
+  /* Radio pequeño - Esquinas suaves sutiles */
 }
 
 /* 
@@ -321,9 +409,12 @@
   COMPACT: Padding reducido para integración visual discreta
 */
 form.edit-prompt-form {
-    padding: var(--spacing-sm);         /* Padding pequeño - Espaciado interno compacto */
-    background-color: var(--background-card-alt); /* Fondo alternativo - Diferenciación visual */
-    border-radius: var(--border-radius-md); /* Radio medio - Esquinas suaves moderadas */
+  padding: var(--spacing-sm);
+  /* Padding pequeño - Espaciado interno compacto */
+  background-color: var(--background-card-alt);
+  /* Fondo alternativo - Diferenciación visual */
+  border-radius: var(--border-radius-md);
+  /* Radio medio - Esquinas suaves moderadas */
 }
 
 /* 
@@ -332,7 +423,8 @@ form.edit-prompt-form {
   CONSISTENT: Hereda estilos base del textarea principal
 */
 form.edit-prompt-form textarea.prompt-input {
-    margin-bottom: var(--spacing-xs);   /* Margen inferior mínimo - Layout compacto */
+  margin-bottom: var(--spacing-xs);
+  /* Margen inferior mínimo - Layout compacto */
 }
 
 /* 
@@ -341,7 +433,8 @@ form.edit-prompt-form textarea.prompt-input {
   PROPORTIONAL: Espaciado proporcional al contexto de edición
 */
 form.edit-prompt-form button {
-    padding: var(--spacing-xs) var(--spacing-md); /* Padding compacto - Botones discretos */
+  padding: var(--spacing-xs) var(--spacing-md);
+  /* Padding compacto - Botones discretos */
 }
 
 /* 
@@ -351,11 +444,16 @@ form.edit-prompt-form button {
   EMPHASIS: Peso de fuente medio para destacar mensajes importantes
 */
 #prompt-msg {
-    display: none;                      /* Oculto por defecto - Mostrado dinámicamente */
-    color: var(--danger-color);         /* Color de peligro - Indica error o advertencia */
-    font-size: var(--font-size-base);  /* Tamaño base - Legibilidad estándar para mensajes */
-    margin-bottom: var(--spacing-xs);   /* Margen inferior - Separación de elementos siguientes */
-    font-weight: 500;                   /* Peso medio - Énfasis sin exceso de boldness */
+  display: none;
+  /* Oculto por defecto - Mostrado dinámicamente */
+  color: var(--danger-color);
+  /* Color de peligro - Indica error o advertencia */
+  font-size: var(--font-size-base);
+  /* Tamaño base - Legibilidad estándar para mensajes */
+  margin-bottom: var(--spacing-xs);
+  /* Margen inferior - Separación de elementos siguientes */
+  font-weight: 500;
+  /* Peso medio - Énfasis sin exceso de boldness */
 }
 
 /* 
@@ -364,5 +462,6 @@ form.edit-prompt-form button {
   BLOCK DISPLAY: Display block para ocupar línea completa
 */
 #prompt-msg.visible {
-    display: block;                     /* Display block - Hace visible el mensaje */
+  display: block;
+  /* Display block - Hace visible el mensaje */
 }
