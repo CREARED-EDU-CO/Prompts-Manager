@@ -61,18 +61,36 @@ window.MESSAGES = {
     storageFoldersQuota: 'Espacio de almacenamiento excedido. Intenta exportar y eliminar algunos datos.',
   },
   /**
-   * MENSAJES DE ÉXITO
+   * MENSAJES DE ÉXITO (DOMINIO DE PRESENTACIÓN)
    * 
    * CATEGORÍA: Confirmaciones de operaciones exitosas
    * PROPÓSITO: Feedback positivo para acciones del usuario
-   * TONO: Conciso y confirmatorio
+   * ARQUITECTURA: Claves independientes de eventos técnicos
+   * ESCALABILIDAD: Permite mensajes específicos sin afectar eventos
    */
   success: {
-    promptAdded: 'Prompt añadido correctamente',
-    promptEdited: 'Prompt editado correctamente',
-    promptDeleted: 'Prompt eliminado',
-    allDeleted: 'Todos los prompts y carpetas han sido eliminados',
-    importOk: '¡Importación exitosa!'
+    // MENSAJES DE PROMPTS: Operaciones CRUD
+    promptCreated: 'Prompt creado exitosamente',
+    promptUpdated: 'Prompt actualizado correctamente',
+    promptRemoved: 'Prompt eliminado',
+    promptCopied: '¡Prompt copiado al portapapeles!',
+    
+    // MENSAJES DE CARPETAS: Operaciones CRUD
+    folderCreated: 'Carpeta creada exitosamente',
+    folderUpdated: 'Carpeta actualizada correctamente',
+    folderRemoved: 'Carpeta eliminada',
+    
+    // MENSAJES DE DATOS: Operaciones globales
+    dataImported: '¡Datos importados exitosamente!',
+    dataExported: '¡Datos exportados exitosamente!',
+    allDataCleared: 'Todos los datos han sido eliminados',
+    
+    // MENSAJES LEGACY: Compatibilidad temporal (DEPRECATED)
+    promptAdded: 'Prompt añadido correctamente',      // → usar promptCreated
+    promptEdited: 'Prompt editado correctamente',     // → usar promptUpdated
+    promptDeleted: 'Prompt eliminado',                // → usar promptRemoved
+    allDeleted: 'Todos los prompts y carpetas han sido eliminados', // → usar allDataCleared
+    importOk: '¡Importación exitosa!'                 // → usar dataImported
   },
 
   /**
@@ -176,11 +194,28 @@ window.MESSAGES = {
       storageFoldersQuota: 'Storage quota exceeded. Try exporting and deleting some data.',
     },
     success: {
-      promptAdded: 'Prompt added successfully',
-      promptEdited: 'Prompt edited successfully',
-      promptDeleted: 'Prompt deleted',
-      allDeleted: 'All prompts and folders have been deleted',
-      importOk: 'Import successful!'
+      // MENSAJES DE PROMPTS: Operaciones CRUD
+      promptCreated: 'Prompt created successfully',
+      promptUpdated: 'Prompt updated successfully',
+      promptRemoved: 'Prompt deleted',
+      promptCopied: 'Prompt copied to clipboard!',
+      
+      // MENSAJES DE CARPETAS: Operaciones CRUD
+      folderCreated: 'Folder created successfully',
+      folderUpdated: 'Folder updated successfully',
+      folderRemoved: 'Folder deleted',
+      
+      // MENSAJES DE DATOS: Operaciones globales
+      dataImported: 'Data imported successfully!',
+      dataExported: 'Data exported successfully!',
+      allDataCleared: 'All data has been cleared',
+      
+      // MENSAJES LEGACY: Compatibilidad temporal (DEPRECATED)
+      promptAdded: 'Prompt added successfully',        // → usar promptCreated
+      promptEdited: 'Prompt edited successfully',      // → usar promptUpdated
+      promptDeleted: 'Prompt deleted',                 // → usar promptRemoved
+      allDeleted: 'All prompts and folders have been deleted', // → usar allDataCleared
+      importOk: 'Import successful!'                   // → usar dataImported
     },
     confirm: {
       deleteAll: 'Are you sure you want to delete ALL prompts and folders? This action cannot be undone.',
