@@ -128,8 +128,8 @@ window.Controller = {
   /**
    * MANEJADOR DE ENVÍO DE FORMULARIO DE EDICIÓN DE PROMPT
    * 
-   * @param {string} id - ID del prompt a editar
-   * @param {HTMLFormControlsCollection} formElements - Elementos del formulario
+   * @param {string} id ID del prompt a editar
+   * @param {HTMLFormControlsCollection} formElements Elementos del formulario
    * @returns {boolean} true si edición exitosa, false si error
    * 
    * PATRÓN: Extract + Validate + Update + Feedback + Sync
@@ -185,8 +185,8 @@ window.Controller = {
   /**
    * MANEJADOR DE ENVÍO DE FORMULARIO DE EDICIÓN DE CARPETA
    * 
-   * @param {string} id - ID de la carpeta a editar
-   * @param {HTMLFormControlsCollection} formElements - Elementos del formulario
+   * @param {string} id ID de la carpeta a editar
+   * @param {HTMLFormControlsCollection} formElements Elementos del formulario
    * @returns {boolean} true si edición exitosa, false si error
    * 
    * PATRÓN: Extract + Validate + Update + Sync (más simple que prompts)
@@ -221,8 +221,8 @@ window.Controller = {
   /**
    * MANEJADOR PÚBLICO DE FORMULARIOS DE EDICIÓN
    * 
-   * @param {Event} e - Evento de submit del formulario
-   * @param {string} type - Tipo de entidad ('prompt' | 'folder')
+   * @param {Event} e Evento de submit del formulario
+   * @param {string} type Tipo de entidad ('prompt' | 'folder')
    * @returns {boolean} true si edición exitosa, false si error
    * 
    * PATRÓN: Polymorphic handler + Strategy pattern por tipo
@@ -291,8 +291,8 @@ window.Controller = {
             // RENDERIZADO LOCAL: Crea elemento de display actualizado
             const promptElement = window.View._renderPromptDisplay(prompt, folderMap);
 
-            // REEMPLAZO: Sustituye formulario por elemento actualizado
-            formElement.parentNode.replaceChild(promptElement, formElement);
+            // REEMPLAZO: Sustituye formulario por elemento actualizado (API moderna)
+            formElement.replaceWith(promptElement);
           }
         }
       }
@@ -308,9 +308,9 @@ window.Controller = {
   /**
    * MANEJADOR CENTRALIZADO DE ERRORES CON TOAST
    * 
-   * @param {Error} error - Objeto error capturado
-   * @param {string} msg - Mensaje base para mostrar al usuario
-   * @param {Object} opts - Opciones adicionales para el toast
+   * @param {Error} error Objeto error capturado
+   * @param {string} msg Mensaje base para mostrar al usuario
+   * @param {Object} opts Opciones adicionales para el toast
    * 
    * PATRÓN: Centralized error handling con message composition
    * PROPÓSITO: Punto único para manejo de errores con feedback consistente
