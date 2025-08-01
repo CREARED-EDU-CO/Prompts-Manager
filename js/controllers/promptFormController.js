@@ -45,7 +45,7 @@ window.PromptFormController = {
   /**
    * INICIALIZADOR DEL CONTROLADOR
    * 
-   * @param {Function} renderAndUpdateFiltersCb - Callback para actualización global
+   * @param {Function} renderAndUpdateFiltersCb Callback para actualización global
    * 
    * PATRÓN: Event binding para formularios críticos
    * EVENTOS CONFIGURADOS:
@@ -143,8 +143,8 @@ window.PromptFormController = {
   /**
    * VALIDADOR DE DATOS DE PROMPT
    * 
-   * @param {string} text - Texto del prompt a validar
-   * @param {string|null} folderId - ID de carpeta seleccionada
+   * @param {string} text Texto del prompt a validar
+   * @param {string|null} folderId ID de carpeta seleccionada
    * @returns {boolean} true si datos son válidos, false si hay errores
    * 
    * PATRÓN: Multi-level validation con early returns
@@ -187,9 +187,9 @@ window.PromptFormController = {
   /**
    * FACTORY DE OBJETOS PROMPT
    * 
-   * @param {string} text - Contenido del prompt
-   * @param {string[]} tags - Array de etiquetas procesadas
-   * @param {string} folderId - ID de carpeta asignada
+   * @param {string} text Contenido del prompt
+   * @param {string[]} tags Array de etiquetas procesadas
+   * @param {string} folderId ID de carpeta asignada
    * @returns {Object} Objeto prompt completo con metadatos
    * 
    * PATRÓN: Factory method para creación consistente
