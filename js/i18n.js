@@ -93,7 +93,7 @@ window.MESSAGES = {
     allDeleted: 'Todos los prompts y carpetas han sido eliminados',
     importOk: '¡Importación exitosa!'
   },
-  
+
   /**
    * MENSAJES DE CONFIRMACIÓN
    * 
@@ -279,23 +279,24 @@ window.MESSAGES = {
 /**
  * APLICADOR DE TRADUCCIONES AL DOM
  * 
- * @param {string|null} lang - Código de idioma a aplicar (null = idioma actual)
+ * @param {string|null} lang Código de idioma a aplicar (null = idioma actual)
  * 
  * PROPÓSITO: Traduce dinámicamente todos los elementos con atributos i18n
- * PATRÓN: DOM traversal con attribute-based selection
- * PERFORMANCE: Usa querySelectorAll para batch processing
+ * PATRÓN: DOM traversal con attribute-based selection optimizado
+ * PERFORMANCE: Una sola pasada del DOM para ambos tipos de atributos
  * 
  * ATRIBUTOS SOPORTADOS:
  * - data-i18n: Traduce textContent/value del elemento
  * - data-i18n-placeholder: Traduce atributo placeholder
  * 
- * MECÁNICA:
+ * MECÁNICA OPTIMIZADA:
  * 1. Resuelve diccionario según idioma especificado
- * 2. Busca todos los elementos con atributos i18n
- * 3. Extrae clave de traducción del atributo
- * 4. Aplica traducción según tipo de elemento
+ * 2. Busca elementos con ambos atributos en una sola consulta
+ * 3. Procesa cada elemento verificando qué atributos tiene
+ * 4. Aplica traducción según tipo de elemento y atributo
  * 
  * ROBUSTEZ: Maneja funciones dinámicas y elementos de formulario
+ * OPTIMIZACIÓN: Reduce traversals del DOM de 2 a 1 para mejor rendimiento
  */
 window.applyI18n = function (lang = null) {
   // RESOLUCIÓN DE DICCIONARIO: Usa idioma específico o fallback a base
@@ -304,35 +305,38 @@ window.applyI18n = function (lang = null) {
     dict = window.MESSAGES[lang].ui;
   }
 
-  // TRADUCCIÓN DE CONTENIDO: Elementos con data-i18n
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    // EXTRACCIÓN DE CLAVE: Toma última parte después del punto
-    let value = key && dict ? dict[key.split('.').pop()] : '';
-    
-    // MANEJO DE FUNCIONES: Para mensajes dinámicos (pluralización)
-    if (typeof value === 'function') value = value(0);
-    
-    if (value) {
-      // APLICACIÓN CONTEXTUAL: Diferentes propiedades según tipo de elemento
-      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
-        el.value = value; // ELEMENTOS DE FORMULARIO: Usa value
-      } else {
-        el.innerText = value; // ELEMENTOS NORMALES: Usa innerText (seguro contra XSS)
+  // TRADUCCIÓN OPTIMIZADA: Una sola pasada del DOM para ambos atributos
+  document.querySelectorAll('[data-i18n], [data-i18n-placeholder]').forEach(el => {
+    // TRADUCCIÓN DE CONTENIDO: Elementos con data-i18n
+    const i18nKey = el.getAttribute('data-i18n');
+    if (i18nKey) {
+      // EXTRACCIÓN DE CLAVE: Toma última parte después del punto
+      let value = dict ? dict[i18nKey.split('.').pop()] : '';
+
+      // MANEJO DE FUNCIONES: Para mensajes dinámicos (pluralización)
+      if (typeof value === 'function') value = value(0);
+
+      if (value) {
+        // APLICACIÓN CONTEXTUAL: Diferentes propiedades según tipo de elemento
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
+          el.value = value; // ELEMENTOS DE FORMULARIO: Usa value
+        } else {
+          el.innerText = value; // ELEMENTOS NORMALES: Usa innerText (seguro contra XSS)
+        }
       }
     }
-  });
 
-  // TRADUCCIÓN DE PLACEHOLDERS: Elementos con data-i18n-placeholder
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    const key = el.getAttribute('data-i18n-placeholder');
-    let value = key && dict ? dict[key.split('.').pop()] : '';
-    
-    // MANEJO DE FUNCIONES: Consistente con traducción de contenido
-    if (typeof value === 'function') value = value(0);
-    
-    // APLICACIÓN: Establece atributo placeholder
-    if (value) el.setAttribute('placeholder', value);
+    // TRADUCCIÓN DE PLACEHOLDERS: Elementos con data-i18n-placeholder
+    const placeholderKey = el.getAttribute('data-i18n-placeholder');
+    if (placeholderKey) {
+      let value = dict ? dict[placeholderKey.split('.').pop()] : '';
+
+      // MANEJO DE FUNCIONES: Consistente con traducción de contenido
+      if (typeof value === 'function') value = value(0);
+
+      // APLICACIÓN: Establece atributo placeholder
+      if (value) el.setAttribute('placeholder', value);
+    }
   });
 };
 
@@ -350,23 +354,23 @@ window.applyI18n = function (lang = null) {
  * PATRÓN: Initialization + Event Setup con side effects coordinados
  * TIMING: Llamado desde App.init() después de cargar modelos
  */
-window.initLanguage = function() {
+window.initLanguage = function () {
   // RESOLUCIÓN DE CLAVE: Usa constante o fallback
   const storageKey = (window.STORAGE_KEYS && window.STORAGE_KEYS.LANG) ? window.STORAGE_KEYS.LANG : 'appLang';
-  
+
   // CARGA DE IDIOMA: Desde localStorage o español por defecto
   let lang = localStorage.getItem(storageKey) || 'es';
   window.currentLang = lang; // VARIABLE GLOBAL: Para acceso desde otros módulos
-  
+
   // APLICACIÓN INICIAL: Traduce toda la interfaz
   window.applyI18n(lang);
-  
+
   // CONFIGURACIÓN DEL SELECTOR: Setup del dropdown de idiomas
   const langSelect = document.getElementById('language-select');
   if (langSelect) {
     // SINCRONIZACIÓN: Establece valor actual en el selector
     langSelect.value = lang;
-    
+
     /**
      * EVENT LISTENER PARA CAMBIO DE IDIOMA
      * 
@@ -381,18 +385,18 @@ window.initLanguage = function() {
      */
     langSelect.addEventListener('change', function () {
       const storageKey = (window.STORAGE_KEYS && window.STORAGE_KEYS.LANG) ? window.STORAGE_KEYS.LANG : 'appLang';
-      
+
       // PERSISTENCIA: Guarda nueva selección
       localStorage.setItem(storageKey, this.value);
       window.currentLang = this.value;
-      
+
       // RE-TRADUCCIÓN: Aplica nuevo idioma a toda la interfaz
       window.applyI18n(this.value);
 
       // CLEANUP DE ESTADO: Cancela ediciones en progreso
       if (window.View) {
         window.View.editingPromptId = null;
-        
+
         // RE-RENDERIZADO DE SELECTORES: Actualiza opciones traducidas
         if (typeof window.View.updateFolderSelect === 'function') {
           window.View.updateFolderSelect(window.FoldersModel.folders);
