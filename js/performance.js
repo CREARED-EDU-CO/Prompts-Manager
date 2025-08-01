@@ -34,9 +34,9 @@ window.Performance = {
   /**
    * DEBOUNCE: RETRASA EJECUCIÓN HASTA QUE CESEN LAS LLAMADAS
    * 
-   * @param {Function} func - Función a debounce
-   * @param {number} wait - Milisegundos de espera
-   * @param {boolean} immediate - Si ejecutar en leading edge
+   * @param {Function} func Función a debounce
+   * @param {number} wait Milisegundos de espera
+   * @param {boolean} immediate Si ejecutar en leading edge
    * @returns {Function} Función debounced con método cancel
    * 
    * PATRÓN: Closure para mantener estado del timeout
@@ -78,9 +78,9 @@ window.Performance = {
   /**
    * THROTTLE: LIMITA FRECUENCIA DE EJECUCIÓN
    * 
-   * @param {Function} func - Función a throttle
-   * @param {number} limit - Milisegundos mínimos entre ejecuciones
-   * @param {Object} options - Configuración de leading/trailing
+   * @param {Function} func Función a throttle
+   * @param {number} limit Milisegundos mínimos entre ejecuciones
+   * @param {Object} options Configuración de leading/trailing
    * @returns {Function} Función throttled
    * 
    * DIFERENCIA CON DEBOUNCE: Garantiza ejecución periódica vs esperar pausa
@@ -118,7 +118,7 @@ window.Performance = {
   /**
    * RAF DEBOUNCE: DEBOUNCE USANDO REQUESTANIMATIONFRAME
    * 
-   * @param {Function} func - Función a debounce
+   * @param {Function} func Función a debounce
    * @returns {Function} Función debounced con RAF
    * 
    * VENTAJA: Sincronizado con refresh rate del navegador (60fps)
@@ -142,7 +142,7 @@ window.Performance = {
   /**
    * BATCH DOM UPDATES: AGRUPA OPERACIONES DOM EN UN SOLO FRAME
    * 
-   * @param {Function|Function[]} operations - Operación(es) a ejecutar
+   * @param {Function|Function[]} operations Operación(es) a ejecutar
    * 
    * PROPÓSITO: Evitar layout thrashing agrupando cambios DOM
    * PATRÓN: Batch processing para optimización de rendering
@@ -167,9 +167,9 @@ window.Performance = {
   /**
    * LAZY LOADING CON INTERSECTION OBSERVER
    * 
-   * @param {Element|Element[]} elements - Elementos a observar
-   * @param {Function} callback - Función a ejecutar cuando elemento es visible
-   * @param {Object} options - Opciones del IntersectionObserver
+   * @param {Element|Element[]} elements Elementos a observar
+   * @param {Function} callback Función a ejecutar cuando elemento es visible
+   * @param {Object} options Opciones del IntersectionObserver
    * @returns {IntersectionObserver} Observer para cleanup manual
    * 
    * PATRÓN: Observer pattern para carga diferida
@@ -214,8 +214,8 @@ window.Performance = {
   /**
    * MEMOIZACIÓN: CACHE DE RESULTADOS DE FUNCIÓN
    * 
-   * @param {Function} func - Función a memoizar
-   * @param {Function} keyGenerator - Función para generar clave de cache
+   * @param {Function} func Función a memoizar
+   * @param {Function} keyGenerator Función para generar clave de cache
    * @returns {Function} Función memoizada con cache interno
    * 
    * PATRÓN: Memoization pattern para optimización computacional
