@@ -26,16 +26,15 @@ window.PromptFormController = {
   /**
    * INICIALIZADOR DEL CONTROLADOR
    * 
-   * @param {Function} renderAndUpdateFiltersCb Callback para actualización global
-   * 
-   * PATRÓN: Event binding para formularios críticos
+   * PATRÓN: Event-driven initialization sin dependency injection
    * EVENTOS CONFIGURADOS:
    * 1. Submit del formulario principal de creación
    * 2. Click del botón de eliminación total
    * 
+   * DESACOPLAMIENTO: Los modelos disparan eventos automáticamente
    * ESTRATEGIA: Separación entre creación individual y operaciones globales
    */
-  init: function (renderAndUpdateFiltersCb) {
+  init: function () {
     /**
      * EVENT LISTENER PARA CREACIÓN DE PROMPTS
      * 
@@ -79,17 +78,15 @@ window.PromptFormController = {
         const nuevoPrompt = this._createPromptObject(text, tags, folderId);
         
         // PERSISTENCIA: Añade al modelo (incluye validación y guardado)
+        // EVENTO: El modelo disparará PROMPT_ADDED automáticamente
         window.PromptsModel.addPrompt(nuevoPrompt);
-        
-        // ACTUALIZACIÓN GLOBAL: Re-renderiza toda la aplicación
-        renderAndUpdateFiltersCb();
         
         // LIMPIEZA: Reset del formulario para próxima entrada
         this._resetPromptForm();
         
         // FEEDBACK: Notifica éxito al usuario
         const messages = window.getLocalizedMessages();
-        window.showToast(messages.success.promptAdded, 'success');
+        window.showToast(messages.success.promptCreated, 'success');
       }
     });
     
@@ -116,7 +113,7 @@ window.PromptFormController = {
         window.Controller._deleteAllData();
         
         // FEEDBACK: Confirma operación completada
-        window.showToast(messages.success.allDeleted, 'success');
+        window.showToast(messages.success.allDataCleared, 'success');
       }
     });
   },
