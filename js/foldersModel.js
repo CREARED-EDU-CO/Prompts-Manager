@@ -67,7 +67,7 @@ window.FoldersModel = {
     /**
      * BUSCADOR DE CARPETA POR ID
      * 
-     * @param {string} id - ID de la carpeta a buscar
+     * @param {string} id ID de la carpeta a buscar
      * @returns {Object|null} Objeto carpeta o null si no existe
      * 
      * PATRÓN: Simple finder con null object pattern
@@ -81,7 +81,7 @@ window.FoldersModel = {
     /**
      * EXTRACTOR DE NOMBRE DE CARPETA
      * 
-     * @param {string} id - ID de la carpeta
+     * @param {string} id ID de la carpeta
      * @returns {string} Nombre de la carpeta o string vacío si no existe
      * 
      * PATRÓN: Convenience method que combina búsqueda + extracción
@@ -95,7 +95,7 @@ window.FoldersModel = {
     /**
      * CREADOR DE NUEVA CARPETA
      * 
-     * @param {Object} folder - Objeto carpeta a añadir
+     * @param {Object} folder Objeto carpeta a añadir
      * @returns {boolean} true si creación exitosa, false si error
      * 
      * PATRÓN: Validation + Uniqueness Check + Persistence
@@ -133,8 +133,8 @@ window.FoldersModel = {
     /**
      * EDITOR DE CARPETA EXISTENTE
      * 
-     * @param {string} id - ID de la carpeta a editar
-     * @param {string} newName - Nuevo nombre para la carpeta
+     * @param {string} id ID de la carpeta a editar
+     * @param {string} newName Nuevo nombre para la carpeta
      * @returns {boolean} true si edición exitosa, false si error
      * 
      * PATRÓN: Find + Validate + Uniqueness Check + Update + Persist
@@ -179,7 +179,7 @@ window.FoldersModel = {
     /**
      * ELIMINADOR DE CARPETA
      * 
-     * @param {string} id - ID de la carpeta a eliminar
+     * @param {string} id ID de la carpeta a eliminar
      * 
      * PATRÓN: Filter + Persist (operación destructiva)
      * MECÁNICA: Filtra array excluyendo carpeta con ID especificado
