@@ -108,6 +108,9 @@ window.FoldersModel = {
         // PERSISTENCIA: Sincroniza con localStorage
         window.Storage.saveFolders(this.folders);
         
+        // EVENTO: Notifica creación de carpeta para desacoplamiento
+        window.EventBus.emit(window.EVENTS.FOLDER_CREATED, { folder: folder });
+        
         return true; // SUCCESS: Carpeta creada exitosamente
     },
     
@@ -149,10 +152,19 @@ window.FoldersModel = {
         }
         
         // ACTUALIZACIÓN: Modifica nombre de la carpeta
+        const oldName = folder.name;
         folder.name = newName;
         
         // PERSISTENCIA: Sincroniza con localStorage
         window.Storage.saveFolders(this.folders);
+        
+        // EVENTO: Notifica edición de carpeta para desacoplamiento
+        window.EventBus.emit(window.EVENTS.FOLDER_UPDATED, { 
+            id: id, 
+            folder: folder, 
+            oldName: oldName, 
+            newName: newName 
+        });
         
         return true; // SUCCESS: Carpeta editada exitosamente
     },
@@ -162,17 +174,29 @@ window.FoldersModel = {
      * 
      * @param {string} id ID de la carpeta a eliminar
      * 
-     * PATRÓN: Filter + Persist (operación destructiva)
-     * MECÁNICA: Filtra array excluyendo carpeta con ID especificado
+     * PATRÓN: Capture + Filter + Persist + Event (operación destructiva con notificación)
+     * MECÁNICA: Captura datos antes de eliminar, filtra array, persiste y notifica
+     * EVENTO: Dispara notificación para desacoplamiento arquitectónico
      * 
      * NOTA: No valida si carpeta tiene prompts asociados
      * (esa validación se hace en FoldersController antes de llamar este método)
      */
     deleteFolder: function (id) {
+        // CAPTURA: Obtiene carpeta antes de eliminación para evento
+        const deletedFolder = this.folders.find(f => f.id === id);
+        
         // FILTRADO: Excluye carpeta con ID especificado
         this.folders = this.folders.filter(f => f.id !== id);
         
         // PERSISTENCIA: Sincroniza con localStorage
         window.Storage.saveFolders(this.folders);
+        
+        // EVENTO: Notifica eliminación solo si carpeta existía
+        if (deletedFolder) {
+            window.EventBus.emit(window.EVENTS.FOLDER_REMOVED, { 
+                id: id, 
+                folder: deletedFolder 
+            });
+        }
     }
 };
