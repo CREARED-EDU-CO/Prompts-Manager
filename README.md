@@ -1,6 +1,6 @@
-# 📝 Prompts Manager - Administrador de Prompts
+# 📝 Prompt Manager
 
-Una aplicación web local, moderna y completa para gestionar, organizar y exportar e importar prompts para usar de manera eficiente una Inteligencia Artificial Generativa (GenAI) como ChatGPT, Gemini, Claude, etc. En la carpeta PROMPTS hay un banco de archivos JSON para que importes muchos prompts para diferentes actividades escolares y tareas académicas.
+Una aplicación web moderna y completa para gestionar, organizar y exportar tus prompts de IA de manera eficiente.
 
 ## ✨ Características Principales
 
@@ -19,8 +19,7 @@ Una aplicación web local, moderna y completa para gestionar, organizar y export
 - **Asignación obligatoria** de carpeta para cada prompt
 - **Vista expandible** de carpetas con contador de prompts
 
-### 🏷️ **Sistema de Etiquetas y favoritos**
-- **Favoritos** se marcan o desmarcan en la estrella de cada prompt
+### 🏷️ **Sistema de Etiquetas**
 - **Etiquetas personalizadas** separadas por comas
 - **Filtrado por etiquetas** para búsqueda rápida
 - **Autocompletado** de etiquetas existentes
@@ -38,7 +37,6 @@ Una aplicación web local, moderna y completa para gestionar, organizar y export
 - **Limpieza de filtros** con un botón
 
 ### 📄 **Paginación Inteligente**
-- **Fragmento de prompt** se muestra los primeros 500 caracteres de cada prompt, si quiere leer todo el prompt haga clic sobre el texto del prompt
 - **Paginación automática** para mejor rendimiento
 - **Configuración de elementos** por página (5, 10, 20, 50)
 - **Navegación** con botones Anterior/Siguiente
@@ -46,7 +44,7 @@ Una aplicación web local, moderna y completa para gestionar, organizar y export
 - **Optimización** para grandes colecciones de prompts
 
 ### 💾 **Importación y Exportación**
-- **Exportación JSON** con nombre automático por fecha (prompts-export-YYYY-MM-DD.json)
+- **Exportación JSON** con nombre automático por fecha (`prompts-export-YYYY-MM-DD.json`)
 - **Selector de carpeta** moderno para elegir ubicación de guardado
 - **Importación JSON** con validación de formato
 - **Opciones de importación**:
@@ -56,15 +54,34 @@ Una aplicación web local, moderna y completa para gestionar, organizar y export
 - **Compartir con otros usuarios**: Exporta e importa colecciones de prompts entre usuarios
 - **Archivos privados**: Mantén archivos JSON personales en carpetas privadas para cargar cuando necesites
 
-### 🌐 **Personalización**
-- **Soporte completo** para español e inglés y puede añadir en el archvo i18n.js otros idiomas pero debe enviarnos los cambios por la Licencia AGPL v3.0
+### ⚠️ **Recordatorio Inteligente de Backup**
+- **Recordatorio dinámico** basado en actividad:
+  - **2 días**: Sugerencia de backup opcional
+  - **5 días**: Recomendación de exportación
+  - **10+ días**: Advertencia urgente de backup
+- **Mensajes contextuales** que incluyen número de prompts
+
+### 🌐 **Internacionalización**
+- **Soporte completo** para español e inglés
+- **Cambio dinámico** de idioma sin recargar
+- **Persistencia** de preferencia de idioma
+- **Traducción completa** de interfaz y mensajes
+
+### 🎨 **Temas y Personalización**
 - **Modo oscuro/claro** con toggle visual
+- **Persistencia** de preferencia de tema
+- **Aplicación automática** al iniciar la app
+- **Transiciones suaves** entre temas
+
+### 📱 **Diseño Responsivo**
+- **Adaptable** a dispositivos móviles y desktop
 - **Interfaz optimizada** para touch y mouse
 - **Layout flexible** que se ajusta al contenido
+- **Experiencia consistente** en todos los dispositivos
 
 ## 🔒 Privacidad y Seguridad
 
-- **Almacenamiento local**: Todos los datos permanecen solo en tu perfil del navegador en tu cuenta de usuario del computador que usas
+- **Almacenamiento local**: Todos los datos permanecen en tu perfil del navegador que usas y/o de tu cuenta de usuario en el computador que usas
 - **Sin servidor**: No se envían datos a servidores externos
 - **Sin tracking**: No se recopila información personal
 - **Backup manual**: Control total sobre tus datos
@@ -74,35 +91,34 @@ Una aplicación web local, moderna y completa para gestionar, organizar y export
 ## 🚀 Instalación y Uso
 
 ### Instalación
-1. Descarga en un archivo ZIP el administrador de prompts usando el botón verde "< > Code" que esta en la parte de arriba de esta página web de GitHub
-2. Descomprime el archivo ZIP en tu computador y abre la carpeta que contiene el archivo index.html 
-3. Dale click al archivo index.html y abre en tu navegador web el administrador de prompts
-4. ¡Listo! No requiere servidor ni instalación adicional
-
-- Puede crear un acceso directo a este archivo index.html haciendo click derecho en el archivo index.html y abrir el menú contextual para llegar a esa funcíón
-- Puede abrir el archivo index.html como una app web haciendo click derecho al acceso directo creado y copiando en "Destino" la siguiente línea reemplazado la ruta de acceso a la de su archivo index.html en su computador. Solo debe cambiar la ultima parte con la nueva ruta a su archivo index.html y mantener igual las comillas dobles. Ejemplo:
-   "C:\Program Files\Google\Chrome\Application\chrome.exe" --profile-directory="Default" --start-maximized --app="file:///C:/Users/USUARIO/CARPETA/CARPETA/CARPETA/index.html"
-- Puede cambiar el nombre y el icono al acceso directo creado para que sea más visible y copiarlo en el escritorio de su PC para que este disponible muy facíl y rápido
+1. Clona o descarga el repositorio
+2. Abre `index.html` en tu navegador web
+3. ¡Listo! No requiere servidor ni instalación adicional
 
 ### Primer Uso
 1. **Crea tu primera carpeta** usando el formulario "Nueva carpeta"
 2. **Añade prompts** seleccionando la carpeta creada
 3. **Organiza con etiquetas** para facilitar la búsqueda
 4. **Exporta regularmente** para mantener backups seguros
-5. **Borrar Carpetas** debe estar vacia por lo que primero tiene que borrar los prompts o pasarlos a otra carpeta
 
 ### Gestión de Archivos JSON
-- **Exportar para compartir**: Crea archivos JSON para compartir tus prompts con otros usuarios y usa los filtros para seleccionar prompts específicos para exportar
-- **Importar de otros**: Carga archivos JSON de otros usuarios para añadir a tu colección o reemplaza todos los prompts para un trabajo especifíco
-- **Archivos privados**: Guarda archivos JSON en carpetas privadas de tu sistema para cargar los prompts solo contextos muy personales. No olvides exportar antes de borrar todos los prompts personales.
-- **Colecciones temáticas**: Mantén archivos JSON separados en carpetas diferentes por temas (trabajo, tareas, proyectos específicos)
+- **Exportar para compartir**: Crea archivos JSON para compartir tus prompts con otros usuarios
+- **Importar de otros**: Carga archivos JSON de otros usuarios para expandir tu colección
+- **Archivos privados**: Guarda archivos JSON en carpetas privadas de tu sistema para diferentes contextos
+- **Colecciones temáticas**: Mantén archivos JSON separados en carpetas diferentes por temas (trabajo, personal, proyectos específicos)
 
 ### **Casos de Uso para Importación/Exportación**
 
 #### **Compartir con Otros Usuarios**
 1. **Exporta tu colección**: Usa los filtros para seleccionar prompts específicos y exporta
 2. **Comparte el archivo**: Envía el archivo JSON a otros usuarios por email, chat, etc.
-3. **Importa colecciones**: Recibe archivos JSON de otros y elige entre fusionar con tus prompts actuales o reemplazar todos tus prompts con los nuevos prompts
+3. **Importa colecciones**: Recibe archivos JSON de otros y elige fusionar o reemplazar
+
+#### **Gestión de Archivos Privados**
+- **Carpetas temáticas**: Guarda archivos JSON en carpetas como `Prompts-Trabajo`, `Prompts-Personal`
+- **Proyectos específicos**: Mantén archivos separados para diferentes clientes o proyectos
+- **Versiones de respaldo**: Crea múltiples versiones de tus prompts en diferentes fechas usando las carpetas y etiquetas
+- **Sincronización manual**: Usa servicios de nube personal (Google Drive, Dropbox) para sincronizar tus archivos JSON
 
 #### **Flujo de Trabajo Recomendado**
 1. **Exporta regularmente** tus prompts a una carpeta privada
@@ -111,6 +127,12 @@ Una aplicación web local, moderna y completa para gestionar, organizar y export
 4. **Importa y fusiona**: Combina prompts de otros usuarios con tu colección existente
 
 ## 💾 Capacidad de Almacenamiento
+
+### Límites por Navegador
+- **Chrome/Edge**: ~10 MB por dominio
+- **Firefox**: ~10 MB por dominio  
+- **Safari**: ~5-10 MB por dominio
+- **Navegadores móviles**: ~2-5 MB por dominio
 
 ### Estimaciones de Capacidad
 | Tamaño de Prompt | Capacidad Estimada | Uso Típico |
@@ -124,7 +146,77 @@ Una aplicación web local, moderna y completa para gestionar, organizar y export
 - **Uso normal**: 10,000-15,000 prompts (límite seguro)
 - **Backup regular**: Exporta cada 2-5 días según actividad
 - **Monitoreo**: Observa los recordatorios de backup automáticos
-- **Limpieza**: Elimina prompts obsoletos periódicamente porque la IA cambia muy rápido
+- **Limpieza**: Elimina prompts obsoletos periódicamente
+
+## 🛠️ Arquitectura Técnica
+
+### Tecnologías Utilizadas
+- **HTML5** semántico y accesible
+- **CSS3** con variables personalizadas y grid/flexbox
+- **JavaScript ES6+** modular y orientado a eventos
+- **LocalStorage** para persistencia de datos
+- **File System Access API** para exportación moderna
+
+### Estructura del Proyecto
+```
+├── index.html                 # Página principal
+├── css/
+│   ├── variables.css         # Variables CSS personalizadas
+│   ├── base.css             # Estilos base y reset
+│   ├── layout.css           # Layout y estructura
+│   ├── components.css       # Componentes reutilizables
+│   ├── forms.css            # Estilos de formularios
+│   ├── modals.css           # Ventanas modales
+│   ├── utilities.css        # Clases de utilidad
+│   ├── responsive.css       # Media queries
+│   └── dark-mode.css        # Tema oscuro
+├── js/
+│   ├── app.js              # Inicialización principal
+│   ├── constants.js        # Constantes globales
+│   ├── eventBus.js         # Sistema de eventos
+│   ├── performance.js      # Utilidades de rendimiento
+│   ├── i18n.js            # Internacionalización
+│   ├── storage.js         # Gestión de localStorage
+│   ├── domUtils.js        # Utilidades DOM
+│   ├── utils.js           # Utilidades generales
+│   ├── view.js            # Gestión de vistas
+│   ├── controller.js      # Controlador principal
+│   ├── promptsModel.js    # Modelo de prompts
+│   ├── foldersModel.js    # Modelo de carpetas
+│   └── controllers/
+│       ├── filtersController.js
+│       ├── foldersController.js
+│       ├── importExportController.js
+│       ├── paginationController.js
+│       ├── promptContainerController.js
+│       └── promptFormController.js
+```
+
+### Patrones de Diseño
+- **MVC (Model-View-Controller)**: Separación clara de responsabilidades
+- **Event Bus**: Comunicación desacoplada entre componentes
+- **Module Pattern**: Encapsulación de funcionalidades
+- **Observer Pattern**: Reactividad en cambios de datos
+
+## 🔧 Funcionalidades Avanzadas
+
+### Sistema de Eventos
+- **EventBus centralizado** para comunicación entre módulos
+- **Manejo de errores** robusto con fallbacks
+- **Optimización de rendimiento** con debounce y throttle
+- **Lazy loading** para elementos no críticos
+
+### Optimizaciones de Rendimiento
+- **Paginación** para manejar grandes volúmenes de datos
+- **Debounce** en búsquedas para evitar consultas excesivas
+- **Memoización** de operaciones costosas
+- **Batch DOM updates** para mejor rendimiento visual
+
+### Gestión de Estado
+- **Persistencia automática** en localStorage
+- **Validación de datos** en importación/exportación
+- **Manejo de errores** con mensajes contextuales
+- **Recuperación de estado** al recargar la página
 
 ## 📄 Licencia
 
@@ -151,10 +243,10 @@ Este proyecto está bajo **GNU Affero General Public License v3.0 (AGPL-3.0)**.
 - Todas las mejoras deben beneficiar a la comunidad
 
 ### 💡 Casos de Uso Comerciales Permitidos
-- **SaaS/Cloud**: Ofrecer Prompt Manager como servicio online siempre dandonos la atribucíon y el código fuente mejorado
-- **Consultoría**: Implementar y personalizar para clientes siempre dandonos la atribucíon y el código fuente mejorado
-- **Soporte**: Brindar servicios de mantenimiento y soporte siempre dandonos la atribucíon y el código fuente mejorado
-- **Hosting**: Proporcionar instalaciones gestionadas siempre dandonos la atribucíon y el código fuente mejorado
+- **SaaS/Cloud**: Ofrecer Prompt Manager como servicio online
+- **Consultoría**: Implementar y personalizar para clientes
+- **Soporte**: Brindar servicios de mantenimiento y soporte
+- **Hosting**: Proporcionar instalaciones gestionadas
 
 Ver el archivo [LICENSE](LICENSE) para más detalles.
 
