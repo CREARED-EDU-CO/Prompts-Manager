@@ -35,17 +35,16 @@ window.PromptContainerController = {
   /**
    * INICIALIZADOR DEL CONTROLADOR
    * 
-   * @param {Function} renderAndUpdateFiltersCb Callback para actualización global
-   * 
-   * PATRÓN: Dependency validation + Element caching + Event delegation setup
+   * PATRÓN: Event-driven initialization sin dependency injection
    * VALIDACIÓN: Verifica dependencias críticas antes de proceder
    * ESTRATEGIA: Un listener por contenedor que maneja múltiples tipos de eventos
+   * DESACOPLAMIENTO: Los modelos disparan eventos automáticamente
    * 
    * EVENTOS MANEJADOS:
    * - click: Todas las acciones de botones y expansión de texto
    * - submit: Formularios de edición inline
    */
-  init: function (renderAndUpdateFiltersCb) {
+  init: function () {
     // VALIDACIÓN DE DEPENDENCIAS: Módulos críticos para funcionamiento
     if (!window.validateDependencies(['PromptsModel', 'View', 'Controller'], 'PromptContainerController')) {
       return;
@@ -97,21 +96,21 @@ window.PromptContainerController = {
       // MANEJO DE ELIMINACIÓN: Botón de eliminar prompt (asíncrono)
       if (e.target.classList.contains('delete-btn')) {
         e.stopPropagation();
-        await this._handleDeleteButtonClick(id, renderAndUpdateFiltersCb);
+        await this._handleDeleteButtonClick(id);
         return;
       }
 
       // MANEJO DE FAVORITO: Botón de toggle favorito
       if (e.target.classList.contains('fav-btn')) {
         e.stopPropagation();
-        this._handleFavoriteButtonClick(id, renderAndUpdateFiltersCb);
+        this._handleFavoriteButtonClick(id);
         return;
       }
 
       // MANEJO DE COPIADO: Botón de copiar al portapapeles (asíncrono)
       if (e.target.classList.contains('copy-btn')) {
         e.stopPropagation();
-        await this._handleCopyButtonClick(id, e.target, renderAndUpdateFiltersCb);
+        await this._handleCopyButtonClick(id, e.target);
         return;
       }
     });
@@ -263,18 +262,18 @@ window.PromptContainerController = {
    * MANEJADOR DE ELIMINACIÓN DE PROMPT
    * 
    * @param {string} id ID del prompt a eliminar
-   * @param {Function} renderAndUpdateFiltersCb Callback de actualización global
    * 
-   * PATRÓN: Confirmation + Action + Feedback + Update
+   * PATRÓN: Confirmation + Action + Feedback (Update automático via eventos)
    * FLUJO ASÍNCRONO:
    * 1. Mostrar modal de confirmación
    * 2. Si confirmado, eliminar del modelo
-   * 3. Actualizar toda la UI
+   * 3. El modelo dispara PROMPT_DELETED automáticamente
    * 4. Mostrar feedback de éxito
    * 
+   * DESACOPLAMIENTO: No necesita callback, el evento actualiza la vista
    * SEGURIDAD: Confirmación obligatoria para acción destructiva
    */
-  _handleDeleteButtonClick: async function (id, renderAndUpdateFiltersCb) {
+  _handleDeleteButtonClick: async function (id) {
     const messages = window.getLocalizedMessages();
     
     // CONFIRMACIÓN: Modal asíncrono para acción destructiva
@@ -282,13 +281,11 @@ window.PromptContainerController = {
     
     if (ok) {
       // ELIMINACIÓN: Remueve del modelo y persiste
+      // EVENTO: El modelo disparará PROMPT_DELETED automáticamente
       window.PromptsModel.deletePrompt(id);
       
-      // ACTUALIZACIÓN GLOBAL: Re-renderiza toda la aplicación
-      renderAndUpdateFiltersCb();
-      
       // FEEDBACK: Notifica éxito al usuario
-      window.showToast(messages.success.promptDeleted, 'success');
+      window.showToast(messages.success.promptRemoved, 'success');
     }
   },
 
@@ -302,12 +299,10 @@ window.PromptContainerController = {
    * FUNCIONALIDAD: Alterna estado favorito del prompt
    * INMEDIATEZ: Sin confirmación (operación reversible)
    */
-  _handleFavoriteButtonClick: function (id, renderAndUpdateFiltersCb) {
+  _handleFavoriteButtonClick: function (id) {
     // TOGGLE: Alterna estado favorito en modelo
+    // EVENTO: El modelo disparará PROMPT_FAVORITED automáticamente
     window.PromptsModel.toggleFavorite(id);
-    
-    // ACTUALIZACIÓN: Re-renderiza para mostrar cambio visual
-    renderAndUpdateFiltersCb();
   },
 
   /**
@@ -332,7 +327,7 @@ window.PromptContainerController = {
    * 5. Restaurar botón y actualizar UI
    * 6. Manejar errores si ocurren
    */
-  _handleCopyButtonClick: async function (id, target, renderAndUpdateFiltersCb) {
+  _handleCopyButtonClick: async function (id, target) {
     // BÚSQUEDA: Encuentra prompt en modelo
     const prompt = window.PromptsModel.prompts.find(p => p.id === id);
     
@@ -348,6 +343,7 @@ window.PromptContainerController = {
         await navigator.clipboard.writeText(prompt.text);
         
         // TRACKING: Incrementa contador de uso para estadísticas
+        // EVENTO: El modelo disparará PROMPT_USED automáticamente
         window.PromptsModel.incrementUsage(id);
         
         /**
@@ -368,8 +364,8 @@ window.PromptContainerController = {
           target.textContent = dict.copy;   // "Copiar" o "Copy"
           target.disabled = false;          // Re-habilita botón
           
-          // ACTUALIZACIÓN: Re-renderiza para mostrar nuevo contador de uso
-          renderAndUpdateFiltersCb();
+          // NOTA: El contador de uso se actualiza via evento PROMPT_USED con retraso (1000ms)
+          // para preservar este feedback visual y luego actualizar solo el contador
         }, 900);
         
       } catch (error) {
