@@ -80,33 +80,61 @@
     transition: opacity var(--transition-fast), visibility 0s var(--transition-fast); /* Transiciones - Opacity inmediata, visibility con delay */
 }
 
+/* 
+  ESTADO ACTIVO DEL MODAL: Clase aplicada por JavaScript para mostrar modal
+  VISIBILITY CONTROL: Hace visible el modal con transición suave
+  OPACITY TRANSITION: Solo opacity para entrada rápida sin delay
+*/
 #confirm-modal.active {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity var(--transition-fast);
+    visibility: visible;                /* Visible - Modal mostrado al usuario */
+    opacity: 1;                         /* Opacidad completa - Totalmente visible */
+    transition: opacity var(--transition-fast); /* Transición rápida - Entrada inmediata */
 }
 
+/* 
+  CAJA MODAL: Contenedor interno del modal con animación de escala
+  ELEVATION: Sombra intensa para máxima separación del backdrop
+  SCALE ANIMATION: Inicia en 95% para efecto de entrada suave
+  CENTERED: Margin auto para centrado dentro del flex container
+*/
 #confirm-modal .modal-box {
-    box-shadow: var(--shadow-lg);
-    margin: auto;
-    transform: scale(0.95);
-    transition: transform var(--transition-fast);
+    box-shadow: var(--shadow-lg);       /* Sombra intensa - Máxima elevación visual */
+    margin: auto;                       /* Margin auto - Centrado en flex container */
+    transform: scale(0.95);             /* Escala inicial - 95% para animación de entrada */
+    transition: transform var(--transition-fast); /* Transición de escala - Animación suave */
 }
 
+/* 
+  CAJA MODAL ACTIVA: Estado final de la animación de entrada
+  FULL SCALE: Escala 100% para tamaño natural del modal
+  SMOOTH ENTRY: Completa la animación de entrada iniciada en estado inactivo
+*/
 #confirm-modal.active .modal-box {
-    transform: scale(1);
+    transform: scale(1);                /* Escala completa - Tamaño natural del modal */
 }
 
+/* 
+  MENSAJE MODAL: Contenido textual principal del diálogo
+  LARGE TEXT: Tamaño grande para legibilidad e importancia
+  GENEROUS SPACING: Margen inferior para separación de acciones
+  PRIMARY COLOR: Color principal para máxima legibilidad
+*/
 #confirm-modal .modal-msg {
-    font-size: var(--font-size-lg);
-    margin-bottom: var(--spacing-lg);
-    color: var(--text-color-primary);
+    font-size: var(--font-size-lg);    /* Tamaño grande - Énfasis e importancia del mensaje */
+    margin-bottom: var(--spacing-lg);   /* Margen inferior - Separación generosa de botones */
+    color: var(--text-color-primary);  /* Color primario - Máxima legibilidad del mensaje */
 }
 
+/* 
+  ACCIONES MODALES: Contenedor para botones de confirmación/cancelación
+  CENTERED: Justificación centrada para simetría visual
+  GENEROUS GAP: Espaciado amplio entre botones para evitar clicks accidentales
+  HORIZONTAL LAYOUT: Flexbox horizontal para alineación de botones
+*/
 #confirm-modal .modal-actions {
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-xl);
+    display: flex;                      /* Layout flex - Alineación horizontal de botones */
+    justify-content: center;            /* Centrado - Simetría visual de acciones */
+    gap: var(--spacing-xl);             /* Gap amplio - Evita clicks accidentales entre botones */
 }
 
 #edit-prompt-modal .modal-box,
