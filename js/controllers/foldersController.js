@@ -43,7 +43,7 @@ window.FoldersController = {
   /**
    * INICIALIZADOR DEL CONTROLADOR
    * 
-   * @param {Function} renderAndUpdateFiltersCb - Callback para actualización global (no usado aquí)
+   * @param {Function} renderAndUpdateFiltersCb Callback para actualización global (no usado aquí)
    * 
    * PATRÓN: Event delegation setup con múltiples tipos de eventos
    * ESTRATEGIA: Un listener por contenedor que maneja múltiples acciones
@@ -138,7 +138,7 @@ window.FoldersController = {
   /**
    * CREADOR DE CARPETA PRIVADO
    * 
-   * @param {string} name - Nombre de la carpeta a crear
+   * @param {string} name Nombre de la carpeta a crear
    * 
    * PATRÓN: Template method con pasos bien definidos
    * RESPONSABILIDADES:
@@ -168,7 +168,7 @@ window.FoldersController = {
   /**
    * MANEJADOR DE ELIMINACIÓN DE CARPETA
    * 
-   * @param {string} id - ID de la carpeta a eliminar
+   * @param {string} id ID de la carpeta a eliminar
    * 
    * PATRÓN: Validation + Confirmation + Action + Update
    * VALIDACIONES:
@@ -211,7 +211,7 @@ window.FoldersController = {
   /**
    * MANEJADOR DE EDICIÓN DE CARPETA
    * 
-   * @param {string} id - ID de la carpeta a editar
+   * @param {string} id ID de la carpeta a editar
    * 
    * PATRÓN: Find + Render edit form
    * RESPONSABILIDAD: Cambiar vista de carpeta a formulario de edición
