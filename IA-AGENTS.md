@@ -76,10 +76,10 @@ window.CONFIG = {
 
 ## PATRONES DE DISEÑO IMPLEMENTADOS
 
-### 1. Model-View-Controller (MVC)
-- **Model**: `PromptsModel`, `FoldersModel` - Gestión de datos y lógica de negocio
+### 1. Model-View-Controller (MVC) con Event-Driven Architecture
+- **Model**: `PromptsModel`, `FoldersModel` - Gestión de datos y emisión de eventos
 - **View**: `View` object - Renderizado DOM y manipulación visual
-- **Controller**: `Controller` + controladores especializados - Lógica de aplicación
+- **Controller**: `Controller` + controladores especializados - Coordinación via eventos
 
 ### 2. Observer Pattern (EventBus)
 ```javascript
@@ -90,6 +90,26 @@ window.EventBus = {
   emit(event, data),                    // Emisión de eventos
   off(event, callback),                 // Desregistro de listeners
   executeCallbacks(callbacks, data)     // Ejecución segura con error isolation
+}
+
+// Eventos del sistema:
+window.EVENTS = {
+  // PROMPTS: Operaciones CRUD y acciones específicas
+  PROMPT_ADDED: 'promptAdded',
+  PROMPT_EDITED: 'promptEdited',
+  PROMPT_DELETED: 'promptDeleted',
+  PROMPT_FAVORITED: 'promptFavorited',
+  PROMPT_USED: 'promptUsed',
+  
+  // FOLDERS: Operaciones CRUD de organización
+  FOLDER_ADDED: 'folderAdded',
+  FOLDER_EDITED: 'folderEdited',
+  FOLDER_DELETED: 'folderDeleted',
+  
+  // APPLICATION: Ciclo de vida y estado global
+  APP_READY: 'app:ready',
+  DATA_IMPORTED: 'dataImported',
+  DATA_EXPORTED: 'dataExported'
 }
 ```
 
@@ -516,7 +536,7 @@ const App = {
     ]);
     
     // FASE 5: Notificación de aplicación lista
-    window.EventBus.emit('app:ready');
+    window.EventBus.emit(window.EVENTS.APP_READY);
   }
 }
 ```
@@ -586,8 +606,22 @@ setTimeout(() => {
 ### Creación de Prompt
 ```
 Usuario → Formulario → Validación → PromptsModel.addPrompt() → 
-Storage.savePrompts() → Controller.updateAllViews() → 
-View.renderPrompts() → DOM Update → Toast Feedback
+Storage.savePrompts() → EventBus.emit(PROMPT_ADDED) → 
+Controller.updateAllViews() → View.renderPrompts() → DOM Update
+```
+
+### Eliminación de Prompt
+```
+Usuario → Confirmación → PromptsModel.deletePrompt() → 
+Storage.savePrompts() → EventBus.emit(PROMPT_DELETED) → 
+Controller.updateAllViews() → View.renderPrompts() → DOM Update
+```
+
+### Toggle de Favorito
+```
+Usuario → PromptsModel.toggleFavorite() → Storage.savePrompts() → 
+EventBus.emit(PROMPT_FAVORITED) → Controller (optimized re-render) → 
+PaginationController.renderPromptsWithPagination() → DOM Update
 ```
 
 ### Filtrado de Prompts
@@ -600,7 +634,57 @@ PaginationController.renderPromptsWithPagination() → View.renderPrompts() → 
 ```
 Usuario → File Picker → FileReader → JSON.parse() → Validación → 
 Modal de Elección → Replace/Merge → Models Update → 
-Storage.save() → Controller.updateAllViews() → Toast Feedback
+Storage.save() → EventBus.emit(DATA_IMPORTED) → Controller.updateAllViews()
 ```
 
-Esta documentación proporciona una visión completa y técnica del sistema Prompt Manager, detallando su arquitectura modular, patrones de diseño, flujos de datos y optimizaciones implementadas para crear una aplicación web robusta y escalable.
+### Exportación de Datos
+```
+Usuario → ImportExportController._exportToJson() → File System Access API → 
+EventBus.emit(DATA_EXPORTED) → Controller (success feedback)
+```
+
+## ARQUITECTURA EVENT-DRIVEN IMPLEMENTADA
+
+### Patrón de Comunicación
+```javascript
+// Controladores independientes sin dependency injection
+PromptFormController.init();
+PromptContainerController.init();
+FoldersController.init();
+
+// Modelos emiten eventos automáticamente tras operaciones
+PromptsModel.addPrompt(prompt);
+// → EventBus.emit(PROMPT_ADDED, data);
+// → Controller escucha y coordina actualizaciones
+```
+
+### Beneficios Arquitectónicos
+
+#### **Desacoplamiento Completo**
+- Modelos independientes de vista y controladores
+- Comunicación via eventos sin referencias directas
+- Testing unitario simplificado por componente
+
+#### **Extensibilidad**
+```javascript
+// Nuevas funcionalidades sin modificar código existente
+EventBus.on(EVENTS.PROMPT_ADDED, (data) => {
+  analytics.track('prompt_created', data);
+});
+
+EventBus.on(EVENTS.PROMPT_USED, (data) => {
+  stats.incrementUsage(data.id);
+});
+```
+
+#### **Performance Optimizada**
+- Actualizaciones granulares por tipo de evento
+- `PROMPT_FAVORITED`: solo re-renderiza vista de prompts
+- `PROMPT_USED`: actualiza únicamente si está en página actual
+
+#### **Trazabilidad y Debugging**
+- Eventos centralizados para logging completo
+- Flujo de datos observable y debuggeable
+- Arquitectura consistente en toda la aplicación
+
+Esta documentación proporciona una visión completa del sistema Prompt Manager, detallando su arquitectura modular event-driven, patrones de diseño, flujos de datos y optimizaciones implementadas para crear una aplicación web robusta y escalable.
