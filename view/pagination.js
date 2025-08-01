@@ -14,9 +14,9 @@ Object.assign(window.View, {
      * Implementa accesibilidad mediante ARIA labels y manejo de estados deshabilitados
      * Patrón: Lazy initialization del contenedor con fallback de creación
      * 
-     * @param {number} currentPage - Página actualmente activa (base 1)
-     * @param {number} totalPages - Total de páginas disponibles
-     * @param {number} itemsPerPage - Elementos por página (para selector de cantidad)
+     * @param {number} currentPage Página actualmente activa (base 1)
+     * @param {number} totalPages Total de páginas disponibles
+     * @param {number} itemsPerPage Elementos por página (para selector de cantidad)
      */
     renderPagination: function (currentPage, totalPages, itemsPerPage) {
         // Lazy initialization del contenedor de paginación
@@ -134,7 +134,7 @@ Object.assign(window.View, {
      * Implementa deduplicación mediante Set y sanitización XSS
      * Patrón: Data aggregation con transformación Array -> Set -> Array
      * 
-     * @param {Array} prompts - Array de prompts para extracción de tags
+     * @param {Array} prompts Array de prompts para extracción de tags
      */
     updateTagFilter: function (prompts) {
         const select = document.getElementById('tag-filter');
@@ -168,7 +168,7 @@ Object.assign(window.View, {
      * Implementa sanitización y fuerza selección explícita del usuario
      * Patrón: Form population con validación de selección requerida
      * 
-     * @param {Array} folders - Array de objetos folder con {id, name}
+     * @param {Array} folders Array de objetos folder con {id, name}
      */
     updateFolderSelect: function (folders) {
         const select = document.getElementById('folder-select');
@@ -201,7 +201,7 @@ Object.assign(window.View, {
      * Diferente de updateFolderSelect: permite selección vacía para mostrar todos
      * Patrón: Filter population con opción de reset
      * 
-     * @param {Array} folders - Array de objetos folder para opciones de filtrado
+     * @param {Array} folders Array de objetos folder para opciones de filtrado
      */
     updateFolderFilter: function (folders) {
         const select = document.getElementById('folder-filter');
