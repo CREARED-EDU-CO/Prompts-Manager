@@ -117,109 +117,193 @@
     }
 }
 
+/* 
+  SECCIÓN DE PAGINACIÓN: Contenedor para controles de navegación y configuración
+  SPACE-BETWEEN: Distribución espacial entre controles de navegación y configuración
+  CARD DESIGN: Fondo y radio para diferenciación visual del contenido
+  RESPONSIVE: Margin vertical para separación de secciones adyacentes
+*/
 .pagination-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: var(--spacing-md) 0;
-    padding: var(--spacing-sm);
-    background-color: var(--background-card);
-    border-radius: var(--border-radius-md);
+    display: flex;                      /* Layout flex - Distribución horizontal de controles */
+    justify-content: space-between;     /* Espacio entre - Navegación a la izquierda, config a la derecha */
+    align-items: center;                /* Centrado vertical - Alineación de elementos internos */
+    margin: var(--spacing-md) 0;        /* Margen vertical - Separación de secciones adyacentes */
+    padding: var(--spacing-sm);         /* Padding uniforme - Espaciado interno del contenedor */
+    background-color: var(--background-card); /* Fondo de card - Diferenciación visual */
+    border-radius: var(--border-radius-md); /* Radio medio - Esquinas suaves moderadas */
 }
 
+/* 
+  CONTENEDOR DE PAGINACIÓN: Área principal para botones de navegación
+  FLEXIBLE: Flex 1 para ocupar espacio disponible
+  PRIMARY CONTENT: Contiene los controles principales de navegación
+*/
 #pagination-container {
-    flex: 1;
+    flex: 1;                            /* Flex 1 - Ocupa espacio disponible para navegación */
 }
 
+/* 
+  CONTENEDOR DE ELEMENTOS POR PÁGINA: Control de configuración de paginación
+  FIXED SIZE: Flex 0 0 auto para tamaño fijo
+  SECONDARY: Margen izquierdo para separación de controles principales
+*/
 #per-page-container {
-    flex: 0 0 auto;
-    margin-left: var(--spacing-md);
+    flex: 0 0 auto;                     /* Tamaño fijo - No crece ni se contrae */
+    margin-left: var(--spacing-md);     /* Margen izquierdo - Separación de controles de navegación */
 }
 
+/* 
+  ITEM DE PROMPT: Componente individual para visualización de prompts
+  COLUMN LAYOUT: Flexbox vertical para organización de elementos internos
+  CARD DESIGN: Fondo, sombra y radio para diferenciación visual
+  FULL WIDTH: Ocupa todo el ancho disponible del contenedor
+  THEMING: Preparado para transiciones suaves entre temas
+  SPACING: Gap interno para separación de elementos del prompt
+*/
 .prompt-item {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--spacing-sm);
-    background: var(--background-card);
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-sm) var(--spacing-md);
-    margin-bottom: var(--spacing-md);
-    box-shadow: var(--shadow-sm);
-    width: 100%;
-    box-sizing: border-box;
-    color: var(--text-color-primary);
-    transition: var(--transition-colors);
+    display: flex;                      /* Layout flex - Organización de elementos internos */
+    flex-direction: column;             /* Dirección columna - Apilamiento vertical de contenido */
+    align-items: stretch;               /* Estiramiento - Elementos ocupan ancho completo */
+    gap: var(--spacing-sm);             /* Gap pequeño - Separación entre elementos internos */
+    background: var(--background-card); /* Fondo de card - Diferenciación del fondo base */
+    border-radius: var(--border-radius-md); /* Radio medio - Esquinas suaves moderadas */
+    padding: var(--spacing-sm) var(--spacing-md); /* Padding asimétrico - Más horizontal para legibilidad */
+    margin-bottom: var(--spacing-md);   /* Margen inferior - Separación entre items */
+    box-shadow: var(--shadow-sm);       /* Sombra sutil - Elevación visual mínima */
+    width: 100%;                        /* Ancho completo - Ocupa todo el espacio disponible */
+    box-sizing: border-box;             /* Border-box - Incluye padding en dimensiones */
+    color: var(--text-color-primary);  /* Color primario - Texto principal del prompt */
+    transition: var(--transition-colors); /* Transición - Suaviza cambios de tema */
 }
 
+/* 
+  TEXTO DEL PROMPT: Contenido principal del prompt con formato preservado
+  PRE-WRAP: Preserva saltos de línea y espacios del texto original
+  WORD-BREAK: Permite ruptura de palabras largas para evitar overflow
+  INTERACTIVE: Padding y radius para área de interacción visual
+  WEIGHT: Peso medio para legibilidad sin exceso de énfasis
+*/
 .prompt-item .prompt-text {
-    font-weight: 500;
-    color: var(--text-color-primary);
-    white-space: pre-wrap;
-    word-break: break-word;
-    padding: var(--spacing-xs);
-    border-radius: var(--border-radius-sm);
-    transition: background-color var(--transition-fast);
+    font-weight: 500;                   /* Peso medio - Legibilidad sin exceso de boldness */
+    color: var(--text-color-primary);  /* Color primario - Máxima legibilidad del contenido */
+    white-space: pre-wrap;              /* Pre-wrap - Preserva formato original del texto */
+    word-break: break-word;             /* Break-word - Evita overflow con palabras largas */
+    padding: var(--spacing-xs);         /* Padding mínimo - Área de interacción visual */
+    border-radius: var(--border-radius-sm); /* Radio pequeño - Esquinas suaves sutiles */
+    transition: background-color var(--transition-fast); /* Transición - Feedback visual suave */
 }
 
+/* 
+  PROMPT EXPANDIBLE: Contenedor para prompts con funcionalidad de expansión/colapso
+  INTERACTIVE: Cursor pointer indica funcionalidad clickeable
+  RELATIVE: Posicionamiento relativo para pseudo-elemento de indicador
+  TOGGLE: Controlado por JavaScript para mostrar/ocultar contenido completo
+*/
 .prompt-item .expandable-prompt {
-    cursor: pointer;
-    position: relative;
+    cursor: pointer;                    /* Cursor pointer - Indica funcionalidad expandible */
+    position: relative;                 /* Posicionamiento relativo - Contexto para indicador */
 }
 
+/* 
+  HOVER EXPANDIBLE: Estado hover para prompts expandibles
+  SUBTLE FEEDBACK: Fondo semi-transparente para feedback visual discreto
+  INTERACTIVE: Indica al usuario que el elemento es clickeable
+*/
 .prompt-item .expandable-prompt:hover {
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: rgba(0, 0, 0, 0.03); /* Fondo sutil - Feedback hover discreto */
 }
 
+/* 
+  INDICADOR DE EXPANSIÓN: Pseudo-elemento para mostrar estado expandible
+  POSITIONED: Absolute positioning en esquina inferior derecha
+  ARROW DOWN: Flecha hacia abajo indica contenido expandible
+  SUBTLE: Opacidad reducida para integración visual discreta
+  PRIMARY COLOR: Color de marca para consistencia visual
+*/
 .prompt-item .expandable-prompt:after {
-    content: "⤵";
-    position: absolute;
-    right: var(--spacing-xs);
-    bottom: var(--spacing-xs);
-    font-size: var(--font-size-sm);
-    opacity: 0.5;
-    color: var(--primary-color);
+    content: "⤵";                       /* Flecha abajo - Indica contenido expandible */
+    position: absolute;                 /* Posicionamiento absoluto - Esquina inferior derecha */
+    right: var(--spacing-xs);           /* Posición derecha - Margen desde borde */
+    bottom: var(--spacing-xs);          /* Posición inferior - Margen desde borde */
+    font-size: var(--font-size-sm);    /* Tamaño pequeño - Indicador discreto */
+    opacity: 0.5;                       /* Opacidad reducida - Integración visual sutil */
+    color: var(--primary-color);        /* Color primario - Consistencia con marca */
 }
 
+/* 
+  INDICADOR EXPANDIDO: Estado del indicador cuando el prompt está expandido
+  ARROW UP: Flecha hacia arriba indica contenido colapsable
+  STATE TOGGLE: Cambia automáticamente según atributo data-expanded
+*/
 .prompt-item .expandable-prompt[data-expanded="true"]:after {
-    content: "⤴";
+    content: "⤴";                       /* Flecha arriba - Indica contenido colapsable */
 }
 
+/* 
+  TEXTO EXPANDIDO: Estado visual del texto cuando está expandido
+  BACKGROUND HIGHLIGHT: Fondo sutil para indicar estado expandido
+  VISUAL FEEDBACK: Diferenciación clara entre estados expandido/colapsado
+*/
 .prompt-item .prompt-text[data-expanded="true"] {
-    background-color: rgba(0, 0, 0, 0.02);
+    background-color: rgba(0, 0, 0, 0.02); /* Fondo sutil - Indica estado expandido */
 }
 
+/* 
+  BOTÓN DE FAVORITO: Control para marcar/desmarcar prompts como favoritos
+  LARGE SIZE: Tamaño grande para área de click adecuada
+  BORDERLESS: Sin fondo ni borde para integración visual limpia
+  WARNING COLOR: Color amarillo para asociación con estrella/favorito
+  INTERACTIVE: Cursor pointer y transición para feedback visual
+*/
 .prompt-item .fav-btn {
-    font-size: 1.3rem;
-    background: none;
-    color: var(--warning-color);
-    padding: 0 var(--spacing-sm);
-    border: none;
-    cursor: pointer;
-    transition: color var(--transition-fast);
-    margin-left: 0;
+    font-size: 1.3rem;                  /* Tamaño grande - Área de click adecuada para icono */
+    background: none;                   /* Sin fondo - Integración visual limpia */
+    color: var(--warning-color);        /* Color amarillo - Asociación con favoritos/estrella */
+    padding: 0 var(--spacing-sm);       /* Padding horizontal - Área de click expandida */
+    border: none;                       /* Sin borde - Diseño limpio y moderno */
+    cursor: pointer;                    /* Cursor pointer - Indica interactividad */
+    transition: color var(--transition-fast); /* Transición - Feedback visual suave */
+    margin-left: 0;                     /* Sin margen izquierdo - Alineación limpia */
 }
 
+/* 
+  HOVER DEL BOTÓN FAVORITO: Estado hover con feedback visual sutil
+  OPACITY REDUCTION: Reducción de opacidad para feedback discreto
+  NO TRANSFORM: Sin transformaciones para mantener posición estable
+  CONSISTENT COLOR: Mantiene color warning para consistencia
+*/
 .prompt-item .fav-btn:hover {
-    color: var(--warning-color);
-    opacity: 0.8;
-    background: none;
-    transform: none;
+    color: var(--warning-color);        /* Color consistente - Mantiene asociación con favoritos */
+    opacity: 0.8;                       /* Opacidad reducida - Feedback hover sutil */
+    background: none;                   /* Sin fondo - Mantiene diseño limpio */
+    transform: none;                    /* Sin transformación - Posición estable */
 }
 
+/* 
+  CONTENEDOR DE TAGS: Área para etiquetas del prompt
+  SPACING: Margen izquierdo para separación de otros elementos
+  INLINE FLOW: Permite que tags fluyan horizontalmente
+*/
 .prompt-item .tags {
-    margin-left: var(--spacing-sm);
+    margin-left: var(--spacing-sm);     /* Margen izquierdo - Separación de elementos precedentes */
 }
 
+/* 
+  TAG INDIVIDUAL: Etiqueta visual para categorización de prompts
+  PILL DESIGN: Fondo primario con esquinas redondeadas
+  HIGH CONTRAST: Texto blanco sobre fondo primario para legibilidad
+  COMPACT: Padding y tamaño pequeños para integración discreta
+  INLINE: Display inline-block para flujo horizontal
+*/
 .tag {
-    background: var(--primary-color);
-    color: white;
-    border-radius: var(--border-radius-sm);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: var(--font-size-sm);
-    margin-right: var(--spacing-xs);
-    display: inline-block;
-    font-weight: 500;
+    background: var(--primary-color);   /* Fondo primario - Color de marca para tags */
+    color: white;                       /* Texto blanco - Contraste máximo sobre fondo primario */
+    border-radius: var(--border-radius-sm); /* Radio pequeño - Esquinas suaves tipo pill */
+    padding: var(--spacing-xs) var(--spacing-sm); /* Padding compacto - Diseño discreto */
+    font-size: var(--font-size-sm);    /* Fuente pequeña - Información secundaria */
+    margin-right: var(--spacing-xs);    /* Margen derecho - Separación entre tags */
+    display: inline-block;              /* Display inline-block - Flujo horizontal */
+    font-weight: 500;                   /* Peso medio - Legibilidad sin exceso */
 }
 
 .prompt-item .date,
