@@ -14,8 +14,8 @@ Object.assign(window.View, {
      * Calcula contadores de prompts por carpeta mediante filtrado
      * Patrón: Progressive disclosure con lazy loading de elementos adicionales
      * 
-     * @param {Array} folders - Array de objetos folder
-     * @param {Array} prompts - Array de prompts para cálculo de contadores
+     * @param {Array} folders Array de objetos folder
+     * @param {Array} prompts Array de prompts para cálculo de contadores
      */
     renderFolders: function (folders, prompts) {
         const list = document.getElementById('folders-list');
@@ -59,7 +59,7 @@ Object.assign(window.View, {
         if (hasMoreFolders) {
             // Contenedor del botón de toggle
             const toggleContainer = window.DOMUtils.createElement('div', { className: 'folders-collapse-toggle' });
-            
+
             // Botón con texto dinámico indicando cantidad de carpetas ocultas
             const toggleBtn = window.DOMUtils.createButton(
                 dict.showMoreFolders(foldersWithCounts.length - visibleFoldersCount),
@@ -90,7 +90,7 @@ Object.assign(window.View, {
             toggleBtn.addEventListener('click', function () {
                 const isVisible = collapsedSection.style.display !== 'none';
                 collapsedSection.style.display = isVisible ? 'none' : 'block';
-                
+
                 // Actualización dinámica del texto del botón según estado
                 toggleBtn.textContent = isVisible
                     ? dict.showMoreFolders(foldersWithCounts.length - visibleFoldersCount)
@@ -108,19 +108,19 @@ Object.assign(window.View, {
      * Implementa actualización condicional para prevenir errores si elementos no existen
      * Patrón: Status update con safe navigation
      * 
-     * @param {Array} prompts - Array de prompts para cálculo de totales
+     * @param {Array} prompts Array de prompts para cálculo de totales
      */
     updateTotalPromptsAndReminder: function (prompts) {
         const dict = window.MESSAGES[window.currentLang]?.ui || window.MESSAGES.ui;
-        
+
         // Actualización del contador total con verificación de existencia
         const totalSpan = document.getElementById('total-prompts-count');
         const reminderSpan = document.getElementById('export-reminder');
-        
+
         if (totalSpan) {
             totalSpan.textContent = `${dict.totalPrompts} ${prompts.length}`;
         }
-        
+
         // Actualización del recordatorio dinámico basado en actividad
         if (reminderSpan) {
             reminderSpan.textContent = this.getDynamicExportReminderByDate(prompts, window.currentLang);
@@ -133,9 +133,9 @@ Object.assign(window.View, {
      * Implementa lógica de business rules para recordatorios progresivos
      * Patrón: Rule-based messaging con escalación temporal
      * 
-     * @param {Array} prompts - Array de prompts para análisis temporal
-     * @param {string} currentLang - Código de idioma para localización
-     * @returns {string} - Mensaje de recordatorio contextualizado
+     * @param {Array} prompts Array de prompts para análisis temporal
+     * @param {string} currentLang Código de idioma para localización
+     * @returns {string} Mensaje de recordatorio contextualizado
      */
     getDynamicExportReminderByDate: function (prompts, currentLang = 'es') {
         const dict = window.MESSAGES[currentLang]?.ui || window.MESSAGES.ui;
@@ -181,10 +181,10 @@ Object.assign(window.View, {
      * Implementa lógica de deshabilitación de eliminación para carpetas con contenido
      * Patrón: Factory method con validación de integridad referencial
      * 
-     * @param {Object} folder - Objeto folder con {id, name}
-     * @param {number} count - Número de prompts en la carpeta
-     * @param {Object} dict - Diccionario de traducciones
-     * @returns {HTMLElement} - Elemento DOM del item de carpeta
+     * @param {Object} folder Objeto folder con {id, name}
+     * @param {number} count Número de prompts en la carpeta
+     * @param {Object} dict Diccionario de traducciones
+     * @returns {HTMLElement} Elemento DOM del item de carpeta
      */
     _createFolderItem: function (folder, count, dict) {
         // Contenedor principal con data-attribute para identificación
@@ -218,7 +218,7 @@ Object.assign(window.View, {
      * Implementa auto-expansión de sección colapsada si es necesario
      * Patrón: In-place editing con preservación de contexto visual
      * 
-     * @param {Object} folder - Objeto folder a editar con {id, name}
+     * @param {Object} folder Objeto folder a editar con {id, name}
      */
     renderEditFolderForm: function (folder) {
         // Localización del contenedor específico mediante selector de atributo
@@ -230,7 +230,7 @@ Object.assign(window.View, {
         const collapsedSection = document.getElementById('folders-collapsed');
         if (collapsedSection && collapsedSection.contains(container) && collapsedSection.style.display === 'none') {
             collapsedSection.style.display = 'block';
-            
+
             // Actualización del texto del botón de toggle para reflejar estado
             const toggleBtn = document.getElementById('folders-toggle-btn');
             if (toggleBtn) {
@@ -274,8 +274,8 @@ Object.assign(window.View, {
      * Implementa auto-limpieza mediante setTimeout para UX no intrusiva
      * Patrón: Temporary notification con visual feedback
      * 
-     * @param {string} msg - Mensaje a mostrar
-     * @param {boolean} ok - true para éxito (verde), false para error (rojo)
+     * @param {string} msg Mensaje a mostrar
+     * @param {boolean} ok true para éxito (verde), false para error (rojo)
      */
     showImportMessage: function (msg, ok = false) {
         const el = document.getElementById('import-msg');
@@ -284,7 +284,7 @@ Object.assign(window.View, {
         // Establecimiento de contenido y color basado en estado
         el.textContent = msg;
         el.style.color = ok ? 'green' : 'red';
-        
+
         // Auto-limpieza después de 4 segundos para evitar acumulación de mensajes
         setTimeout(() => { el.textContent = ''; }, 4000);
     },
@@ -295,11 +295,11 @@ Object.assign(window.View, {
      * Implementa reset a 'auto' para recálculo correcto del scrollHeight
      * Patrón: Dynamic sizing con recalculación de dimensiones
      * 
-     * @param {HTMLElement} el - Elemento textarea a redimensionar
+     * @param {HTMLElement} el Elemento textarea a redimensionar
      */
     autoResize: function (el) {
         if (!el) return;
-        
+
         // Reset a altura automática para permitir shrinking
         el.style.height = 'auto';
         // Establecimiento de altura basada en contenido real
@@ -311,16 +311,16 @@ Object.assign(window.View, {
      * Configura event listener para input y ejecuta redimensionamiento inicial
      * Patrón: Event binding con inicialización inmediata
      * 
-     * @param {HTMLElement} el - Elemento textarea para configurar auto-resize
+     * @param {HTMLElement} el Elemento textarea para configurar auto-resize
      */
     attachAutoResize: function (el) {
         if (!el) return;
-        
+
         // Event listener para redimensionamiento en tiempo real durante escritura
         el.addEventListener('input', function () {
             window.View.autoResize(this);
         });
-        
+
         // Redimensionamiento inicial para contenido pre-existente
         window.View.autoResize(el);
     },
@@ -336,12 +336,12 @@ Object.assign(window.View, {
         const input = document.getElementById('prompt-input');
         const tagsInput = document.getElementById('tags-input');
         const folderSelect = document.getElementById('folder-select');
-        
+
         // Limpieza de valores con safe navigation
         if (input) input.value = '';
         if (tagsInput) tagsInput.value = '';
         if (folderSelect) folderSelect.value = '';
-        
+
         // Redimensionamiento del textarea principal después del reset
         // Verificación de disponibilidad de función para prevenir errores
         if (window.View && typeof window.View.autoResize === 'function' && input) {
@@ -355,7 +355,7 @@ Object.assign(window.View, {
      * Implementa cleanup automático de contenido y clases CSS
      * Patrón: Temporary notification con CSS class-based animations
      * 
-     * @param {string} msg - Mensaje a mostrar al usuario
+     * @param {string} msg Mensaje a mostrar al usuario
      */
     showPromptMsg: function (msg) {
         const msgDiv = document.getElementById('prompt-msg');
@@ -363,7 +363,7 @@ Object.assign(window.View, {
             // Establecimiento de contenido y activación de visibilidad
             msgDiv.textContent = msg;
             msgDiv.classList.add('visible');
-            
+
             // Auto-limpieza después de 4 segundos
             // Limpia tanto contenido como clase CSS para reset completo
             setTimeout(() => {
@@ -379,7 +379,7 @@ Object.assign(window.View, {
      * Implementa control directo de visibilidad mediante manipulación de estilos
      * Patrón: Visibility toggle con layout preservation (flex)
      * 
-     * @param {boolean} visible - true para mostrar, false para ocultar
+     * @param {boolean} visible true para mostrar, false para ocultar
      */
     setImportChoicePanelVisible: function (visible) {
         const panel = document.getElementById('import-choice-panel');
