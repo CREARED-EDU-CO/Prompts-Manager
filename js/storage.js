@@ -141,7 +141,7 @@ window.Storage = {
     /**
      * GUARDADO DE PREFERENCIA DE TEMA
      * 
-     * @param {boolean} isDarkMode - true para modo oscuro, false para claro
+     * @param {boolean} isDarkMode true para modo oscuro, false para claro
      * 
      * PROPÓSITO: Persiste preferencia de tema del usuario
      * CONVERSIÓN: Boolean → string para compatibilidad con localStorage
@@ -182,7 +182,7 @@ window.Storage = {
     /**
      * GUARDADO DE PROMPTS A LOCALSTORAGE
      * 
-     * @param {Array} prompts - Array de objetos prompt a guardar
+     * @param {Array} prompts Array de objetos prompt a guardar
      * @returns {boolean} true si guardado exitoso, false si error
      * 
      * PATRÓN: Setter con manejo de errores y feedback al usuario
@@ -233,7 +233,7 @@ window.Storage = {
     /**
      * GUARDADO DE CARPETAS A LOCALSTORAGE
      * 
-     * @param {Array} folders - Array de objetos folder a guardar
+     * @param {Array} folders Array de objetos folder a guardar
      * @returns {boolean} true si guardado exitoso, false si error
      * 
      * PATRÓN: Setter con manejo de errores idéntico a savePrompts
