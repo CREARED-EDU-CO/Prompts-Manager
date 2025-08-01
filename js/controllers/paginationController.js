@@ -144,7 +144,7 @@ window.PaginationController = {
   /**
    * SETTER DE PÁGINA CON RE-RENDERIZADO
    * 
-   * @param {number} page - Nueva página a mostrar
+   * @param {number} page Nueva página a mostrar
    * 
    * PATRÓN: State update + side effect
    * RESPONSABILIDADES:
@@ -161,7 +161,7 @@ window.PaginationController = {
   /**
    * SETTER DE ELEMENTOS POR PÁGINA CON RE-RENDERIZADO
    * 
-   * @param {number} itemsPerPage - Nuevo número de elementos por página
+   * @param {number} itemsPerPage Nuevo número de elementos por página
    * 
    * PATRÓN: State update + reset + side effect
    * RESPONSABILIDADES:
