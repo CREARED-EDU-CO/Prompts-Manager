@@ -182,6 +182,9 @@ window.PromptsModel = {
         // PERSISTENCIA: Sincroniza con localStorage
         window.Storage.savePrompts(this.prompts);
         
+        // EVENTO: Notifica creación de prompt para desacoplamiento
+        window.EventBus.emit(window.EVENTS.PROMPT_CREATED, { prompt: prompt });
+        
         return true; // SUCCESS: Prompt creado exitosamente
     },
     /**
@@ -236,6 +239,13 @@ window.PromptsModel = {
         // PERSISTENCIA: Sincroniza con localStorage
         window.Storage.savePrompts(this.prompts);
         
+        // EVENTO: Notifica edición de prompt para desacoplamiento
+        window.EventBus.emit(window.EVENTS.PROMPT_UPDATED, { 
+            id: id, 
+            prompt: this.prompts[idx], 
+            changes: data 
+        });
+        
         return true; // SUCCESS: Prompt editado exitosamente
     },
     /**
@@ -243,19 +253,30 @@ window.PromptsModel = {
      * 
      * @param {string} id ID del prompt a eliminar
      * 
-     * PATRÓN: Filter + Persist (operación destructiva)
-     * MECÁNICA: Filtra array excluyendo el prompt con ID especificado
+     * PATRÓN: Capture + Filter + Persist + Event (operación destructiva con notificación)
+     * MECÁNICA: Captura datos antes de eliminar, filtra array, persiste y notifica
      * PERSISTENCIA: Sincroniza inmediatamente con localStorage
+     * EVENTO: Dispara notificación para desacoplamiento arquitectónico
      * 
-     * NOTA: No retorna boolean porque filter siempre funciona
-     * (incluso si ID no existe, simplemente no cambia nada)
+     * NOTA: Captura prompt antes de eliminación para incluir en evento
      */
     deletePrompt: function (id) {
+        // CAPTURA: Obtiene prompt antes de eliminación para evento
+        const deletedPrompt = this.prompts.find(p => p.id === id);
+        
         // FILTRADO: Excluye prompt con ID especificado
         this.prompts = this.prompts.filter(p => p.id !== id);
         
         // PERSISTENCIA: Sincroniza con localStorage
         window.Storage.savePrompts(this.prompts);
+        
+        // EVENTO: Notifica eliminación solo si prompt existía
+        if (deletedPrompt) {
+            window.EventBus.emit(window.EVENTS.PROMPT_REMOVED, { 
+                id: id, 
+                prompt: deletedPrompt 
+            });
+        }
     },
     
     /**
@@ -279,6 +300,13 @@ window.PromptsModel = {
             
             // PERSISTENCIA: Sincroniza con localStorage
             window.Storage.savePrompts(this.prompts);
+            
+            // EVENTO: Notifica cambio de favorito para desacoplamiento
+            window.EventBus.emit(window.EVENTS.PROMPT_FAVORITED, { 
+                id: id, 
+                prompt: prompt, 
+                isFavorite: prompt.favorite 
+            });
         }
     },
     
@@ -303,6 +331,13 @@ window.PromptsModel = {
             
             // PERSISTENCIA: Sincroniza con localStorage
             window.Storage.savePrompts(this.prompts);
+            
+            // EVENTO: Notifica uso de prompt para analytics y desacoplamiento
+            window.EventBus.emit(window.EVENTS.PROMPT_COPIED, { 
+                id: id, 
+                prompt: prompt, 
+                usageCount: prompt.usageCount 
+            });
         }
     }
 };
