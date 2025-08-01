@@ -49,9 +49,12 @@
   SHADOW CONSISTENCY: Mantiene elevación visual en contexto oscuro
 */
 [data-theme="dark"] .app-header {
-    background: linear-gradient(135deg, var(--background-card) 0%, var(--background-card-alt) 100%); /* Degradado dark - Mantiene profundidad visual */
-    border-bottom-color: var(--primary-color); /* Borde primario - Color ajustado para dark mode */
-    box-shadow: var(--shadow-md);       /* Sombra consistente - Elevación visual mantenida */
+    background: linear-gradient(135deg, var(--background-card) 0%, var(--background-card-alt) 100%);
+    /* Degradado dark - Mantiene profundidad visual */
+    border-bottom-color: var(--primary-color);
+    /* Borde primario - Color ajustado para dark mode */
+    box-shadow: var(--shadow-md);
+    /* Sombra consistente - Elevación visual mantenida */
 }
 
 /* 
@@ -62,12 +65,18 @@
   WEBKIT CLIP: Mantiene técnica de gradient text con colores dark-optimized
 */
 [data-theme="dark"] .app-title {
-    color: var(--primary-color);        /* Color primario dark - Fallback para gradient text */
-    text-shadow: 0 2px 4px rgba(37, 99, 235, 0.2); /* Sombra intensificada - Mayor profundidad en dark */
-    background: linear-gradient(135deg, var(--primary-color) 0%, #60a5fa 100%); /* Degradado dark - Colores optimizados para fondos oscuros */
-    -webkit-background-clip: text;      /* Webkit clip - Aplica degradado como color de texto */
-    -webkit-text-fill-color: transparent; /* Webkit fill - Transparencia para mostrar degradado */
-    background-clip: text;              /* Standard clip - Soporte cross-browser */
+    color: var(--primary-color);
+    /* Color primario dark - Fallback para gradient text */
+    text-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+    /* Sombra intensificada - Mayor profundidad en dark */
+    background: linear-gradient(135deg, var(--primary-color) 0%, #60a5fa 100%);
+    /* Degradado dark - Colores optimizados para fondos oscuros */
+    -webkit-background-clip: text;
+    /* Webkit clip - Aplica degradado como color de texto */
+    -webkit-text-fill-color: transparent;
+    /* Webkit fill - Transparencia para mostrar degradado */
+    background-clip: text;
+    /* Standard clip - Soporte cross-browser */
 }
 
 /* 
@@ -83,8 +92,10 @@
   FLEXBOX ALIGNMENT: Alineación horizontal de elementos internos
 */
 .dark-mode-switch {
-    display: flex;                      /* Layout flex - Alineación de elementos del switch */
-    align-items: center;                /* Centrado vertical - Alineación de switch y label */
+    display: flex;
+    /* Layout flex - Alineación de elementos del switch */
+    align-items: center;
+    /* Centrado vertical - Alineación de switch y label */
 }
 
 /* 
@@ -94,10 +105,14 @@
   FLEXBOX: Alineación interna de switch y texto
 */
 .dark-mode-switch label {
-    display: flex;                      /* Layout flex - Alineación de switch y texto */
-    align-items: center;                /* Centrado vertical - Alineación perfecta */
-    cursor: pointer;                    /* Cursor pointer - Indica área clickeable */
-    user-select: none;                  /* Sin selección - Previene selección de texto */
+    display: flex;
+    /* Layout flex - Alineación de switch y texto */
+    align-items: center;
+    /* Centrado vertical - Alineación perfecta */
+    cursor: pointer;
+    /* Cursor pointer - Indica área clickeable */
+    user-select: none;
+    /* Sin selección - Previene selección de texto */
 }
 
 /* 
@@ -107,11 +122,16 @@
   SPACING: Margen derecho para separación del texto
 */
 .dark-mode-switch .switch {
-    position: relative;                 /* Posicionamiento relativo - Contexto para slider */
-    display: inline-block;              /* Display inline-block - Flujo con texto */
-    width: 40px;                        /* Ancho fijo - Dimensión estándar de switch */
-    height: 20px;                       /* Alto fijo - Proporción 2:1 para switch */
-    margin-right: var(--spacing-sm);    /* Margen derecho - Separación del texto */
+    position: relative;
+    /* Posicionamiento relativo - Contexto para slider */
+    display: inline-block;
+    /* Display inline-block - Flujo con texto */
+    width: 40px;
+    /* Ancho fijo - Dimensión estándar de switch */
+    height: 20px;
+    /* Alto fijo - Proporción 2:1 para switch */
+    margin-right: var(--spacing-sm);
+    /* Margen derecho - Separación del texto */
 }
 
 /* 
@@ -120,9 +140,12 @@
   ACCESSIBILITY: Mantiene funcionalidad nativa para screen readers
 */
 .dark-mode-switch .switch input {
-    opacity: 0;                         /* Transparente - Oculta visualmente el input */
-    width: 0;                           /* Ancho cero - Sin ocupar espacio */
-    height: 0;                          /* Alto cero - Sin ocupar espacio */
+    opacity: 0;
+    /* Transparente - Oculta visualmente el input */
+    width: 0;
+    /* Ancho cero - Sin ocupar espacio */
+    height: 0;
+    /* Alto cero - Sin ocupar espacio */
 }
 
 /* 
@@ -133,15 +156,24 @@
   TRANSITION: Animación suave para cambios de estado
 */
 .dark-mode-switch .slider {
-    position: absolute;                 /* Posicionamiento absoluto - Cubre contenedor completo */
-    cursor: pointer;                    /* Cursor pointer - Indica interactividad */
-    top: 0;                            /* Posición superior - Alineación con contenedor */
-    left: 0;                           /* Posición izquierda - Alineación con contenedor */
-    right: 0;                          /* Posición derecha - Estiramiento completo */
-    bottom: 0;                         /* Posición inferior - Estiramiento completo */
-    background-color: var(--border-color); /* Fondo inactivo - Color neutro para off state */
-    transition: var(--transition-normal); /* Transición - Animación suave de cambios */
-    border-radius: 34px;               /* Radio alto - Forma pill característica */
+    position: absolute;
+    /* Posicionamiento absoluto - Cubre contenedor completo */
+    cursor: pointer;
+    /* Cursor pointer - Indica interactividad */
+    top: 0;
+    /* Posición superior - Alineación con contenedor */
+    left: 0;
+    /* Posición izquierda - Alineación con contenedor */
+    right: 0;
+    /* Posición derecha - Estiramiento completo */
+    bottom: 0;
+    /* Posición inferior - Estiramiento completo */
+    background-color: var(--border-color);
+    /* Fondo inactivo - Color neutro para off state */
+    transition: var(--transition-normal);
+    /* Transición - Animación suave de cambios */
+    border-radius: 34px;
+    /* Radio alto - Forma pill característica */
 }
 
 /* 
@@ -152,15 +184,24 @@
   SIZED: 16x16px con 2px de margen para fit perfecto en track de 20px
 */
 .dark-mode-switch .slider:before {
-    position: absolute;                 /* Posicionamiento absoluto - Control preciso de posición */
-    content: "";                        /* Contenido vacío - Pseudo-element sin texto */
-    height: 16px;                       /* Alto fijo - Círculo perfecto */
-    width: 16px;                        /* Ancho fijo - Círculo perfecto */
-    left: 2px;                          /* Posición izquierda - Margen interno */
-    bottom: 2px;                        /* Posición inferior - Centrado vertical */
-    background-color: var(--main-background); /* Fondo principal - Contraste con track */
-    transition: var(--transition-normal); /* Transición - Animación suave de movimiento */
-    border-radius: 50%;                 /* Radio 50% - Forma circular perfecta */
+    position: absolute;
+    /* Posicionamiento absoluto - Control preciso de posición */
+    content: "";
+    /* Contenido vacío - Pseudo-element sin texto */
+    height: 16px;
+    /* Alto fijo - Círculo perfecto */
+    width: 16px;
+    /* Ancho fijo - Círculo perfecto */
+    left: 2px;
+    /* Posición izquierda - Margen interno */
+    bottom: 2px;
+    /* Posición inferior - Centrado vertical */
+    background-color: var(--main-background);
+    /* Fondo principal - Contraste con track */
+    transition: var(--transition-normal);
+    /* Transición - Animación suave de movimiento */
+    border-radius: 50%;
+    /* Radio 50% - Forma circular perfecta */
 }
 
 /* 
@@ -169,7 +210,8 @@
   VISUAL FEEDBACK: Color de marca para confirmación visual
 */
 .dark-mode-switch input:checked+.slider {
-    background-color: var(--primary-color); /* Fondo primario - Indica estado activo */
+    background-color: var(--primary-color);
+    /* Fondo primario - Indica estado activo */
 }
 
 /* 
@@ -178,7 +220,8 @@
   SUBTLE: Sombra sutil para no ser intrusiva
 */
 .dark-mode-switch input:focus+.slider {
-    box-shadow: 0 0 1px var(--primary-color); /* Sombra de focus - Feedback para keyboard navigation */
+    box-shadow: 0 0 1px var(--primary-color);
+    /* Sombra de focus - Feedback para keyboard navigation */
 }
 
 /* 
@@ -187,7 +230,8 @@
   SPACING: Usa spacing-lg (24px) menos dimensiones para posición final
 */
 .dark-mode-switch input:checked+.slider:before {
-    transform: translateX(var(--spacing-lg)); /* Movimiento derecha - Posición activa del thumb */
+    transform: translateX(var(--spacing-lg));
+    /* Movimiento derecha - Posición activa del thumb */
 }
 
 [data-theme="dark"] .prompt-item {
@@ -290,6 +334,30 @@
     color: var(--primary-color-darker);
 }
 
+/* 
+  TRANSICIONES OPTIMIZADAS PARA DARK MODE: Aplicadas solo durante cambio de tema
+  PERFORMANCE OPTIMIZATION: Transiciones activas únicamente cuando son necesarias
+  PROGRAMMATIC CONTROL: Activadas via JavaScript durante toggle de tema
+  SMOOTH UX: Evita cambios abruptos solo cuando se cambia tema
+  EFFICIENCY: Reduce carga computacional al no mantener transiciones siempre activas
+  
+  IMPLEMENTACIÓN:
+  1. JavaScript añade clase 'theme-transitioning' antes del cambio
+  2. CSS aplica transiciones solo con esta clase presente
+  3. JavaScript remueve clase después de completar transición
+  4. Elementos no mantienen transiciones activas constantemente
+  
+  ELEMENTOS INCLUIDOS:
+  - Componentes de contenido: prompt-item, modal-box, prompt-text
+  - Elementos de formulario: input, select, textarea, btn
+  - Elementos de navegación: folder-item, tag, pagination btn
+  - Elementos informativos: prompt-meta, date, usage, import-export-info
+  - Elementos de branding: app-header, app-title
+  - Elementos de configuración: config-item, copyright-info
+  
+  TIMING: Utiliza --transition-colors solo durante cambio activo de tema
+  SCOPE: Aplicado condicionalmente cuando body tiene clase theme-transitioning
+*/
 /* 
   TRANSICIONES GLOBALES PARA DARK MODE: Suavizado de cambios de tema
   COMPREHENSIVE: Lista exhaustiva de elementos que cambian colores
