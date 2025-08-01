@@ -30,40 +30,42 @@ window.Controller = {
   /**
    * INICIALIZADOR DEL CONTROLADOR PRINCIPAL
    * 
-   * PATRÓN: Orchestrated initialization con dependency injection
-   * ESTRATEGIA: Inicialización secuencial con binding de callbacks
+   * PATRÓN: Event-driven architecture con desacoplamiento completo
+   * ESTRATEGIA: Inicialización de controladores + configuración de event listeners
    * 
    * ORDEN DE INICIALIZACIÓN:
-   * 1. Controladores que requieren callback de actualización
-   * 2. Controladores independientes (FiltersController, PaginationController)
+   * 1. Configuración de event listeners para desacoplamiento
+   * 2. Inicialización de controladores especializados
    * 3. Renderizado inicial completo
    * 
-   * CALLBACK BINDING: this.updateAllViews.bind(this) para mantener contexto
-   * COORDINACIÓN: Cada controlador recibe callback para disparar actualizaciones globales
+   * DESACOPLAMIENTO: Los modelos disparan eventos, Controller escucha y coordina
+   * ARQUITECTURA: Observer pattern para comunicación inter-módulos
    */
   init: function () {
+    // CONFIGURACIÓN DE EVENT LISTENERS: Desacoplamiento arquitectónico
+    this._setupEventListeners();
     /**
-     * INICIALIZACIÓN DE CONTROLADORES CON CALLBACK
+     * INICIALIZACIÓN DE CONTROLADORES DESACOPLADOS
      * 
-     * PATRÓN: Dependency injection de callback para coordinación
-     * PROPÓSITO: Controladores pueden disparar actualizaciones globales
-     * BINDING: .bind(this) preserva contexto del Controller principal
+     * PATRÓN: Event-driven initialization sin dependency injection
+     * PROPÓSITO: Controladores independientes que reaccionan a eventos
+     * DESACOPLAMIENTO: No necesitan callbacks, escuchan eventos del EventBus
      */
 
-    // FORMULARIO PRINCIPAL: Creación de prompts con actualización global
-    window.PromptFormController.init(this.updateAllViews.bind(this));
+    // FORMULARIO PRINCIPAL: Creación de prompts (eventos automáticos)
+    window.PromptFormController.init();
 
-    // CONTENEDOR DE PROMPTS: Interacciones CRUD con actualización global
-    window.PromptContainerController.init(this.updateAllViews.bind(this));
+    // CONTENEDOR DE PROMPTS: Interacciones CRUD (eventos automáticos)
+    window.PromptContainerController.init();
 
     // FILTROS: Inicialización independiente (maneja su propia coordinación)
     window.FiltersController.init();
 
-    // CARPETAS: CRUD de carpetas con actualización global
-    window.FoldersController.init(this.updateAllViews.bind(this));
+    // CARPETAS: CRUD de carpetas (eventos automáticos)
+    window.FoldersController.init();
 
-    // IMPORTACIÓN/EXPORTACIÓN: I/O de archivos con actualización global
-    window.ImportExportController.init(this.updateAllViews.bind(this));
+    // IMPORTACIÓN/EXPORTACIÓN: I/O de archivos (eventos automáticos)
+    window.ImportExportController.init();
 
     // PAGINACIÓN: Inicialización independiente (coordinado via FiltersController)
     window.PaginationController.init();
@@ -73,13 +75,85 @@ window.Controller = {
   },
 
   /**
+   * CONFIGURADOR DE EVENT LISTENERS
+   * 
+   * PROPÓSITO: Desacoplamiento arquitectónico mediante Observer pattern
+   * PATRÓN: Centralized event handling para coordinación de actualizaciones
+   * ESCALABILIDAD: Fácil añadir nuevos listeners sin modificar modelos
+   * 
+   * EVENTOS ESCUCHADOS:
+   * - PROMPT_*: Actualizaciones de vista tras operaciones de prompts
+   * - FOLDER_*: Actualizaciones de vista tras operaciones de carpetas
+   * - DATA_*: Actualizaciones globales tras importación/exportación
+   * 
+   * BENEFICIOS:
+   * - Modelos no conocen la vista (desacoplamiento)
+   * - Fácil extensión para analytics, logging, etc.
+   * - Debugging mejorado con trazabilidad de eventos
+   */
+  _setupEventListeners: function () {
+    // EVENTOS DE PROMPTS: Actualizaciones tras operaciones CRUD
+    window.EventBus.on(window.EVENTS.PROMPT_CREATED, () => {
+      this.updateAllViews();
+    });
+
+    window.EventBus.on(window.EVENTS.PROMPT_UPDATED, () => {
+      this.updateAllViews();
+    });
+
+    window.EventBus.on(window.EVENTS.PROMPT_REMOVED, () => {
+      this.updateAllViews();
+    });
+
+    window.EventBus.on(window.EVENTS.PROMPT_FAVORITED, () => {
+      // OPTIMIZACIÓN: Solo re-renderizar prompts, no todos los filtros
+      window.PaginationController.renderPromptsWithPagination();
+    });
+
+    window.EventBus.on(window.EVENTS.PROMPT_COPIED, (data) => {
+      // ANALYTICS: Logging de uso para estadísticas
+      // analytics.track('prompt_copied', { id: data.id, usageCount: data.usageCount });
+      
+      // ACTUALIZACIÓN GRANULAR: Solo actualiza el contador de uso sin re-renderizar todo
+      // TIMING: Retraso para permitir que termine el feedback visual del botón (1000ms)
+      setTimeout(() => {
+        this._updateUsageCountDisplay(data.id, data.usageCount);
+      }, 1000);
+    });
+
+    // EVENTOS DE CARPETAS: Actualizaciones tras operaciones CRUD
+    window.EventBus.on(window.EVENTS.FOLDER_CREATED, () => {
+      this.updateAllViews();
+    });
+
+    window.EventBus.on(window.EVENTS.FOLDER_UPDATED, () => {
+      this.updateAllViews();
+    });
+
+    window.EventBus.on(window.EVENTS.FOLDER_REMOVED, () => {
+      this.updateAllViews();
+    });
+
+    // EVENTOS DE DATOS: Actualizaciones tras importación/exportación
+    window.EventBus.on(window.EVENTS.DATA_IMPORTED, () => {
+      this.updateAllViews();
+    });
+
+    window.EventBus.on(window.EVENTS.DATA_EXPORTED, (data) => {
+      // FEEDBACK: Notificación de exportación exitosa
+      const messages = window.getLocalizedMessages();
+      window.showToast(messages.success.dataExported, 'success');
+    });
+  },
+
+  /**
    * ACTUALIZADOR GLOBAL DE VISTAS
    * 
    * PROPÓSITO: Sincronización completa de todos los componentes visuales tras cambios de datos
    * PATRÓN: Batch update pattern para evitar renders parciales inconsistentes
    * USO: Llamado tras operaciones que afectan múltiples componentes
    * 
-   * COMPONENTES ACTUALIZADOS:
+   * COMPONENTES:
    * 1. Reset de paginación a página 1 (lógico tras cambios de datos)
    * 2. Re-renderizado de prompts con filtros y paginación
    * 3. Actualización de filtro de etiquetas (opciones dinámicas)
@@ -117,6 +191,7 @@ window.Controller = {
    * RESPONSABILIDADES:
    * - Extracción y procesamiento de datos del formulario
    * - Validación de reglas de negocio
+   * - Limpieza de estado de edición (antes del evento)
    * - Actualización del modelo con persistencia
    * - Feedback al usuario sobre resultado
    * - Sincronización de componentes dependientes
@@ -146,11 +221,16 @@ window.Controller = {
 
     // VALIDACIÓN DE TEXTO: Debe tener contenido
     if (text) {
+      // LIMPIEZA DE ESTADO: Marca que no hay prompt en edición ANTES de actualizar modelo
+      // CRÍTICO: Debe hacerse antes del evento PROMPT_EDITED para que updateAllViews()
+      // renderice el prompt en modo display, no en modo edición
+      window.View.editingPromptId = null;
+
       // ACTUALIZACIÓN: Modifica prompt en modelo con persistencia automática
       window.PromptsModel.editPrompt(id, { text, tags, folderId });
 
       // FEEDBACK: Notifica éxito al usuario
-      window.showToast(messages.success.promptEdited, 'success');
+      window.showToast(messages.success.promptUpdated, 'success');
 
       // SINCRONIZACIÓN PARCIAL: Actualiza componentes afectados por cambio de tags/carpetas
       window.View.updateTagFilter(window.PromptsModel.prompts);        // Nuevas etiquetas disponibles
@@ -236,46 +316,19 @@ window.Controller = {
       success = this._handleEditPromptSubmit(id, e.target.elements);
 
       if (success) {
-        // LIMPIEZA DE ESTADO: Marca que no hay prompt en edición
-        window.View.editingPromptId = null;
-
+        // NOTA: La limpieza de estado (editingPromptId = null) ya se hace en _handleEditPromptSubmit
+        // NOTA: La actualización de vista se maneja automáticamente via evento PROMPT_EDITED
+        
         /**
-         * OPTIMIZACIÓN INTELIGENTE DE RENDERIZADO
+         * OPTIMIZACIÓN INTELIGENTE DE RENDERIZADO (DESHABILITADA)
          * 
-         * LÓGICA: Decide entre re-renderizado completo vs reemplazo local
-         * CRITERIOS:
-         * - Filtros activos: Requiere re-renderizado completo
-         * - Sin filtros: Permite optimización con reemplazo DOM local
-         * 
-         * PERFORMANCE: Reemplazo local es más eficiente para casos simples
+         * RAZÓN: Con arquitectura event-driven, el evento PROMPT_EDITED ya dispara updateAllViews()
+         * automáticamente, por lo que no necesitamos lógica de renderizado manual aquí.
+         * El evento se encarga de toda la actualización de vista de manera consistente.
          */
-        const currentFilters = window.FiltersController.getCurrentFilters();
-        const hasOrderFilter = currentFilters.order && currentFilters.order !== '';
-        const hasOtherFilters = currentFilters.text || currentFilters.favorite ||
-          currentFilters.tag || currentFilters.folder;
-
-        if (hasOrderFilter || hasOtherFilters) {
-          // CASO COMPLEJO: Filtros activos requieren re-renderizado completo
-          window.PaginationController.renderPromptsWithPagination();
-        } else {
-          // CASO SIMPLE: Optimización con reemplazo DOM local
-          const formElement = e.target;
-          const prompt = window.PromptsModel.prompts.find(p => p.id === id);
-
-          if (prompt) {
-            // PREPARACIÓN: Mapa de carpetas para renderizado
-            const folderMap = (window.FoldersModel.folders || []).reduce((acc, f) => {
-              acc[f.id] = f.name;
-              return acc;
-            }, {});
-
-            // RENDERIZADO LOCAL: Crea elemento de display actualizado
-            const promptElement = window.View._renderPromptDisplay(prompt, folderMap);
-
-            // REEMPLAZO: Sustituye formulario por elemento actualizado (API moderna)
-            formElement.replaceWith(promptElement);
-          }
-        }
+        
+        // La actualización de vista se maneja automáticamente via evento PROMPT_EDITED
+        // No se requiere lógica adicional de renderizado aquí
       }
     } else if (type === 'folder') {
       // PROCESAMIENTO: Delega a manejador específico de carpetas
@@ -284,6 +337,72 @@ window.Controller = {
     }
 
     return success; // RESULTADO: Indica si operación fue exitosa
+  },
+
+  /**
+   * MAPEADOR DE EVENTOS A MENSAJES UI
+   * 
+   * @param {string} eventName Nombre del evento técnico
+   * @returns {string|null} Clave del mensaje UI correspondiente o null
+   * 
+   * PROPÓSITO: Mapeo centralizado entre eventos técnicos y mensajes de usuario
+   * PATRÓN: Strategy pattern para desacoplamiento semántico
+   * ESCALABILIDAD: Permite eventos sin mensajes y mensajes sin eventos
+   * 
+   * USO FUTURO: Para automatizar feedback basado en eventos
+   * EJEMPLO: this._showEventFeedback(EVENTS.PROMPT_CREATED)
+   */
+  _mapEventToMessage: function(eventName) {
+    const eventToMessageMap = {
+      [window.EVENTS.PROMPT_CREATED]: window.UI_MESSAGES.SUCCESS.PROMPT_CREATED,
+      [window.EVENTS.PROMPT_UPDATED]: window.UI_MESSAGES.SUCCESS.PROMPT_UPDATED,
+      [window.EVENTS.PROMPT_REMOVED]: window.UI_MESSAGES.SUCCESS.PROMPT_REMOVED,
+      [window.EVENTS.PROMPT_COPIED]: window.UI_MESSAGES.SUCCESS.PROMPT_COPIED,
+      [window.EVENTS.FOLDER_CREATED]: window.UI_MESSAGES.SUCCESS.FOLDER_CREATED,
+      [window.EVENTS.FOLDER_UPDATED]: window.UI_MESSAGES.SUCCESS.FOLDER_UPDATED,
+      [window.EVENTS.FOLDER_REMOVED]: window.UI_MESSAGES.SUCCESS.FOLDER_REMOVED,
+      [window.EVENTS.DATA_IMPORTED]: window.UI_MESSAGES.SUCCESS.DATA_IMPORTED,
+      [window.EVENTS.DATA_EXPORTED]: window.UI_MESSAGES.SUCCESS.DATA_EXPORTED
+    };
+    
+    return eventToMessageMap[eventName] || null;
+  },
+
+  /**
+   * ACTUALIZADOR GRANULAR DE CONTADOR DE USO
+   * 
+   * @param {string} promptId ID del prompt cuyo contador actualizar
+   * @param {number} usageCount Nuevo valor del contador de uso
+   * 
+   * PROPÓSITO: Actualiza solo el contador de uso sin re-renderizar todo el prompt
+   * PATRÓN: Granular DOM update para mejor performance y UX
+   * USO: Llamado tras evento PROMPT_USED con retraso para preservar feedback visual
+   * 
+   * MECÁNICA:
+   * 1. Busca el elemento del prompt por data-id
+   * 2. Busca el span del contador de uso dentro del prompt
+   * 3. Actualiza solo el texto del contador
+   * 4. Maneja casos donde el elemento no existe (prompt no visible)
+   */
+  _updateUsageCountDisplay: function(promptId, usageCount) {
+    // BÚSQUEDA: Encuentra el elemento del prompt por data-id
+    const promptElement = document.querySelector(`[data-id="${promptId}"]`);
+    if (!promptElement) {
+      // CASO: Prompt no está en la página actual (paginación)
+      return;
+    }
+    
+    // BÚSQUEDA: Encuentra el span del contador de uso dentro del prompt
+    const usageSpan = promptElement.querySelector('.usage');
+    if (!usageSpan) {
+      // CASO: Prompt no tiene contador de uso visible
+      return;
+    }
+    
+    // ACTUALIZACIÓN: Solo el texto del contador, preservando el resto del prompt
+    const messages = window.getLocalizedMessages();
+    const dict = messages.ui;
+    usageSpan.textContent = `${dict.usages} ${usageCount}`;
   },
 
   /**
