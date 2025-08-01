@@ -33,9 +33,9 @@ window.DOMUtils = {
     /**
      * FACTORY DE ELEMENTOS DOM
      * 
-     * @param {string} tag - Nombre del tag HTML a crear
-     * @param {Object} attrs - Objeto con atributos a aplicar al elemento
-     * @param {string|Node|Array} content - Contenido a insertar en el elemento
+     * @param {string} tag Nombre del tag HTML a crear
+     * @param {Object} attrs Objeto con atributos a aplicar al elemento
+     * @param {string|Node|Array} content Contenido a insertar en el elemento
      * @returns {HTMLElement} Elemento DOM configurado
      * 
      * PATRÓN: Factory Pattern para creación consistente de elementos DOM
@@ -77,8 +77,8 @@ window.DOMUtils = {
     /**
      * INSERTOR DE CONTENIDO POLIMÓRFICO
      * 
-     * @param {HTMLElement} element - Elemento DOM destino
-     * @param {string|Node|Array} content - Contenido a insertar
+     * @param {HTMLElement} element Elemento DOM destino
+     * @param {string|Node|Array} content Contenido a insertar
      * 
      * PATRÓN: Polymorphic method para manejar diferentes tipos de contenido
      * TIPOS SOPORTADOS:
@@ -116,9 +116,9 @@ window.DOMUtils = {
     /**
      * FACTORY ESPECIALIZADO PARA BOTONES
      * 
-     * @param {string} text - Texto del botón
-     * @param {string} className - Clases CSS del botón
-     * @param {Object} attrs - Atributos adicionales
+     * @param {string} text Texto del botón
+     * @param {string} className Clases CSS del botón
+     * @param {Object} attrs Atributos adicionales
      * @returns {HTMLButtonElement} Elemento button configurado
      * 
      * PATRÓN: Specialized Factory para elemento común (botón)
@@ -135,8 +135,8 @@ window.DOMUtils = {
     /**
      * FACTORY ESPECIALIZADO PARA ELEMENTOS DE TEXTO
      * 
-     * @param {string} text - Contenido textual
-     * @param {string} className - Clases CSS
+     * @param {string} text Contenido textual
+     * @param {string} className Clases CSS
      * @returns {HTMLSpanElement} Elemento span con texto
      * 
      * PATRÓN: Specialized Factory para contenedores de texto
@@ -149,8 +149,8 @@ window.DOMUtils = {
     /**
      * ACTUALIZADOR DE CONTENIDO DE ELEMENTO
      * 
-     * @param {string|HTMLElement} element - Selector o elemento DOM
-     * @param {string|Node|Array} content - Nuevo contenido
+     * @param {string|HTMLElement} element Selector o elemento DOM
+     * @param {string|Node|Array} content Nuevo contenido
      * 
      * PATRÓN: Update method con limpieza automática
      * FLEXIBILIDAD: Acepta selector string o elemento DOM directo
@@ -189,25 +189,3 @@ window.DOMUtils = {
     }
 };
 
-/**
- * SANITIZADOR HTML GLOBAL
- * 
- * @param {string} text - Texto a sanitizar
- * @returns {string} HTML escapado seguro
- * 
- * PATRÓN: HTML escaping usando DOM API nativo
- * SEGURIDAD: Previene XSS convirtiendo caracteres especiales a entidades HTML
- * IMPLEMENTACIÓN: Usa textContent → innerHTML para escape automático del navegador
- * 
- * MECÁNICA:
- * 1. Crea elemento temporal
- * 2. Asigna texto como textContent (escape automático)
- * 3. Lee innerHTML (texto escapado como HTML)
- * 
- * USO: Mostrar contenido de usuario en HTML sin riesgo de inyección
- */
-window.sanitizeHTML = function(text) {
-    const temp = document.createElement('div');
-    temp.textContent = text; // ESCAPE: Navegador escapa automáticamente
-    return temp.innerHTML;   // EXTRACCIÓN: HTML escapado seguro
-};
