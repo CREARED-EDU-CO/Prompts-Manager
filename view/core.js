@@ -52,6 +52,10 @@ Object.assign(window.View, {
 
             // Event listener para cambios de estado - Patrón Observer DOM nativo
             darkModeToggle.addEventListener('change', function () {
+                // OPTIMIZACIÓN DE PERFORMANCE: Activa transiciones solo durante cambio de tema
+                // Añade clase temporal para habilitar transiciones CSS
+                document.body.classList.add('theme-transitioning');
+                
                 if (this.checked) {
                     // Activación de tema oscuro mediante data-attribute en documentElement
                     // Permite cascada CSS global sin especificidad excesiva
@@ -62,6 +66,12 @@ Object.assign(window.View, {
                     document.documentElement.removeAttribute('data-theme');
                     window.Storage.saveDarkModePreference(false);
                 }
+                
+                // CLEANUP DE PERFORMANCE: Remueve clase de transición después de completar
+                // Timeout basado en duración de --transition-colors (típicamente 200-300ms)
+                setTimeout(() => {
+                    document.body.classList.remove('theme-transitioning');
+                }, 300); // Duración ligeramente mayor que la transición CSS
             });
         }
     },
@@ -72,10 +82,10 @@ Object.assign(window.View, {
      * Flujo de datos: prompts[] -> filtrado -> paginación -> DOM elements
      * Dependencias: PromptsModel.getFilteredPrompts(), FoldersModel.folders, DOMUtils, MESSAGES
      * 
-     * @param {Array} prompts - Array de objetos prompt del modelo
-     * @param {Object} filters - Objeto de filtros aplicables {text, favorite, tag, folder, order}
-     * @param {number} page - Página actual (base 1)
-     * @param {number} itemsPerPage - Elementos por página para cálculo de paginación
+     * @param {Array} prompts Array de objetos prompt del modelo
+     * @param {Object} filters Objeto de filtros aplicables {text, favorite, tag, folder, order}
+     * @param {number} page Página actual (base 1)
+     * @param {number} itemsPerPage Elementos por página para cálculo de paginación
      */
     renderPrompts: function (prompts, filters = {}, page = 1, itemsPerPage = 10) {
         // Aplicación de filtros mediante delegación al modelo - Separación de responsabilidades
@@ -136,9 +146,9 @@ Object.assign(window.View, {
      * Función de utilidad para renderizado granular - Patrón Factory Method
      * Implementa validación de entrada y renderizado condicional basado en estado de edición
      * 
-     * @param {Object} p - Objeto prompt con propiedades {id, text, tags, folderId, etc.}
-     * @param {Object} folderMap - Mapa de resolución folder.id -> folder.name
-     * @returns {DocumentFragment|HTMLElement} - Elemento DOM renderizado o fragmento vacío
+     * @param {Object} p Objeto prompt con propiedades {id, text, tags, folderId, etc.}
+     * @param {Object} folderMap Mapa de resolución folder.id -> folder.name
+     * @returns {DocumentFragment|HTMLElement} Elemento DOM renderizado o fragmento vacío
      */
     renderPromptItem: function (p, folderMap) {
         // Validación de entrada - Prevención de errores de renderizado
@@ -173,9 +183,9 @@ Object.assign(window.View, {
      * Implementa funcionalidad de texto expandible y sanitización XSS
      * Patrón: Template Method con construcción incremental de DOM
      * 
-     * @param {Object} p - Objeto prompt con todas las propiedades
-     * @param {Object} folderMap - Mapa de resolución de nombres de carpetas
-     * @returns {HTMLElement} - Elemento DOM completo del prompt
+     * @param {Object} p Objeto prompt con todas las propiedades
+     * @param {Object} folderMap Mapa de resolución de nombres de carpetas
+     * @returns {HTMLElement} Elemento DOM completo del prompt
      */
     _renderPromptDisplay: function (p, folderMap) {
         // Contenedor principal con data-attribute para identificación
@@ -299,8 +309,8 @@ Object.assign(window.View, {
      * Implementa validación HTML5 y poblado de datos existentes
      * Patrón: Form Builder con estado pre-poblado
      * 
-     * @param {Object} p - Objeto prompt con datos actuales para edición
-     * @returns {HTMLFormElement} - Formulario DOM completo y funcional
+     * @param {Object} p Objeto prompt con datos actuales para edición
+     * @returns {HTMLFormElement} Formulario DOM completo y funcional
      */
     renderPromptEditForm: function (p) {
         const dict = window.MESSAGES[window.currentLang]?.ui || window.MESSAGES.ui;
@@ -384,7 +394,7 @@ Object.assign(window.View, {
      * Utiliza data-attributes para gestión de estado y contenido
      * Patrón: State machine con dos estados (expandido/contraído)
      * 
-     * @param {HTMLElement} element - Elemento DOM del texto del prompt con data-attributes
+     * @param {HTMLElement} element Elemento DOM del texto del prompt con data-attributes
      */
     togglePromptTextExpansion: function (element) {
         // Verificación de elegibilidad para expansión basada en longitud
