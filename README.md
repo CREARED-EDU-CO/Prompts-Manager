@@ -91,7 +91,7 @@ Una aplicación web moderna y completa para gestionar, organizar y exportar tus 
 ## 🚀 Instalación y Uso
 
 ### Instalación
-1. Clona o descarga el repositorio
+1. Descarga el repositorio en una archivo ZIP con el botón verde "< > Code" que está en la parte superior de esta página web
 2. Abre `index.html` en tu navegador web
 3. ¡Listo! No requiere servidor ni instalación adicional
 
@@ -262,3 +262,4 @@ Si encuentras algún problema o tienes sugerencias:
 ---
 
 **¡Disfruta organizando tus prompts de manera eficiente! 🚀**
+
