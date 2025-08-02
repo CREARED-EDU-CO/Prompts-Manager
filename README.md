@@ -92,8 +92,9 @@ Una aplicación web moderna y completa para gestionar, organizar y exportar tus 
 
 ### Instalación
 1. Descarga el repositorio en una archivo ZIP con el botón verde "< > Code" que está en la parte superior de esta página web
-2. Abre `index.html` en tu navegador web
-3. ¡Listo! No requiere servidor ni instalación adicional
+2. Descomprimer el archivo ZIP descargado y abre las carpetas hasta que veas el archivo `index.html`
+3. Abre el archivo  `index.html` en tu navegador web haciendo doble clic sobre él
+4. ¡Listo! No requiere servidor ni instalación adicional
 
 ### Primer Uso
 1. **Crea tu primera carpeta** usando el formulario "Nueva carpeta"
@@ -262,4 +263,5 @@ Si encuentras algún problema o tienes sugerencias:
 ---
 
 **¡Disfruta organizando tus prompts de manera eficiente! 🚀**
+
 
