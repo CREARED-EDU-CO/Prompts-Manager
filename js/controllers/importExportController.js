@@ -6,7 +6,8 @@
  * PROPÓSITO: Gestión de operaciones de I/O de archivos JSON para backup y compartición
  * PATRÓN: File I/O Controller con manejo asíncrono y validación de datos
  * RESPONSABILIDADES:
- * - Exportación de datos filtrados a JSON
+ * - Exportación de datos filtrados a JSON (prompts y carpetas utilizadas)
+ * - Prevención de carpetas huérfanas en exportación
  * - Importación con validación de esquema
  * - Manejo de File System Access API con fallbacks
  * - Gestión de modal de elección de importación
@@ -14,6 +15,8 @@
  * 
  * CARACTERÍSTICAS AVANZADAS:
  * - Exportación filtrada (solo prompts visibles)
+ * - Exportación inteligente de carpetas (solo carpetas con prompts exportados)
+ * - Prevención automática de carpetas huérfanas
  * - Dos modos de importación (reemplazar/fusionar)
  * - Validación robusta de estructura de datos
  * - Manejo de errores de I/O con feedback al usuario
@@ -130,16 +133,20 @@ window.ImportExportController = {
    * PATRÓN: Progressive enhancement con fallback para compatibilidad
    * CARACTERÍSTICAS:
    * - Exportación filtrada (solo prompts visibles)
+   * - Exportación inteligente de carpetas (solo carpetas con prompts exportados)
+   * - Prevención de carpetas huérfanas en exportación
    * - Nombre de archivo automático con fecha
    * - File System Access API moderno con fallback
    * - Formato JSON legible (indentado)
    * 
    * FLUJO DE EXPORTACIÓN:
-   * 1. Obtener datos filtrados
-   * 2. Generar nombre de archivo con fecha
-   * 3. Intentar File System Access API moderno
-   * 4. Fallback a descarga tradicional si no disponible
-   * 5. Feedback al usuario sobre éxito/error
+   * 1. Obtener prompts filtrados según criterios actuales
+   * 2. Identificar carpetas utilizadas por los prompts exportados
+   * 3. Filtrar carpetas para incluir solo las necesarias
+   * 4. Generar nombre de archivo con fecha
+   * 5. Intentar File System Access API moderno
+   * 6. Fallback a descarga tradicional si no disponible
+   * 7. Feedback al usuario sobre éxito/error
    */
   _exportToJson: async function () {
     // OBTENCIÓN DE DATOS: Solo prompts visibles según filtros actuales
@@ -148,8 +155,17 @@ window.ImportExportController = {
       window.FiltersController.getCurrentFilters()
     );
     
-    // ESTRUCTURA DE DATOS: Objeto con carpetas y prompts filtrados
-    const data = { folders: window.FoldersModel.folders, prompts: prompts };
+    // OBTENCIÓN DE CARPETAS UTILIZADAS: Solo carpetas que tienen prompts exportados
+    // PASO 1: Extraer IDs de carpetas de los prompts filtrados
+    const folderIdsFromPrompts = prompts.map(p => p.folderId);
+    // PASO 2: Filtrar IDs nulos/undefined y eliminar duplicados
+    const usedFolderIds = [...new Set(folderIdsFromPrompts.filter(id => id))];
+    // PASO 3: Filtrar carpetas para incluir solo las que tienen prompts exportados
+    const folders = window.FoldersModel.folders.filter(f => usedFolderIds.includes(f.id));
+    
+    // ESTRUCTURA DE DATOS: Objeto con carpetas utilizadas y prompts filtrados
+    // BENEFICIOS: Evita carpetas huérfanas, reduce tamaño de archivo, mantiene consistencia
+    const data = { folders: folders, prompts: prompts };
     
     // GENERACIÓN DE NOMBRE: Formato prompts-export-YYYY-MM-DD.json
     const today = new Date();
