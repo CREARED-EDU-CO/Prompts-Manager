@@ -117,9 +117,13 @@ window.PromptsModel = {
             filtered = filtered.filter(p => p.favorite);
         }
         
-        // FILTRO POR TAG: Coincidencia exacta en array de tags
+        // FILTRO POR TAG: Coincidencia case-insensitive en array de tags (consistente con filtro de texto)
         if (filters.tag) {
-            filtered = filtered.filter(p => Array.isArray(p.tags) && p.tags.includes(filters.tag));
+            const tagLower = filters.tag.toLowerCase();
+            filtered = filtered.filter(p => 
+                Array.isArray(p.tags) && 
+                p.tags.some(tag => tag.toLowerCase() === tagLower)
+            );
         }
         
         // ORDENAMIENTO: Múltiples criterios con fallback a createdAt
