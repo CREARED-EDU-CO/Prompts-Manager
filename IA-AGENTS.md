@@ -158,14 +158,15 @@ Múltiples controladores especializados para diferentes aspectos:
 
 ### Abstracción de localStorage
 ```javascript
+// Claves definidas en constants.js
+window.STORAGE_KEYS = {
+  PROMPTS: 'prompts',
+  FOLDERS: 'folders', 
+  LANG: 'appLang',
+  THEME: 'darkMode'
+};
+
 window.Storage = {
-  // Claves de almacenamiento centralizadas
-  STORAGE_KEYS: {
-    PROMPTS: 'prompts',
-    FOLDERS: 'folders', 
-    LANG: 'appLang',
-    THEME: 'darkMode'
-  },
   
   // Métodos de persistencia con manejo de errores
   loadPrompts(): Array,
@@ -223,7 +224,13 @@ getFilteredPrompts(prompts, filters = {}) {
     filtered = filtered.filter(p => p.favorite);
   }
   if (filters.tag) {
-    filtered = filtered.filter(p => Array.isArray(p.tags) && p.tags.includes(filters.tag));
+    // ❌ INCONSISTENCIA: Case-sensitive vs filtro de texto case-insensitive
+    // CORRECCIÓN SUGERIDA: Normalizar a lowercase para consistencia
+    const tagLower = filters.tag.toLowerCase();
+    filtered = filtered.filter(p => 
+      Array.isArray(p.tags) && 
+      p.tags.some(tag => tag.toLowerCase() === tagLower)
+    );
   }
   
   // Ordenamiento con múltiples criterios
@@ -244,17 +251,29 @@ getFilteredPrompts(prompts, filters = {}) {
 
 ### Algoritmo de Paginación
 ```javascript
-renderPrompts(prompts, filters, page, itemsPerPage) {
+renderPrompts(prompts, filters = {}, page = 1, itemsPerPage = 10) {
   const filtered = PromptsModel.getFilteredPrompts(prompts, filters);
   const totalPages = Math.ceil(filtered.length / itemsPerPage) || 1;
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const pageItems = filtered.slice(startIndex, endIndex);
   
+  // Creación de mapa de folders para resolución eficiente de nombres
+  // Patrón: Transformación Array -> Object para O(1) lookup
+  const folderMap = (window.FoldersModel.folders || []).reduce((acc, f) => { 
+    acc[f.id] = f.name; 
+    return acc; 
+  }, {});
+  
   // Renderizado de elementos de página actual
-  pageItems.forEach(prompt => {
-    const element = this.renderPromptItem(prompt, folderMap);
-    this.container.appendChild(element);
+  pageItems.forEach((prompt, index) => {
+    let promptElement;
+    if (this.editingPromptId === prompt.id) {
+      promptElement = this.renderPromptEditForm(prompt);
+    } else {
+      promptElement = this._renderPromptDisplay(prompt, folderMap);
+    }
+    this.container.appendChild(promptElement);
   });
   
   // Renderizado de controles de paginación
@@ -349,21 +368,37 @@ _exportToJson: async function() {
     FiltersController.getCurrentFilters()
   );
   const data = { folders: FoldersModel.folders, prompts };
+  
+  // GENERACIÓN DE NOMBRE: Variables correctamente definidas
+  const today = new Date();
+  const dateString = today.getFullYear() + '-' + 
+                    String(today.getMonth() + 1).padStart(2, '0') + '-' + 
+                    String(today.getDate()).padStart(2, '0');
+  const filename = `prompts-export-${dateString}.json`;
+  
   const jsonString = JSON.stringify(data, null, 2);
   
   // Método moderno con fallback
   if ('showSaveFilePicker' in window) {
     try {
       const fileHandle = await window.showSaveFilePicker({
-        suggestedName: `prompts-export-${dateString}.json`,
+        suggestedName: filename,  // ✅ Variable definida correctamente
         types: [{ description: 'JSON files', accept: { 'application/json': ['.json'] }}]
       });
       const writable = await fileHandle.createWritable();
       await writable.write(jsonString);
       await writable.close();
     } catch (err) {
-      // Fallback a descarga tradicional
-      this._fallbackDownload(jsonString, filename);
+      // Fallback a descarga tradicional usando filename
+      const blob = new Blob([jsonString], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;  // ✅ Variable definida correctamente
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
   }
 }
@@ -537,6 +572,8 @@ window.View = {
   
   // Renderizado condicional basado en estado
   renderPromptItem: function(p, folderMap) {
+    // folderMap: Objeto {folderId: folderName} para resolución O(1)
+    // Creado en renderPrompts() via reduce() de FoldersModel.folders
     if (this.editingPromptId === p.id) {
       return this.renderPromptEditForm(p);
     } else {
@@ -714,7 +751,7 @@ const App = {
       // FASE 1: Validación de dependencias críticas
       if (!window.STORAGE_KEYS) {
         window.showError('STORAGE_KEYS no está disponible, usando valores por defecto', { log: true });
-        // Fallback de emergencia
+        // FALLBACK: Definición de emergencia para prevenir crash total
         window.STORAGE_KEYS = {
           PROMPTS: 'prompts',
           FOLDERS: 'folders',
@@ -963,6 +1000,22 @@ EventBus.on(EVENTS.PROMPT_COPIED, (data) => {
 - Edición: State Management → Form → Validation → Model → Event → View Update
 - Filtrado: State → Reset Pagination → Filter → Render
 - Import/Export: File API → Validation → Modal Choice → Model Update → Event
+
+**✅ CONSISTENCIAS VERIFICADAS:**
+- `window.STORAGE_KEYS` definido en `constants.js` (NO en `window.Storage.STORAGE_KEYS`)
+- Validación de dependencias en `app.js` usa `window.STORAGE_KEYS` correctamente
+- Alias local `const STORAGE_KEYS = window.STORAGE_KEYS` en `storage.js` para acceso limpio
+- Fallback de emergencia en `app.js` y `storage.js` usa la misma estructura
+- Variables `dateString` y `filename` correctamente definidas en `_exportToJson()` antes de su uso
+- Ambos flujos (File System Access API y fallback) usan las variables definidas apropiadamente
+- `folderMap` correctamente definido en `renderPrompts()` antes de pasarlo a `_renderPromptDisplay()`
+- Patrón de transformación Array→Object para lookup O(1) de nombres de carpetas
+
+**❌ INCONSISTENCIAS IDENTIFICADAS:**
+- **Filtro por texto**: Case-insensitive (`text.toLowerCase().includes()`)
+- **Filtro por tag**: Case-sensitive (`tags.includes()`) - INCONSISTENTE
+- **Impacto UX**: Resultados diferentes según mayúsculas en tags vs texto
+- **Corrección sugerida**: Normalizar filtro de tags a lowercase para consistencia
 
 ## ARQUITECTURA CSS Y SISTEMA DE ESTILOS
 
