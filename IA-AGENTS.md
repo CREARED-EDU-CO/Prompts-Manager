@@ -964,4 +964,425 @@ EventBus.on(EVENTS.PROMPT_COPIED, (data) => {
 - Filtrado: State → Reset Pagination → Filter → Render
 - Import/Export: File API → Validation → Modal Choice → Model Update → Event
 
-Esta documentación refleja fielmente la implementación actual del sistema Prompt Manager, detallando su arquitectura modular event-driven, patrones de diseño, flujos de datos y optimizaciones implementadas para crear una aplicación web robusta y escalable.
+## ARQUITECTURA CSS Y SISTEMA DE ESTILOS
+
+### Jerarquía de Dependencias CSS
+```
+ORDEN DE CARGA CRÍTICO:
+1. variables.css    → Design tokens y custom properties
+2. utilities.css    → Clases atómicas y utilidades
+3. base.css         → Reset CSS y estilos fundamentales
+4. layout.css       → Estructura espacial y contenedores
+5. forms.css        → Elementos de entrada de datos
+6. components.css   → Componentes reutilizables
+7. modals.css       → Sistema modal y overlays
+8. responsive.css   → Adaptaciones cross-device
+9. dark-mode.css    → Overrides para tema oscuro
+```
+
+### Sistema de Design Tokens (variables.css)
+
+#### **Paleta Cromática Semántica**
+```css
+:root {
+  /* Colores funcionales con variantes de intensidad */
+  --primary-color: #2563eb;           /* Azul primario - Acciones principales */
+  --primary-color-darker: #1d4ed8;    /* Azul oscuro - Estados hover/active */
+  --danger-color: #dc2626;            /* Rojo destructivo - Eliminaciones */
+  --danger-color-darker: #b91c1c;     /* Rojo intenso - Estados activos */
+  --success-color: #22c55e;           /* Verde confirmación - Éxito */
+  --success-color-darker: #16a34a;    /* Verde intenso - Estados activos */
+  --warning-color: #f59e0b;           /* Amarillo advertencia - Favoritos */
+}
+```
+
+#### **Jerarquía Tipográfica**
+```css
+:root {
+  /* Stack tipográfico nativo para performance */
+  --font-family-base: system-ui, sans-serif;
+  
+  /* Escala modular (proporción 1.125 - Major Second) */
+  --font-size-sm: 0.875rem;    /* 14px - Metadatos, labels */
+  --font-size-base: 1rem;      /* 16px - Texto base, inputs */
+  --font-size-lg: 1.125rem;    /* 18px - Títulos secundarios */
+  
+  /* Colores de texto con contraste WCAG AA */
+  --text-color-primary: #222;         /* Contenido principal */
+  --text-color-secondary: #64748b;    /* Metadatos, fechas */
+}
+```
+
+#### **Sistema de Espaciado Modular**
+```css
+:root {
+  /* Escala basada en múltiplos de 0.25rem (4px) */
+  --spacing-xs: 0.3rem;    /* 4.8px - Espaciado mínimo */
+  --spacing-sm: 0.5rem;    /* 8px - Espaciado pequeño */
+  --spacing-md: 1rem;      /* 16px - Espaciado estándar */
+  --spacing-lg: 1.5rem;    /* 24px - Espaciado grande */
+  --spacing-xl: 2rem;      /* 32px - Espaciado extra */
+}
+```
+
+#### **Sistema de Elevación (Sombras)**
+```css
+:root {
+  /* Niveles de profundidad progresiva */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);     /* Elementos planos */
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.07);    /* Cards, componentes */
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.18);   /* Modales, overlays */
+}
+```
+
+#### **Sistema de Transiciones**
+```css
+:root {
+  /* Timing functions optimizadas para micro-interacciones */
+  --transition-fast: 0.15s ease;     /* Hover states, cambios de color */
+  --transition-normal: 0.3s ease;    /* Transformaciones, opacity */
+  --transition-slow: 0.5s ease;      /* Animaciones complejas, modales */
+}
+```
+
+### Tema Oscuro (Dark Mode)
+
+#### **Estrategia de Implementación**
+```css
+/* Selector específico para toggle dinámico */
+[data-theme="dark"] {
+  /* Override de variables CSS para modo oscuro */
+  --primary-color: #3b82f6;          /* Azul más claro para contraste */
+  --text-color-primary: #e2e8f0;     /* Texto claro sobre fondos oscuros */
+  --text-color-secondary: #94a3b8;   /* Texto gris claro */
+  --background-light: #1e293b;       /* Fondo base oscuro */
+  --background-card: #0f172a;        /* Fondo cards oscuro */
+  --main-background: #0f172a;        /* Fondo principal oscuro */
+}
+```
+
+#### **Control de Tema Dinámico**
+```javascript
+// JavaScript controla el toggle de tema
+document.documentElement.setAttribute('data-theme', 'dark');
+// CSS aplica overrides automáticamente via especificidad
+```
+
+#### **Toggle Switch Interactivo**
+```css
+.dark-mode-switch .switch {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  /* Track del switch con forma pill */
+}
+
+.dark-mode-switch .slider:before {
+  /* Thumb circular que se mueve */
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transition: var(--transition-normal);
+}
+
+/* Estado activo - thumb se mueve a la derecha */
+input:checked + .slider:before {
+  transform: translateX(var(--spacing-lg));
+}
+```
+
+### Sistema de Componentes
+
+#### **Arquitectura Component-Based**
+```css
+/* Componente de prompt individual */
+.prompt-item {
+  display: flex;
+  flex-direction: column;
+  background: var(--background-card);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-colors);
+}
+
+/* Texto expandible para prompts largos */
+.expandable-prompt {
+  cursor: pointer;
+  position: relative;
+}
+
+.expandable-prompt:after {
+  content: "⤵";  /* Indicador visual de expansión */
+  position: absolute;
+  right: var(--spacing-xs);
+  bottom: var(--spacing-xs);
+  opacity: 0.5;
+  color: var(--primary-color);
+}
+```
+
+#### **Sistema de Botones**
+```css
+/* Botón base con micro-interacciones */
+.btn {
+  border: none;
+  border-radius: var(--border-radius-sm);
+  padding: calc(var(--spacing-sm) - 0.05rem) var(--spacing-lg);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition-fast), 
+              transform var(--transition-fast);
+}
+
+/* Variantes semánticas */
+.btn-primary {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.btn-danger {
+  background: var(--danger-color);
+  color: #fff;
+}
+
+/* Estados interactivos con elevación */
+.btn-primary:hover {
+  background: var(--primary-color-darker);
+  transform: translateY(-2px) scale(1.04);
+}
+```
+
+### Sistema Modal
+
+#### **Overlay Pattern**
+```css
+#confirm-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity var(--transition-fast), 
+              visibility 0s var(--transition-fast);
+}
+
+/* Estado activo con animación de entrada */
+#confirm-modal.active {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity var(--transition-fast);
+}
+
+/* Animación de escala para la caja modal */
+#confirm-modal .modal-box {
+  transform: scale(0.95);
+  transition: transform var(--transition-fast);
+}
+
+#confirm-modal.active .modal-box {
+  transform: scale(1);
+}
+```
+
+### Sistema de Notificaciones Toast
+
+#### **Feedback Visual No-Intrusivo**
+```css
+.toast {
+  position: fixed;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  background: var(--primary-color);
+  color: #fff;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5000;
+  transition: opacity var(--transition-slow), 
+              transform var(--transition-slow);
+}
+
+/* Estado visible con animación de entrada */
+.toast.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Variantes semánticas */
+.toast.toast-success {
+  background: linear-gradient(90deg, 
+    var(--success-color) 80%, 
+    var(--success-color-darker) 100%);
+}
+
+.toast.toast-error {
+  background: linear-gradient(90deg, 
+    var(--danger-color) 80%, 
+    var(--danger-color-darker) 100%);
+}
+```
+
+### Sistema Responsive
+
+#### **Estrategia Mobile-First**
+```css
+/* Breakpoint Tablet (900px) */
+@media (max-width: 900px) {
+  main {
+    padding: var(--spacing-md);
+    margin: var(--spacing-md) auto;
+    background: var(--background-card);
+  }
+  
+  .app-title {
+    font-size: 2rem;  /* Reducción tipográfica */
+  }
+}
+
+/* Breakpoint Mobile (700px) */
+@media (max-width: 700px) {
+  main {
+    margin: var(--spacing-xs);
+    padding: var(--spacing-xs);
+  }
+  
+  /* Layout vertical para controles */
+  .prompt-form-row,
+  .filters-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  /* Botones full-width para touch */
+  .import-choice-panel .modal-actions {
+    flex-direction: column;
+  }
+  
+  .import-choice-panel .modal-actions button {
+    width: 100%;
+  }
+}
+```
+
+### Clases Utilitarias (Atomic CSS)
+
+#### **Sistema de Utilidades Atómicas**
+```css
+/* Display utilities */
+.hidden { display: none; }
+.flex { display: flex; }
+.grid { display: grid; }
+
+/* Typography utilities */
+.text-center { text-align: center; }
+.text-truncate { 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Spacing utilities (Tailwind-inspired) */
+.m-0 { margin: 0; }
+.p-0 { padding: 0; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+/* Flexbox utilities */
+.flex-col { flex-direction: column; }
+.justify-center { justify-content: center; }
+.items-center { align-items: center; }
+
+/* Performance utilities */
+.will-change-transform { will-change: transform; }
+.gpu-accelerated { transform: translateZ(0); }
+
+/* Accessibility utilities */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+```
+
+### Optimizaciones de Performance CSS
+
+#### **Hardware Acceleration**
+```css
+/* Promoción a composite layer */
+.gpu-accelerated {
+  transform: translateZ(0);
+}
+
+/* Will-change hints para animaciones */
+.will-change-transform {
+  will-change: transform;
+}
+
+/* CSS Containment para aislamiento */
+.contain-layout { contain: layout; }
+.contain-paint { contain: paint; }
+```
+
+#### **Transiciones Optimizadas**
+```css
+/* Transiciones específicas (más eficientes que 'all') */
+.transition-opacity {
+  transition: opacity var(--transition-fast);
+}
+
+.transition-transform {
+  transition: transform var(--transition-fast);
+}
+
+/* Transición de colores para theming */
+.transition-colors {
+  transition: color var(--transition-fast),
+              background-color var(--transition-fast),
+              border-color var(--transition-fast);
+}
+```
+
+### Accesibilidad CSS
+
+#### **Contraste y Legibilidad**
+- Ratios de contraste WCAG AA compliant (4.5:1 mínimo)
+- Colores semánticos para comunicación visual clara
+- Tamaños de fuente optimizados para legibilidad
+
+#### **Focus Management**
+```css
+/* Estados de focus visibles */
+.btn:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Focus trap para modales */
+#confirm-modal[aria-modal="true"] {
+  /* Implementado via JavaScript con focus management */
+}
+```
+
+#### **Screen Reader Support**
+```css
+/* Contenido solo para screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+```
+
+Esta documentación refleja fielmente la implementación actual del sistema Prompt Manager, detallando tanto su arquitectura JavaScript modular event-driven como su sofisticado sistema CSS con design tokens, theming dinámico, y optimizaciones de performance, creando una aplicación web robusta, accesible y escalable.
