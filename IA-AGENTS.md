@@ -224,8 +224,7 @@ getFilteredPrompts(prompts, filters = {}) {
     filtered = filtered.filter(p => p.favorite);
   }
   if (filters.tag) {
-    // ❌ INCONSISTENCIA: Case-sensitive vs filtro de texto case-insensitive
-    // CORRECCIÓN SUGERIDA: Normalizar a lowercase para consistencia
+    // ✅ CORREGIDO: Case-insensitive para consistencia con filtro de texto
     const tagLower = filters.tag.toLowerCase();
     filtered = filtered.filter(p => 
       Array.isArray(p.tags) && 
