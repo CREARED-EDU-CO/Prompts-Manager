@@ -219,6 +219,8 @@ Una aplicación web moderna y completa para gestionar, organizar y exportar tus 
 - **Manejo de errores** con mensajes contextuales
 - **Recuperación de estado** al recargar la página
 
+https://deepwiki.com/CREARED-EDU-CO/Prompts-Manager
+
 ## 📄 Licencia
 
 Este proyecto está bajo **GNU Affero General Public License v3.0 (AGPL-3.0)**.
@@ -263,6 +265,7 @@ Si encuentras algún problema o tienes sugerencias:
 ---
 
 **¡Disfruta organizando tus prompts de manera eficiente! 🚀**
+
 
 
 
